@@ -1,8 +1,19 @@
 package ubicacciones;
 
-public class CalculadorDeDistancias {
+public class CalculadorDeDistancias {   // Usa el patron Singleton
+  private static CalculadorDeDistancias instancia;
 
-    public int distanciaEntreLasUbicaciones(Ubicacion ubicacion1,Ubicacion ubicacion2){
+
+
+
+    public static CalculadorDeDistancias getInstancia(){
+        if (instancia == null) { // only if no instance exists, then create a new
+            instancia = new CalculadorDeDistancias();
+        }
+        return instancia;
+    }
+
+        public int distanciaEntreLasUbicaciones(Ubicacion ubicacion1,Ubicacion ubicacion2){
         return this.distanciaEntreLosPuntos(ubicacion1.getLatitud(),ubicacion2.getLatitud()) +    // distancia de latitudes
                this.distanciaEntreLosPuntos(ubicacion1.getLongitud(),ubicacion2.getLongitud()) ;  // distancia de longitudes
     }
