@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 public class Ubicacion  {
     private int longitud;
     private int latitud;
-    //private CalculadorDeDistancias calculador;   -> si lo pongo como col Int  evito intanciarlo tanto
+    private CalculadorDeDistancias calculador;
 
     public Ubicacion(int nuevaLongitud, int nuevaLatitud){
         longitud = nuevaLongitud;
         latitud  = nuevaLatitud ;
-        //calculador = new CalculadorDeDistancias();
+        calculador = calculador.getInstancia();
     }
 
     public int getLongitud(){return longitud;}
