@@ -2,8 +2,7 @@ package zonasDeCoberturas;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ubicacciones.CalculadorDeDistancias;
-import ubicacciones.Ubicacion;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ class CollectorDeZonasDeCoberturasTest {
     ZonaDeCobertura zonaNorte;
     ZonaDeCobertura zonaNorOeste;
     ArrayList<ZonaDeCobertura> zonas;
-    CollectorDeZonasDeCoberturas collector;
+    AdministradorDeZonasDeCoberturas collector;
 
     @BeforeEach
     void setUp() {
@@ -42,7 +41,7 @@ class CollectorDeZonasDeCoberturasTest {
         zonas.add(zonaNorOeste);
 
         //Collector De Zonas De Coberturas
-        collector = new CollectorDeZonasDeCoberturas(zonas);
+        collector = new AdministradorDeZonasDeCoberturas(zonas);
         collector.setTodasLasZonas(zonas);
     }
 
