@@ -9,31 +9,31 @@ import zonasDeCoberturas.ZonaDeCobertura;
 import java.util.List;
 
 public class SitoWeb {
-    private AdministradorDeMuestras muestras;
-    private AdministradorDeZonasDeCoberturas zonasDeCoberturas;
+    private AdministradorDeMuestras AdminMuestras;
+    private AdministradorDeZonasDeCoberturas adminzonasZonas;
     private List<OrganizacioneNoGubernamental> organizaciones;
 
 
-    public SitoWeb(AdministradorDeMuestras adminMuestra,AdministradorDeZonasDeCoberturas adminZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
-        muestras = adminMuestra;
-        zonasDeCoberturas = adminZonas;
+    public SitoWeb(AdministradorDeMuestras adminDeLasMuestra,AdministradorDeZonasDeCoberturas adminDeLasZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
+        AdminMuestras = adminDeLasMuestra;
+        adminzonasZonas = adminDeLasZonas;
         organizaciones = organizacionesAPoner;
     }
 
-    public AdministradorDeMuestras getMuestras() {
-        return muestras;
+    public AdministradorDeMuestras getAdministradorDeMuestras() {
+        return AdminMuestras;
     }
 
     public void setMuestras(AdministradorDeMuestras muestras) {
-        this.muestras = muestras;
+        this.AdminMuestras = muestras;
     }
 
-    public AdministradorDeZonasDeCoberturas getZonasDeCoberturas() {
-        return zonasDeCoberturas;
+    public AdministradorDeZonasDeCoberturas getAdministradorDeZonas() {
+        return adminzonasZonas;
     }
 
     public void setZonasDeCoberturas(AdministradorDeZonasDeCoberturas zonasDeCoberturas) {
-        this.zonasDeCoberturas = zonasDeCoberturas;
+        this.adminzonasZonas = zonasDeCoberturas;
     }
 
     public List<OrganizacioneNoGubernamental> getOrganizaciones() {
@@ -44,13 +44,35 @@ public class SitoWeb {
         this.organizaciones = organizaciones;
     }
 
-    public void agregarMuestra(Muestra mustraAAgregar){
-        this.getMuestras().agregarNuevaMuestra(mustraAAgregar);
-        this.getZonasDeCoberturas().actualizarZonasConNuevaMuestra(mustraAAgregar);
+    public void agregarNuevaMuestra(Muestra mustraAAgregar){
+        this.getAdministradorDeMuestras().agregarNuevaMuestra(mustraAAgregar);
+        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(mustraAAgregar);
     }
 
-    public void registrarNuevaZona(ZonaDeCobertura zonaAAgregar){
-        this.getZonasDeCoberturas().agregarNuevaZona(zonaAAgregar);
+    public void agregarNuevaZona(ZonaDeCobertura zonaAAgregar){
+        this.getAdministradorDeZonas().agregarNuevaZona(zonaAAgregar);
+    }
+
+    public void agregarNuevaOrganizacion(OrganizacioneNoGubernamental orgAAgregar){
+        this.getOrganizaciones().add(orgAAgregar);
+    }
+
+    public List<ZonaDeCobertura> zonasQueSolapadasCon(ZonaDeCobertura zonaAVer){
+        return this.getAdministradorDeZonas().zonasQueSolapadasCon(zonaAVer);
+    }
+
+    public List<ZonaDeCobertura> zonasDeInteresDeLaOrg(OrganizacioneNoGubernamental orgAVer){
+        return this.getAdministradorDeZonas().zonasDeInteresDeLaOrg(orgAVer);
+    }
+
+    //Precondicion debe existir la zon
+    public void organizacionSeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
+        zonaDeInteres.getOrganizacionesInteresadas().add(org);  // Ver si esta bien
+    }
+
+    //Precondicion debe existir la zon
+    public void organizacionSeDejaDeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
+        zonaDeInteres.getOrganizacionesInteresadas().remove(org);  // Ver si esta bien
     }
 
 }

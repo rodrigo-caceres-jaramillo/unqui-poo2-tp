@@ -33,11 +33,12 @@ public class Ubicacion  {
                 collect(Collectors.toList()) ;
     }
 
+    /*
     public List<Muestra> muestrasAMenosDeDesde(int metros,Muestra muestraAVer){
         CalculadorDeDistancias calculador = new CalculadorDeDistancias();
         return muestraAVer.getCollectorMuestras().stream().
                 filter(m->calculador.distanciaEntreLasUbicaciones(m.getUbicacion(),muestraAVer.getUbicacion()) <= metros).
                 collect(Collectors.toList()) ;
     }
-
+   */
 }
