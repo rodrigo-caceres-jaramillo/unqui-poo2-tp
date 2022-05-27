@@ -1,12 +1,14 @@
 package zonasDeCoberturas;
 
+import muestras.Muestra;
+
 import java.util.ArrayList;
 
-public class CollectorDeZonasDeCoberturas {
+public class AdministradorDeZonasDeCoberturas {
 
     private ArrayList<ZonaDeCobertura> todasLasZonas;
 
-    public CollectorDeZonasDeCoberturas(ArrayList<ZonaDeCobertura> zonasExistentes){
+    public AdministradorDeZonasDeCoberturas(ArrayList<ZonaDeCobertura> zonasExistentes){
         this.setTodasLasZonas(zonasExistentes);
     }
 
@@ -18,12 +20,9 @@ public class CollectorDeZonasDeCoberturas {
         return todasLasZonas;
     }
 
-    public void registrarNuevaZona(ZonaDeCobertura nuevaZona){   //Agregar una nueva zona y le agrega las zonas solapadas
-        this.getTodasLasZonas().stream().forEach(zona -> zona.agregarSiEsZonaSolapada(nuevaZona)); // Agrega la nueva zona en las zonas viejas si solapan
-        this.getTodasLasZonas().stream().forEach(zona -> nuevaZona.agregarSiEsZonaSolapada(zona)); // Agrega las zonas viejas en la nueva zona si solapan
-        // seria bueno hacerlo en una sola linea
 
-        this.agregarNuevaZona(nuevaZona);
+    public void actualizarZonasConNuevaMuestra(Muestra muestraAAgregar){
+        this.getTodasLasZonas().stream().forEach(zona -> zona.agregarMuestraSiPerteneceALaZona(muestraAAgregar));
     }
 
     public void agregarNuevaZona(ZonaDeCobertura nuevaZona){

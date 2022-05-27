@@ -1,25 +1,31 @@
 package zonasDeCoberturas;
 
 import muestras.Muestra;
+import organizaciones.OrganizacioneNoGubernamental;
 import ubicacciones.CalculadorDeDistancias;
 import ubicacciones.Ubicacion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ZonaDeCobertura {
     private String nombre;
     private Ubicacion epicentro;
     private int radio;
-    private ArrayList<Muestra> muestrasEnLaZona;
-    private ArrayList<ZonaDeCobertura> zonasSolapadas;
+    private List<Muestra> muestrasEnLaZona;
+    private List<OrganizacioneNoGubernamental> organizacionesInteresadas;
+    //private ArrayList<ZonaDeCobertura> zonasSolapadas;
 
-    public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, int radioAPoner,ArrayList<Muestra> muestras, ArrayList<ZonaDeCobertura> zonas ){
+    public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, int radioAPoner,ArrayList<Muestra> muestras, List<OrganizacioneNoGubernamental> orgsInteresadas ){
         nombre          = nombreNuevo;
         epicentro       = epicentroAPoner;
         radio           = radioAPoner;
         muestrasEnLaZona = muestras;
-        zonasSolapadas  = zonas;
+        organizacionesInteresadas = orgsInteresadas;
+        //zonasSolapadas  = zonas;
     }
+
+    public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){return organizacionesInteresadas}
 
     public Ubicacion getEpicentro(){
         return  epicentro;
@@ -33,11 +39,9 @@ public class ZonaDeCobertura {
         return radio;
     }
 
-    public ArrayList<ZonaDeCobertura> getZonasSolapadas() {
-        return zonasSolapadas;
-    }
+    //public ArrayList<ZonaDeCobertura> getZonasSolapadas() {return zonasSolapadas;}
 
-    public ArrayList<Muestra> getMuestrasEnLaZona(){return muestrasEnLaZona;}
+    public List<Muestra> getMuestrasEnLaZona(){return muestrasEnLaZona;}
 
 
     public boolean estaSolapadaCon(ZonaDeCobertura zonaAVer){
@@ -55,11 +59,13 @@ public class ZonaDeCobertura {
         return this.getEpicentro().distanciaEntre(zonaAVer.getEpicentro()) < this.getRadio() + zonaAVer.getRadio();
     }
 
+    /*  Hacer desde sitio web le pregunte al Administrador de zonas que zonas solapan con y pasarla zona por parametro
     public void agregarSiEsZonaSolapada(ZonaDeCobertura zonaAAgregar){  // si no esta solapada no hace nada
         if(this.estaSolapadaCon(zonaAAgregar) && ! this.esLaMismaZona(zonaAAgregar) ){   // una zona no puede tener a si misma en zonas solapadas
            this.getZonasSolapadas().add(zonaAAgregar);
         }
     }
+   */
 
     public boolean esLaMismaZona(ZonaDeCobertura zonaAAgregar){
         return this.getRadio()     == zonaAAgregar.getRadio()     &&
@@ -70,4 +76,17 @@ public class ZonaDeCobertura {
        this.getMuestrasEnLaZona().add(muestraAVer);
     }
 
+   public void agregarMuestraSiPerteneceALaZona(Muestra muestraAVer){
+       int distancia = this.epicentro.distanciaEntre(muestraAVer.getUbicacion());
+       if(distancia <= this.getRadio()){
+           // this.avisarALasOrganizaciones()
+           this.getMuestrasEnLaZona().add(muestraAVer);
+       }
+   }
+
+   public void avisarALasOrganizaciones(){
+        this.getOrganizacionesInteresadas().stream().forEach(o -> o.funcionExterna());
+    }
+
+    //
 }

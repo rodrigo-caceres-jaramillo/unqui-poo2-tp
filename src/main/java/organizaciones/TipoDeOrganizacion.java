@@ -1,4 +1,4 @@
-package Organizaciones;
+package organizaciones;
 
 public enum TipoDeOrganizacion {
     Salud      ,
