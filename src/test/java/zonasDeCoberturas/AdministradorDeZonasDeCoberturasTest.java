@@ -1,15 +1,21 @@
 package zonasDeCoberturas;
 
+import muestras.Muestra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import organizaciones.OrganizacioneNoGubernamental;
+import sitoWeb.SitoWeb;
 
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
-class CollectorDeZonasDeCoberturasTest {
+class AdministradorDeZonasDeCoberturasTest {
 
     ZonaDeCobertura zonaSur;
     ZonaDeCobertura zonaSurEste;
@@ -17,8 +23,12 @@ class CollectorDeZonasDeCoberturasTest {
     ZonaDeCobertura zonaNorEste;
     ZonaDeCobertura zonaNorte;
     ZonaDeCobertura zonaNorOeste;
+
+    OrganizacioneNoGubernamental org1;
+
     ArrayList<ZonaDeCobertura> zonas;
-    AdministradorDeZonasDeCoberturas collector;
+    SitoWeb web;
+    AdministradorDeZonasDeCoberturas adminZonas;
 
     @BeforeEach
     void setUp() {
@@ -31,6 +41,9 @@ class CollectorDeZonasDeCoberturasTest {
         zonaNorte    = mock(ZonaDeCobertura.class);
         zonaNorOeste = mock(ZonaDeCobertura.class);
 
+        //Organizaciones
+        OrganizacioneNoGubernamental org1 = mock(OrganizacioneNoGubernamental.class);
+
         //Agregar zonas
         zonas = new ArrayList<ZonaDeCobertura>();
         zonas.add(zonaSur);
@@ -40,45 +53,107 @@ class CollectorDeZonasDeCoberturasTest {
         zonas.add(zonaNorte);
         zonas.add(zonaNorOeste);
 
-        //Collector De Zonas De Coberturas
-        collector = new AdministradorDeZonasDeCoberturas(zonas);
-        collector.setTodasLasZonas(zonas);
+        //SitioWeb
+        web = mock(SitoWeb.class);
+
+        //Administrador De Zonas De Coberturas
+        adminZonas = new AdministradorDeZonasDeCoberturas(zonas);
     }
 
 
     @Test
     void getTodasLasZonas(){
-        assertEquals(zonas,collector.getTodasLasZonas());
+        assertEquals(zonas,adminZonas.getTodasLasZonas());
     }
 
     @Test
     void agregarNuevaZona() {
-        int tamaño = collector.getTodasLasZonas().size();
+        int tamaño = adminZonas.getTodasLasZonas().size();
         ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
 
-        collector.agregarNuevaZona(zonaNueva);  // agrego elemento
+        adminZonas.agregarNuevaZona(zonaNueva);  // agrego elemento
 
-        assertEquals(tamaño+1,collector.getTodasLasZonas().size());
+        assertEquals(tamaño+1,adminZonas.getTodasLasZonas().size());
     }
 
-    ///////////  registrar Nueva Zona
+    ///////////  zonasQueSolapadasCon
 
     @Test
     void registrarNuevaZona() {
 
         ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
+        List<ZonaDeCobertura> zonasSolpadas = new ArrayList<ZonaDeCobertura>();
 
-        collector.registrarNuevaZona(zonaNueva);
+        when(zonaSur.estaSolapadaCon(zonaNueva)).thenReturn(true);
+        when(zonaSurEste.estaSolapadaCon(zonaNueva)).thenReturn(false);
+        when(zonaEste.estaSolapadaCon(zonaNueva)).thenReturn(true);
+        when(zonaNorEste.estaSolapadaCon(zonaNueva)).thenReturn(false);
+        when(zonaNorte.estaSolapadaCon(zonaNueva)).thenReturn(true);
+        when(zonaNorOeste.estaSolapadaCon(zonaNueva)).thenReturn(false);
 
-        verify(zonaSur).agregarSiEsZonaSolapada(zonaNueva);
-        verify(zonaSurEste).agregarSiEsZonaSolapada(zonaNueva);
-        verify(zonaEste).agregarSiEsZonaSolapada(zonaNueva);
-        verify(zonaNorEste).agregarSiEsZonaSolapada(zonaNueva);
-        verify(zonaNorte).agregarSiEsZonaSolapada(zonaNueva);
-        verify(zonaNorOeste).agregarSiEsZonaSolapada(zonaNueva);
+        zonasSolpadas.add(zonaSur);
+        zonasSolpadas.add(zonaEste);
+        zonasSolpadas.add(zonaNorte);
 
-
+        assertEquals(zonasSolpadas,adminZonas.zonasQueSolapadasCon(zonaNueva));
     }
+
+    ///////////  actualizarZonasConNuevaMuestra(Muestra)
+    @Test
+    void actualizarZonasConNuevaMuestra() {
+        Muestra muestra = mock(Muestra.class);
+        adminZonas.actualizarZonasConNuevaMuestra(muestra);
+
+        //Verificar si llegan los mensajes
+        verify(zonaSur).agregarMuestraSiPerteneceALaZona(muestra);
+        verify(zonaSurEste).agregarMuestraSiPerteneceALaZona(muestra);
+        verify(zonaEste).agregarMuestraSiPerteneceALaZona(muestra);
+        verify(zonaNorEste).agregarMuestraSiPerteneceALaZona(muestra);
+        verify(zonaNorte).agregarMuestraSiPerteneceALaZona(muestra);
+        verify(zonaNorOeste).agregarMuestraSiPerteneceALaZona(muestra);
+    }
+
+
+    //////////  zonasDeInteresDeLaOrg(OrganizacioneNoGubernamental)
+    @Test
+    void zonasDeInteresDeLaOrg() {
+
+
+        //Verificar si llegan los mensajes
+        when(zonaSur.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
+        when(zonaSurEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+        when(zonaEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
+        when(zonaNorEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+        when(zonaNorte.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
+        when(zonaNorOeste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+
+        ArrayList<ZonaDeCobertura> zonasDeInteres = new ArrayList<ZonaDeCobertura>();
+        zonasDeInteres.add(zonaSur);
+        zonasDeInteres.add(zonaEste);
+        zonasDeInteres.add(zonaNorte);
+
+        assertEquals(zonasDeInteres,adminZonas.zonasDeInteresDeLaOrg(org1));
+    }
+
+    @Test
+    void zonasDeInteresDeLaOrgPeroConFallos() {
+
+        //Verificar si llegan los mensajes
+        when(zonaSur.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+        when(zonaSurEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+        when(zonaEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
+        when(zonaNorEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+        when(zonaNorte.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
+        when(zonaNorOeste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
+
+        ArrayList<ZonaDeCobertura> zonasDeInteres = new ArrayList<ZonaDeCobertura>();
+        zonasDeInteres.add(zonaSur);
+        zonasDeInteres.add(zonaEste);
+        zonasDeInteres.add(zonaNorte);
+
+        assertNotEquals(zonasDeInteres,adminZonas.zonasDeInteresDeLaOrg(org1));
+    }
+
 
 }
 

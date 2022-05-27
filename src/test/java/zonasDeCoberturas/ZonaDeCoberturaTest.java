@@ -3,27 +3,32 @@ package zonasDeCoberturas;
 import muestras.Muestra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import organizaciones.OrganizacioneNoGubernamental;
 import ubicacciones.Ubicacion;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ZonaDeCoberturaTest {
 
+    //Zona Quilmes
     ZonaDeCobertura zonaQuilmes;
     Ubicacion ubicacionQuilmes;
     ArrayList<Muestra> muestras;
-    ArrayList<ZonaDeCobertura> solapasdasConQuilmes;
+    List<OrganizacioneNoGubernamental> organizacionesIntQuilmes;
 
+    //Zona Berasategui
     ZonaDeCobertura zonaBerasategui;
     Ubicacion ubicacionBerasategui;
-    ArrayList<ZonaDeCobertura> solapasdasBerasategui;
+    List<OrganizacioneNoGubernamental> organizacionesIntBerasategui;
 
+    //Zona La Plata
     ZonaDeCobertura zonaPlata;
     Ubicacion ubicacionPlata;
-    ArrayList<ZonaDeCobertura> solapasdasPlata;
+    List<OrganizacioneNoGubernamental> organizacionesIntPlata;
 
 
     @BeforeEach
@@ -32,25 +37,24 @@ class ZonaDeCoberturaTest {
         // zP no se toca con zB
         // zB es adentro de zQ
 
-        solapasdasConQuilmes = new ArrayList<ZonaDeCobertura>();
+        organizacionesIntQuilmes = new ArrayList<OrganizacioneNoGubernamental>();
         muestras = new ArrayList<Muestra>();
         ubicacionQuilmes = mock(Ubicacion.class);  // U(0,0)
-        zonaQuilmes = new ZonaDeCobertura("Quilmes",ubicacionQuilmes,10,muestras,solapasdasConQuilmes);
+        zonaQuilmes = new ZonaDeCobertura("Quilmes",ubicacionQuilmes,10,muestras,organizacionesIntQuilmes);
 
         ubicacionBerasategui = mock(Ubicacion.class);  // U(-2,0)
-        solapasdasBerasategui = new ArrayList<ZonaDeCobertura>();
-        zonaBerasategui = new ZonaDeCobertura("Berasategui",ubicacionBerasategui,3,muestras,solapasdasBerasategui);
+        organizacionesIntBerasategui = new ArrayList<OrganizacioneNoGubernamental>();
+        zonaBerasategui = new ZonaDeCobertura("Berasategui",ubicacionBerasategui,3,muestras,organizacionesIntBerasategui);
 
         ubicacionPlata = mock(Ubicacion.class);  //  U(12,0)
-        solapasdasPlata = new ArrayList<ZonaDeCobertura>();
-        zonaPlata = new ZonaDeCobertura("La Plata",ubicacionPlata,5,muestras,solapasdasPlata);
+        organizacionesIntPlata = new ArrayList<OrganizacioneNoGubernamental>();
+        zonaPlata = new ZonaDeCobertura("La Plata",ubicacionPlata,5,muestras,organizacionesIntPlata);
     }
 
     // -------  getZonasSolapadas
     @Test
     void getZonasSolapadas(){
-        ArrayList<ZonaDeCobertura> zonasAVer = new ArrayList<ZonaDeCobertura>();
-        assertEquals(solapasdasConQuilmes,zonaQuilmes.getZonasSolapadas());  // Vacio
+        assertEquals(organizacionesIntQuilmes,zonaQuilmes.getOrganizacionesInteresadas());  // Vacio
     }
 
     // ----- getNombre
@@ -107,56 +111,15 @@ class ZonaDeCoberturaTest {
 
         //Berasategui  U(-2,0) Radio = 3
         assertTrue(zonaBerasategui.esLaMismaZona(zonaBerasategui));
-
     }
 
-
-    // -------------  agregarSiEsZonaSolapada
-
-    @Test
-    void agregarQuilmesABerasategui() {
-        //Quilmes     U(0,0)    Radio = 10
-
-        //Berasategui U(-2,0)  Radio = 3
-
-        when(ubicacionQuilmes.distanciaEntre(ubicacionBerasategui)).thenReturn(2);
-
-        assertTrue(zonaQuilmes.estaSolapadaCon(zonaBerasategui)); // ya testiado mas arriba
-
-        ArrayList<ZonaDeCobertura> zonas = new ArrayList<ZonaDeCobertura>();  // creo la Array
-        zonas.add(zonaBerasategui);
-
-        zonaQuilmes.agregarSiEsZonaSolapada(zonaBerasategui);   // agregar a la lista
-        assertEquals(zonas,zonaQuilmes.getZonasSolapadas());
-
-    }
+    ////////
 
     @Test
-    void noAgregarQuilmesAQuilmes() {
-        //Quilmes U(0,0)    Radio = 10
+    void zonaQuilmes(){
 
-        assertTrue(zonaQuilmes.esLaMismaZona(zonaQuilmes));
-
-        ArrayList<ZonaDeCobertura> zonas = new ArrayList<ZonaDeCobertura>();  // creo la Array
-
-        zonaQuilmes.agregarSiEsZonaSolapada(zonaQuilmes);   // agregar a la lista
-        assertEquals(zonas,zonaQuilmes.getZonasSolapadas());
-    }
-
-    @Test
-    void noAgregarBerasateguiConLaPlata() {
-        //Berasategui U(-2,0)  Radio = 3
-
-        //La plata    U(12,0)  Radio = 5
-
-        when(ubicacionBerasategui.distanciaEntre(ubicacionPlata)).thenReturn(14);
-
-        assertFalse(zonaBerasategui.estaSolapadaCon(zonaPlata));
-
-        ArrayList<ZonaDeCobertura> zonas = new ArrayList<ZonaDeCobertura>();  // creo la Array
-
-        zonaBerasategui.agregarSiEsZonaSolapada(zonaPlata);   // agregar a la lista
-        assertEquals(zonas,zonaBerasategui.getZonasSolapadas());
+        //Berasategui  U(-2,0) Radio = 3
+        assertTrue(zonaBerasategui.esLaMismaZona(zonaBerasategui));
     }
 
 
