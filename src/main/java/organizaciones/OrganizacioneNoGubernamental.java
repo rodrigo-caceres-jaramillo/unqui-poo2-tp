@@ -1,4 +1,4 @@
-package Organizaciones;
+package organizaciones;
 
 import ubicacciones.Ubicacion;
 
@@ -13,5 +13,7 @@ public class OrganizacioneNoGubernamental {
         tipo = tipoDeLaOrg;
         cantidadDeTrabajadores = cantidadDeTrabajadoresAPoner;
     }
+
+    public void funcionExterna(){}
 
 }
