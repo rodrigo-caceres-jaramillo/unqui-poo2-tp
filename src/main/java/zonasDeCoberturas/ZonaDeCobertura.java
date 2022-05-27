@@ -14,7 +14,6 @@ public class ZonaDeCobertura {
     private int radio;
     private List<Muestra> muestrasEnLaZona;
     private List<OrganizacioneNoGubernamental> organizacionesInteresadas;
-    //private ArrayList<ZonaDeCobertura> zonasSolapadas;
 
     public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, int radioAPoner,ArrayList<Muestra> muestras, List<OrganizacioneNoGubernamental> orgsInteresadas ){
         nombre          = nombreNuevo;
@@ -22,10 +21,9 @@ public class ZonaDeCobertura {
         radio           = radioAPoner;
         muestrasEnLaZona = muestras;
         organizacionesInteresadas = orgsInteresadas;
-        //zonasSolapadas  = zonas;
     }
 
-    public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){return organizacionesInteresadas}
+    public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){return organizacionesInteresadas;}
 
     public Ubicacion getEpicentro(){
         return  epicentro;
@@ -39,7 +37,6 @@ public class ZonaDeCobertura {
         return radio;
     }
 
-    //public ArrayList<ZonaDeCobertura> getZonasSolapadas() {return zonasSolapadas;}
 
     public List<Muestra> getMuestrasEnLaZona(){return muestrasEnLaZona;}
 
@@ -86,6 +83,10 @@ public class ZonaDeCobertura {
 
    public void avisarALasOrganizaciones(){
         this.getOrganizacionesInteresadas().stream().forEach(o -> o.funcionExterna());
+    }
+
+    public boolean laOrganizacioEstaInteresadaEnEstaZona(OrganizacioneNoGubernamental org){
+        return this.getOrganizacionesInteresadas().contains(org);
     }
 
     //

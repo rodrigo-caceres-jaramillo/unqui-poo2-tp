@@ -1,8 +1,11 @@
 package zonasDeCoberturas;
 
 import muestras.Muestra;
+import organizaciones.OrganizacioneNoGubernamental;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdministradorDeZonasDeCoberturas {
 
@@ -27,6 +30,16 @@ public class AdministradorDeZonasDeCoberturas {
 
     public void agregarNuevaZona(ZonaDeCobertura nuevaZona){
         todasLasZonas.add(nuevaZona);
+    }
+
+    public List<ZonaDeCobertura> zonasQueSolapadasCon(ZonaDeCobertura zonaAVer) {
+        return this.getTodasLasZonas().stream().
+                filter(zona -> zona.estaSolapadaCon(zonaAVer)).collect(Collectors.toList());
+    }
+
+    public List<ZonaDeCobertura> zonasDeInteresDeLaOrg(OrganizacioneNoGubernamental orgAVer){
+        return this.getTodasLasZonas().stream().
+                filter(z -> z.laOrganizacioEstaInteresadaEnEstaZona(orgAVer)).collect(Collectors.toList());
     }
 
 }
