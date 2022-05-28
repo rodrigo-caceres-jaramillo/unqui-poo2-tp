@@ -1,7 +1,10 @@
-package ubicacciones;
+package test.java.ubicacciones;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import main.java.ubicacciones.CalculadorDeDistancias;
+import main.java.ubicacciones.Ubicacion;
+
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;

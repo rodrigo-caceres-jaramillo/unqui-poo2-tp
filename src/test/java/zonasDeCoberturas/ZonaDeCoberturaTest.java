@@ -1,10 +1,12 @@
-package zonasDeCoberturas;
+package test.java.zonasDeCoberturas;
 
-import muestras.Muestra;
+import main.java.muestras.Muestra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import organizaciones.OrganizacioneNoGubernamental;
-import ubicacciones.Ubicacion;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.Ubicacion;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;

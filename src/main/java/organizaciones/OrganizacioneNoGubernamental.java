@@ -1,6 +1,6 @@
-package organizaciones;
+package main.java.organizaciones;
 
-import ubicacciones.Ubicacion;
+import main.java.ubicacciones.Ubicacion;
 
 public class OrganizacioneNoGubernamental {
 

@@ -1,8 +1,9 @@
-package ubicacciones;
+package test.java.ubicacciones;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.java.ubicacciones.Ubicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 

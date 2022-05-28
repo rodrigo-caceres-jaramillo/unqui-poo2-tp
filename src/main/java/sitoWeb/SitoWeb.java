@@ -1,11 +1,10 @@
-package sitoWeb;
+package main.java.sitoWeb;
 
-import muestras.AdministradorDeMuestras;
-import muestras.Muestra;
-import organizaciones.OrganizacioneNoGubernamental;
-import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import zonasDeCoberturas.ZonaDeCobertura;
-
+import main.java.muestras.AdministradorDeMuestras;
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 import java.util.List;
 
 public class SitoWeb {

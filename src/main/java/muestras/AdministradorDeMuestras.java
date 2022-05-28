@@ -1,4 +1,4 @@
-package muestras;
+package main.java.muestras;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package zonasDeCoberturas;
+package main.java.zonasDeCoberturas;
 
-import muestras.Muestra;
-import organizaciones.OrganizacioneNoGubernamental;
-import ubicacciones.CalculadorDeDistancias;
-import ubicacciones.Ubicacion;
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.CalculadorDeDistancias;
+import main.java.ubicacciones.Ubicacion;
 
 import java.util.ArrayList;
 import java.util.List;

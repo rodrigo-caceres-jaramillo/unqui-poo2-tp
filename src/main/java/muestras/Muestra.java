@@ -1,6 +1,6 @@
-package muestras;
+package main.java.muestras;
 
-import ubicacciones.Ubicacion;
+import main.java.ubicacciones.Ubicacion;
 
 public class Muestra {
     Ubicacion ubicacion;
