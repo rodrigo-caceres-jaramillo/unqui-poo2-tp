@@ -2,47 +2,43 @@ package main.java.sitoWeb;
 
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
+import main.java.muestras.Usuario;
 import main.java.organizaciones.OrganizacioneNoGubernamental;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
 import java.util.List;
+import java.util.Set;
 
 public class SitoWeb {
-    private AdministradorDeMuestras AdminMuestras;
+	private AdministradorDeMuestras adminMuestras;
     private AdministradorDeZonasDeCoberturas adminzonasZonas;
     private List<OrganizacioneNoGubernamental> organizaciones;
-
-
+    // Constructor
     public SitoWeb(AdministradorDeMuestras adminDeLasMuestra,AdministradorDeZonasDeCoberturas adminDeLasZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
-        AdminMuestras = adminDeLasMuestra;
-        adminzonasZonas = adminDeLasZonas;
-        organizaciones = organizacionesAPoner;
+        this.adminMuestras = adminDeLasMuestra;
+        this.adminzonasZonas = adminDeLasZonas;
+        this.organizaciones = organizacionesAPoner;
     }
-
+    // Gets y sets
     public AdministradorDeMuestras getAdministradorDeMuestras() {
-        return AdminMuestras;
+        return adminMuestras;
     }
-
     public void setMuestras(AdministradorDeMuestras muestras) {
-        this.AdminMuestras = muestras;
+        this.adminMuestras = muestras;
     }
-
     public AdministradorDeZonasDeCoberturas getAdministradorDeZonas() {
         return adminzonasZonas;
     }
-
     public void setZonasDeCoberturas(AdministradorDeZonasDeCoberturas zonasDeCoberturas) {
         this.adminzonasZonas = zonasDeCoberturas;
     }
-
     public List<OrganizacioneNoGubernamental> getOrganizaciones() {
         return organizaciones;
     }
-
     public void setOrganizaciones(List<OrganizacioneNoGubernamental> organizaciones) {
         this.organizaciones = organizaciones;
     }
-
+    // Metodos
     public void agregarNuevaMuestra(Muestra mustraAAgregar){
         this.getAdministradorDeMuestras().agregarNuevaMuestra(mustraAAgregar);
         this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(mustraAAgregar);
@@ -74,4 +70,8 @@ public class SitoWeb {
         zonaDeInteres.getOrganizacionesInteresadas().remove(org);  // Ver si esta bien
     }
 
+    public Muestra muestraN(Integer id) {
+    	Muestra muestra = this.getAdministradorDeMuestras().muestraN(id);
+    	return muestra;
+    }
 }
