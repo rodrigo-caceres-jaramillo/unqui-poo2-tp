@@ -23,22 +23,29 @@ public class SitoWeb {
     public AdministradorDeMuestras getAdministradorDeMuestras() {
         return adminMuestras;
     }
+
     public void setMuestras(AdministradorDeMuestras muestras) {
         this.adminMuestras = muestras;
     }
+
     public AdministradorDeZonasDeCoberturas getAdministradorDeZonas() {
         return adminzonasZonas;
     }
+
     public void setZonasDeCoberturas(AdministradorDeZonasDeCoberturas zonasDeCoberturas) {
         this.adminzonasZonas = zonasDeCoberturas;
     }
+
     public List<OrganizacioneNoGubernamental> getOrganizaciones() {
         return organizaciones;
     }
+
     public void setOrganizaciones(List<OrganizacioneNoGubernamental> organizaciones) {
         this.organizaciones = organizaciones;
     }
+
     // Metodos
+
     public void agregarNuevaMuestra(Muestra mustraAAgregar){
         this.getAdministradorDeMuestras().agregarNuevaMuestra(mustraAAgregar);
         this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(mustraAAgregar);
@@ -74,4 +81,11 @@ public class SitoWeb {
     	Muestra muestra = this.getAdministradorDeMuestras().muestraN(id);
     	return muestra;
     }
-}
+
+    public void  opinarSobreLaMuestraNumero(Integer id,Opinion opinionAponer){
+        if(true){   // si esta opinion cambia el estado de la muestra a Validada  entonces ...
+            this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        }
+    }
+
+    }
