@@ -83,11 +83,17 @@ public class ZonaDeCobertura {
 
    public void avisarALasOrganizaciones(){
         this.getOrganizacionesInteresadas().stream().forEach(o -> o.funcionExterna());
-    }
+   }
 
-    public boolean laOrganizacioEstaInteresadaEnEstaZona(OrganizacioneNoGubernamental org){
+   public boolean laOrganizacioEstaInteresadaEnEstaZona(OrganizacioneNoGubernamental org){
         return this.getOrganizacionesInteresadas().contains(org);
-    }
+   }
+
+   public void avisarQueSeValidoLaMuestraMuestraNumero(Integer id){
+        if(this.getMuestrasEnLaZona().stream().anyMatch(m-> m.getId().equals(id)) ){
+            this.getOrganizacionesInteresadas().stream().forEach(o-> o.seValidoUnaMuestra());
+        }
+   }
 
     //
 }
