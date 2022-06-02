@@ -8,6 +8,7 @@ import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 
 public class Muestra {
 	private Integer id;
@@ -20,7 +21,7 @@ public class Muestra {
     private ArrayList<Opinion> opiniones;
     private TipoDeMuestra tipo;
     // Constructor
-	public Muestra(TipoDeOpinion tipoVinchuta, Usuario id, Foto foto, Ubicacion ubicacion) {
+	public Muestra(TipoDeOpinion tipoVinchuta, Usuario id, Foto foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
 		this.tipoVinchuta = tipoVinchuta;
 		this.usuario = id;
@@ -31,11 +32,7 @@ public class Muestra {
 		this.opiniones = new ArrayList<Opinion>();
 		Opinion opinionInicial = new Opinion(id, tipoVinchuta);
 		this.opiniones.add(opinionInicial);
-		if (usuario.getEsExperto()) {
-			this.setTipo(new SiendoVerificada());
-		}else {
-			this.setTipo(new SinVerificar());
-		}	
+		this.tipo = tipo;
 	}
 	// Gets y sets
 	public Integer getId() {

@@ -48,8 +48,7 @@ public class Usuario {
 	}
 	// Metodos
 	public void registrarMuestra(TipoDeOpinion especie, Foto foto, Ubicacion ubicacion) {
-		Muestra muestra = new Muestra(especie, this, foto, ubicacion);
-		this.getSitio().agregarNuevaMuestra(muestra);
+		this.tipo.registrarMuestra(especie, foto, ubicacion, this);
 	}
 	public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo) {
 		Muestra muestra = this.getSitio().muestraN(idMuestra);

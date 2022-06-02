@@ -1,5 +1,10 @@
 package main.java.usuarios.tipos;
 
-public abstract class TipoDeUsuario {
+import main.java.muestras.Foto;
+import main.java.muestras.TipoDeOpinion;
+import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
 
+public abstract class TipoDeUsuario {
+	public abstract void registrarMuestra(TipoDeOpinion especie, Foto foto, Ubicacion ubicacion, Usuario usuario);
 }
