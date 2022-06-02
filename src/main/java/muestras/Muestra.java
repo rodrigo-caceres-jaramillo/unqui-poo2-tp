@@ -3,7 +3,11 @@ package main.java.muestras;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import main.java.muestras.tipos.SiendoVerificada;
+import main.java.muestras.tipos.SinVerificar;
+import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
 
 public class Muestra {
 	private Integer id;
@@ -11,10 +15,10 @@ public class Muestra {
     private Usuario usuario;
     private LocalDate creacion;
     private LocalDate ultimaVotacion;
-    private Boolean verificado;
     private Foto foto;
     private Ubicacion ubicacion;
     private ArrayList<Opinion> opiniones;
+    private TipoDeMuestra tipo;
     // Constructor
 	public Muestra(TipoDeOpinion tipoVinchuta, Usuario id, Foto foto, Ubicacion ubicacion) {
 		super();
@@ -22,13 +26,16 @@ public class Muestra {
 		this.usuario = id;
 		this.creacion = LocalDate.now();
 		this.ultimaVotacion = null;
-		this.verificado = false;
 		this.foto = foto;
 		this.ubicacion = ubicacion;
 		this.opiniones = new ArrayList<Opinion>();
 		Opinion opinionInicial = new Opinion(id, tipoVinchuta);
 		this.opiniones.add(opinionInicial);
-		
+		if (usuario.getEsExperto()) {
+			this.setTipo(new SiendoVerificada());
+		}else {
+			this.setTipo(new SinVerificar());
+		}	
 	}
 	// Gets y sets
 	public Integer getId() {
@@ -61,12 +68,6 @@ public class Muestra {
 	public void setUltimaVotacion(LocalDate ultimaVotacion) {
 		this.ultimaVotacion = ultimaVotacion;
 	}
-	public Boolean getVerificado() {
-		return verificado;
-	}
-	public void setVerificado(Boolean verificado) {
-		this.verificado = verificado;
-	}
 	public Foto getFoto() {
 		return foto;
 	}
@@ -85,14 +86,14 @@ public class Muestra {
 	public Ubicacion getUbicacion(){
         return ubicacion;
     }
+	public TipoDeMuestra getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoDeMuestra tipo) {
+		this.tipo = tipo;
+	}
 	// Metodos
 	public void agregarOpinion(Opinion opinion) {
-		this.getOpiniones().add(opinion);
+		this.tipo.agregarOpinionA(opinion, this);
 	}
-	
-	/*public TipoDeOpinion resultadoActual() {
-		TipoDeOpinion resultado = ;
-		
-		return resultado;
-	}*/
 }

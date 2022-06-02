@@ -2,6 +2,8 @@ package main.java.muestras;
 
 import java.time.LocalDate;
 
+import main.java.usuarios.Usuario;
+
 public class Opinion {
 	private Usuario usuario;
 	private LocalDate fecha;
@@ -10,6 +12,7 @@ public class Opinion {
 	public Opinion(Usuario usuario, TipoDeOpinion tipo) {
 		super();
 		this.usuario = usuario;
+		
 		this.fecha = LocalDate.now();
 		this.tipo = tipo;
 	}

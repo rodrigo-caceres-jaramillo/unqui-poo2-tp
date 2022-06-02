@@ -1,19 +1,25 @@
-package main.java.muestras;
+package main.java.usuarios;
 
+import main.java.muestras.Foto;
+import main.java.muestras.Muestra;
+import main.java.muestras.Opinion;
+import main.java.muestras.TipoDeOpinion;
 import main.java.sitoWeb.SitoWeb;
 import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.tipos.Basico;
+import main.java.usuarios.tipos.TipoDeUsuario;
 
 public class Usuario {
 	private SitoWeb sitio;
 	private Integer id;
 	private String nombre;
-	private Boolean esExperto;
+	private TipoDeUsuario tipo;
 	// Constructor
-	public Usuario(Integer id, String nombre, Boolean esExperto) {
+	public Usuario(Integer id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.esExperto = esExperto;
+		this.setTipo(new Basico());
 	}
 	// Gets y sets
 	public SitoWeb getSitio() {
@@ -34,11 +40,11 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Boolean getEsExperto() {
-		return esExperto;
+	public TipoDeUsuario getTipo() {
+		return tipo;
 	}
-	public void setEsExperto(Boolean esExperto) {
-		this.esExperto = esExperto;
+	public void setTipo(TipoDeUsuario tipo) {
+		this.tipo = tipo;
 	}
 	// Metodos
 	public void registrarMuestra(TipoDeOpinion especie, Foto foto, Ubicacion ubicacion) {
@@ -49,6 +55,6 @@ public class Usuario {
 		Muestra muestra = this.getSitio().muestraN(idMuestra);
 		Opinion opinion = new Opinion(this, tipo);
 		muestra.agregarOpinion(opinion);
-		
 	}
+	
 }
