@@ -1,9 +1,9 @@
-package test.java.ubicacciones;
+package ubicacciones;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.ubicacciones.CalculadorDeDistancias;
-import main.java.ubicacciones.Ubicacion;
+import ubicacciones.CalculadorDeDistancias;
+import ubicacciones.Ubicacion;
 
 import static org.mockito.Mockito.*;
 
@@ -26,33 +26,33 @@ class CalculadorDeDistanciasTest {
     //  -------------------- distanciaEntreLasUbicaciones
     @Test
     void distanciaEntreLasUbicacionesPositivas() {
-        when(ubicacion1.getLatitud()).thenReturn(50);
-        when(ubicacion1.getLongitud()).thenReturn(25);
+        when(ubicacion1.getLatitud()).thenReturn(50f);
+        when(ubicacion1.getLongitud()).thenReturn(25f);
 
-        when(ubicacion2.getLatitud()).thenReturn(125);
-        when(ubicacion2.getLongitud()).thenReturn(100);
+        when(ubicacion2.getLatitud()).thenReturn(125f);
+        when(ubicacion2.getLongitud()).thenReturn(100f);
 
         assertEquals(150,calculador.distanciaEntreLasUbicaciones(ubicacion1,ubicacion2));
     }
 
     @Test
     void distanciaEntreLasUbicacionesNegativas() {
-        when(ubicacion1.getLatitud()).thenReturn(-50);
-        when(ubicacion1.getLongitud()).thenReturn(-25);
+        when(ubicacion1.getLatitud()).thenReturn(-50f);
+        when(ubicacion1.getLongitud()).thenReturn(-25f);
 
-        when(ubicacion2.getLatitud()).thenReturn(-125);
-        when(ubicacion2.getLongitud()).thenReturn(-100);
+        when(ubicacion2.getLatitud()).thenReturn(-125f);
+        when(ubicacion2.getLongitud()).thenReturn(-100f);
 
         assertEquals(150,calculador.distanciaEntreLasUbicaciones(ubicacion1,ubicacion2));
     }
 
     @Test
     void distanciaEntreLasUbicacionesUnaPositivasYOtraNegativas() {
-        when(ubicacion1.getLatitud()).thenReturn(50);
-        when(ubicacion1.getLongitud()).thenReturn(25);
+        when(ubicacion1.getLatitud()).thenReturn(50f);
+        when(ubicacion1.getLongitud()).thenReturn(25f);
 
-        when(ubicacion2.getLatitud()).thenReturn(-125);
-        when(ubicacion2.getLongitud()).thenReturn(-100);
+        when(ubicacion2.getLatitud()).thenReturn(-125f);
+        when(ubicacion2.getLongitud()).thenReturn(-100f);
 
         assertEquals(300,calculador.distanciaEntreLasUbicaciones(ubicacion1,ubicacion2));
     }
@@ -74,5 +74,13 @@ class CalculadorDeDistanciasTest {
     void distanciaEntreLosPuntosUnoPositivoOtroNegativo() {
         assertEquals(175,calculador.distanciaEntreLosPuntos(100,-75));
     }
+
+    /// -------------------------- getInstancia
+
+    @Test
+    void getInstancia() {
+        assertNotNull(calculador.getInstancia());
+    }
+
 
 }

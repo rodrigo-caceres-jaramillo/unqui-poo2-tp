@@ -1,10 +1,11 @@
-package main.java.sitoWeb;
+package sitoWeb;
 
-import main.java.muestras.AdministradorDeMuestras;
-import main.java.muestras.Muestra;
-import main.java.organizaciones.OrganizacioneNoGubernamental;
-import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import main.java.zonasDeCoberturas.ZonaDeCobertura;
+import muestras.AdministradorDeMuestras;
+import muestras.Muestra;
+import muestras.Opinion;
+import organizaciones.OrganizacioneNoGubernamental;
+import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import zonasDeCoberturas.ZonaDeCobertura;
 import java.util.List;
 import java.util.Set;
 
@@ -77,11 +78,14 @@ public class SitoWeb {
     }
 
     public Muestra muestraN(Integer id) {
-    	Muestra muestra = this.getAdministradorDeMuestras().muestraN(id);
-    	return muestra;
+    	return this.getAdministradorDeMuestras().muestraN(id);
     }
 
-    public void  opinarSobreLaMuestraNumero(Integer id,Opinion opinionAponer){
+    public List<Muestra> muestrasAMenosDeDesde(float metros,Muestra muestraAVer){
+        return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
+    }
+
+    public void  opinarSobreLaMuestraNumero(Integer id, Opinion opinionAponer){
         if(true){   // si esta opinion cambia el estado de la muestra a Validada  entonces ...
             this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
         }

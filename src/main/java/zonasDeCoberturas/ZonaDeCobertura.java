@@ -1,9 +1,10 @@
-package main.java.zonasDeCoberturas;
+package zonasDeCoberturas;
 
-import main.java.muestras.Muestra;
-import main.java.organizaciones.OrganizacioneNoGubernamental;
-import main.java.ubicacciones.CalculadorDeDistancias;
-import main.java.ubicacciones.Ubicacion;
+import muestras.Muestra;
+import organizaciones.OrganizacioneNoGubernamental;
+import ubicacciones.CalculadorDeDistancias;
+import ubicacciones.Ubicacion;
+import organizaciones.FuncionExterna;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,11 @@ import java.util.List;
 public class ZonaDeCobertura {
     private String nombre;
     private Ubicacion epicentro;
-    private int radio;
+    private float radio;
     private List<Muestra> muestrasEnLaZona;
     private List<OrganizacioneNoGubernamental> organizacionesInteresadas;
 
-    public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, int radioAPoner,ArrayList<Muestra> muestras, List<OrganizacioneNoGubernamental> orgsInteresadas ){
+    public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, float radioAPoner,ArrayList<Muestra> muestras, List<OrganizacioneNoGubernamental> orgsInteresadas ){
         nombre          = nombreNuevo;
         epicentro       = epicentroAPoner;
         radio           = radioAPoner;
@@ -33,7 +34,7 @@ public class ZonaDeCobertura {
         return nombre;
     }
 
-    public int getRadio() {
+    public float getRadio() {
         return radio;
     }
 
@@ -56,14 +57,6 @@ public class ZonaDeCobertura {
         return this.getEpicentro().distanciaEntre(zonaAVer.getEpicentro()) < this.getRadio() + zonaAVer.getRadio();
     }
 
-    /*  Hacer desde sitio web le pregunte al Administrador de zonas que zonas solapan con y pasarla zona por parametro
-    public void agregarSiEsZonaSolapada(ZonaDeCobertura zonaAAgregar){  // si no esta solapada no hace nada
-        if(this.estaSolapadaCon(zonaAAgregar) && ! this.esLaMismaZona(zonaAAgregar) ){   // una zona no puede tener a si misma en zonas solapadas
-           this.getZonasSolapadas().add(zonaAAgregar);
-        }
-    }
-   */
-
     public boolean esLaMismaZona(ZonaDeCobertura zonaAAgregar){
         return this.getRadio()     == zonaAAgregar.getRadio()     &&
                this.getEpicentro() == zonaAAgregar.getEpicentro() ;
@@ -74,15 +67,15 @@ public class ZonaDeCobertura {
     }
 
    public void agregarMuestraSiPerteneceALaZona(Muestra muestraAVer){
-       int distancia = this.epicentro.distanciaEntre(muestraAVer.getUbicacion());
+       float distancia = this.epicentro.distanciaEntre(muestraAVer.getUbicacion());
        if(distancia <= this.getRadio()){
-           // this.avisarALasOrganizaciones()
-           this.getMuestrasEnLaZona().add(muestraAVer);
+           this.avisarALasOrganizacionesQueSeRegistroNuevaMuestra(muestraAVer);
+           this.agregarMuestra(muestraAVer);
        }
    }
 
-   public void avisarALasOrganizaciones(){
-        this.getOrganizacionesInteresadas().stream().forEach(o -> o.funcionExterna());
+   public void avisarALasOrganizacionesQueSeRegistroNuevaMuestra(Muestra muestra){
+        this.getOrganizacionesInteresadas().stream().forEach(o -> o.seRegistroNuevaMuestra(this,muestra));
    }
 
    public boolean laOrganizacioEstaInteresadaEnEstaZona(OrganizacioneNoGubernamental org){
@@ -90,10 +83,17 @@ public class ZonaDeCobertura {
    }
 
    public void avisarQueSeValidoLaMuestraMuestraNumero(Integer id){
-        if(this.getMuestrasEnLaZona().stream().anyMatch(m-> m.getId().equals(id)) ){
-            this.getOrganizacionesInteresadas().stream().forEach(o-> o.seValidoUnaMuestra());
+        int indice = 0;
+        for(int i=0; this.getMuestrasEnLaZona().get(i).getId() != id && this.getMuestrasEnLaZona().size() > i;i++){
+            indice++;
         }
+       Muestra muestraQueSeValido = this.getMuestrasEnLaZona().get(indice);
+       this.getOrganizacionesInteresadas().stream().forEach(o-> o.seValidoUnaMuestra(this,muestraQueSeValido));
    }
 
-    //
+
+
+
+
 }
+

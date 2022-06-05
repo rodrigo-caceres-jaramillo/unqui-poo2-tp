@@ -1,11 +1,11 @@
-package main.java.usuarios.tipos;
+package usuarios.tipos;
 
-import main.java.muestras.Foto;
-import main.java.muestras.Muestra;
-import main.java.muestras.TipoDeOpinion;
-import main.java.muestras.tipos.SinVerificar;
-import main.java.ubicacciones.Ubicacion;
-import main.java.usuarios.Usuario;
+import muestras.Foto;
+import muestras.Muestra;
+import muestras.TipoDeOpinion;
+import muestras.tipos.SinVerificar;
+import ubicacciones.Ubicacion;
+import usuarios.Usuario;
 
 public class Basico extends TipoDeUsuario{
 

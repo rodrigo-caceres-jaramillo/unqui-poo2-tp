@@ -1,14 +1,14 @@
-package main.java.muestras;
+package muestras;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import main.java.muestras.tipos.SiendoVerificada;
-import main.java.muestras.tipos.SinVerificar;
-import main.java.muestras.tipos.TipoDeMuestra;
-import main.java.ubicacciones.Ubicacion;
-import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Basico;
+import muestras.tipos.SiendoVerificada;
+import muestras.tipos.SinVerificar;
+import muestras.tipos.TipoDeMuestra;
+import ubicacciones.Ubicacion;
+import usuarios.Usuario;
+import usuarios.tipos.Basico;
 
 public class Muestra {
 	private Integer id;
@@ -41,56 +41,65 @@ public class Muestra {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public TipoDeOpinion getTipoVinchuta() {
 		return tipoVinchuta;
 	}
 	public void setTipoVinchuta(TipoDeOpinion tipoVinchuta) {
 		this.tipoVinchuta = tipoVinchuta;
 	}
-	public Usuario getUsuario() {
+
+    public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setId(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public LocalDate getCreacion() {
+
+    public LocalDate getCreacion() {
 		return creacion;
 	}
 	public void setCreacion(LocalDate creacion) {
 		this.creacion = creacion;
 	}
-	public LocalDate getUltimaVotacion() {
+
+    public LocalDate getUltimaVotacion() {
 		return ultimaVotacion;
 	}
 	public void setUltimaVotacion(LocalDate ultimaVotacion) {
 		this.ultimaVotacion = ultimaVotacion;
 	}
-	public Foto getFoto() {
+
+    public Foto getFoto() {
 		return foto;
 	}
 	public void setFoto(Foto foto) {
 		this.foto = foto;
 	}
-	public ArrayList<Opinion> getOpiniones() {
+
+    public ArrayList<Opinion> getOpiniones() {
 		return opiniones;
 	}
 	public void setOpiniones(ArrayList<Opinion> opiniones) {
 		this.opiniones = opiniones;
 	}
-	public void setUbicacion(Ubicacion ubicacion) {
+
+    public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
 	public Ubicacion getUbicacion(){
         return ubicacion;
     }
-	public TipoDeMuestra getTipo() {
+
+    public TipoDeMuestra getTipo() {
 		return tipo;
 	}
 	public void setTipo(TipoDeMuestra tipo) {
 		this.tipo = tipo;
 	}
-	// Metodos
+
+    // Metodos
 	public void agregarOpinion(Opinion opinion) {
-		this.tipo.agregarOpinionA(opinion, this);
+		this.getTipo().agregarOpinionA(opinion, this);
 	}
 }

@@ -1,13 +1,13 @@
-package main.java.usuarios;
+package usuarios;
 
-import main.java.muestras.Foto;
-import main.java.muestras.Muestra;
-import main.java.muestras.Opinion;
-import main.java.muestras.TipoDeOpinion;
-import main.java.sitoWeb.SitoWeb;
-import main.java.ubicacciones.Ubicacion;
-import main.java.usuarios.tipos.Basico;
-import main.java.usuarios.tipos.TipoDeUsuario;
+import muestras.Foto;
+import muestras.Muestra;
+import muestras.Opinion;
+import muestras.TipoDeOpinion;
+import sitoWeb.SitoWeb;
+import ubicacciones.Ubicacion;
+import usuarios.tipos.Basico;
+import usuarios.tipos.TipoDeUsuario;
 
 public class Usuario {
 	private SitoWeb sitio;

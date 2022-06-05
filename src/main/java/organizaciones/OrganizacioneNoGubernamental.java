@@ -1,7 +1,8 @@
-package main.java.organizaciones;
+package organizaciones;
 
-import main.java.ubicacciones.Ubicacion;
-import organizaciones.FuncionExterna;
+import muestras.Muestra;
+import ubicacciones.Ubicacion;
+import zonasDeCoberturas.ZonaDeCobertura;
 
 public class OrganizacioneNoGubernamental {
 
@@ -27,12 +28,12 @@ public class OrganizacioneNoGubernamental {
         return funcionValidacion;
     }
 
-    public void seRegistroNuevaMuestra(){
-        this.getFuncionNuevaMuestra().ejecutar();
+    public void seRegistroNuevaMuestra(ZonaDeCobertura zona, Muestra muestra){
+        this.getFuncionNuevaMuestra().nuevoEvento(this,zona,muestra);
     }
 
-    public void seValidoUnaMuestra(){
-        this.getFuncionValidacion().ejecutar();
+    public void seValidoUnaMuestra(ZonaDeCobertura zona, Muestra muestra){
+        this.getFuncionValidacion().nuevoEvento(this,zona,muestra);
     }
 
 }

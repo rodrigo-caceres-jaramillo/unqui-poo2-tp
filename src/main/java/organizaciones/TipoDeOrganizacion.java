@@ -1,4 +1,4 @@
-package main.java.organizaciones;
+package organizaciones;
 
 public enum TipoDeOrganizacion {
     Salud      ,

@@ -1,13 +1,14 @@
-package test.java.zonasDeCoberturas;
+package zonasDeCoberturas;
 
-import main.java.muestras.Muestra;
+
+import muestras.Muestra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import main.java.organizaciones.OrganizacioneNoGubernamental;
-import main.java.sitoWeb.SitoWeb;
-import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import main.java.zonasDeCoberturas.ZonaDeCobertura;
+import organizaciones.OrganizacioneNoGubernamental;
+import sitoWeb.SitoWeb;
+import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import zonasDeCoberturas.ZonaDeCobertura;
 import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,13 @@ class AdministradorDeZonasDeCoberturasTest {
     }
 
     @Test
+    void setTodasLasZonas(){
+        ArrayList<ZonaDeCobertura> zonasNuevas = new ArrayList<ZonaDeCobertura>();
+        adminZonas.setTodasLasZonas(zonasNuevas);
+        assertEquals(zonas,adminZonas.getTodasLasZonas());
+    }
+
+    @Test
     void agregarNuevaZona() {
         int tamaño = adminZonas.getTodasLasZonas().size();
         ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
@@ -74,28 +82,6 @@ class AdministradorDeZonasDeCoberturasTest {
         adminZonas.agregarNuevaZona(zonaNueva);  // agrego elemento
 
         assertEquals(tamaño+1,adminZonas.getTodasLasZonas().size());
-    }
-
-    ///////////  zonasQueSolapadasCon
-
-    @Test
-    void registrarNuevaZona() {
-
-        ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
-        List<ZonaDeCobertura> zonasSolpadas = new ArrayList<ZonaDeCobertura>();
-
-        when(zonaSur.estaSolapadaCon(zonaNueva)).thenReturn(true);
-        when(zonaSurEste.estaSolapadaCon(zonaNueva)).thenReturn(false);
-        when(zonaEste.estaSolapadaCon(zonaNueva)).thenReturn(true);
-        when(zonaNorEste.estaSolapadaCon(zonaNueva)).thenReturn(false);
-        when(zonaNorte.estaSolapadaCon(zonaNueva)).thenReturn(true);
-        when(zonaNorOeste.estaSolapadaCon(zonaNueva)).thenReturn(false);
-
-        zonasSolpadas.add(zonaSur);
-        zonasSolpadas.add(zonaEste);
-        zonasSolpadas.add(zonaNorte);
-
-        assertEquals(zonasSolpadas,adminZonas.zonasQueSolapadasCon(zonaNueva));
     }
 
     ///////////  actualizarZonasConNuevaMuestra(Muestra)
@@ -153,6 +139,34 @@ class AdministradorDeZonasDeCoberturasTest {
 
         assertNotEquals(zonasDeInteres,adminZonas.zonasDeInteresDeLaOrg(org1));
     }
+
+    @Test
+    void avisarALasOrganizacionesQueSeValidoLaMuestraNumeroTest() {
+        Integer id = 0;
+        adminZonas.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+                //Verificar si llegan los mensajes
+        verify(zonaSur).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaSurEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaNorEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaNorte).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaNorOeste).avisarQueSeValidoLaMuestraMuestraNumero(id);
+    }
+
+    @Test
+    void zonasQueSolapadasConTest() {
+        ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
+
+        adminZonas.zonasQueSolapadasCon(zonaNueva);
+
+        verify(zonaSur).estaSolapadaCon(zonaNueva);
+        verify(zonaSurEste).estaSolapadaCon(zonaNueva);
+        verify(zonaEste).estaSolapadaCon(zonaNueva);
+        verify(zonaNorEste).estaSolapadaCon(zonaNueva);
+        verify(zonaNorte).estaSolapadaCon(zonaNueva);
+        verify(zonaNorOeste).estaSolapadaCon(zonaNueva);
+    }
+
 
 
 }

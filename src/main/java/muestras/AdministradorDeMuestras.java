@@ -1,7 +1,9 @@
-package main.java.muestras;
+package muestras;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AdministradorDeMuestras {
     private ArrayList<Muestra> muestras;
@@ -16,23 +18,32 @@ public class AdministradorDeMuestras {
     public ArrayList<Muestra> getMuestras() {
 		return muestras;
 	}
+
 	public void setMuestras(ArrayList<Muestra> muestras) {
 		this.muestras = muestras;
 	}
+
 	public Integer getSiguienteId() {
 		return siguienteId;
 	}
+
 	public void setSiguienteId(Integer siguienteId) {
 		this.siguienteId = siguienteId;
 	}
+
 	// Metodos
 	public void agregarNuevaMuestra(Muestra muestra){
         this.getMuestras().add(muestra);
     }
+
 	public Muestra muestraN(Integer id) {
 		return (this.getMuestras().stream()
 				.filter(muestra -> id.equals(muestra.getId()))
 				.findAny().get());
+	}
+
+	public List<Muestra> muestrasAMenosDeDesde(float metros, Muestra muestraAVer){
+		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
 	}
 
 }

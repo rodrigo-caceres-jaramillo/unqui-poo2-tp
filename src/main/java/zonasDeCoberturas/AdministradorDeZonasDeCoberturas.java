@@ -1,7 +1,7 @@
-package main.java.zonasDeCoberturas;
+package zonasDeCoberturas;
 
-import main.java.muestras.Muestra;
-import main.java.organizaciones.OrganizacioneNoGubernamental;
+import muestras.Muestra;
+import organizaciones.OrganizacioneNoGubernamental;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,6 @@ public class AdministradorDeZonasDeCoberturas {
     public void avisarALasOrganizacionesQueSeValidoLaMuestraNumero(Integer id){
         this.getTodasLasZonas().stream().
                 forEach(z->z.avisarQueSeValidoLaMuestraMuestraNumero(id));
-        ;
     }
 
 }

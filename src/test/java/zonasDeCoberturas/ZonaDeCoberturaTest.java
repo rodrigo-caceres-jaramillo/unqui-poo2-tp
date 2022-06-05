@@ -1,11 +1,11 @@
-package test.java.zonasDeCoberturas;
+package zonasDeCoberturas;
 
-import main.java.muestras.Muestra;
+import muestras.Muestra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import main.java.organizaciones.OrganizacioneNoGubernamental;
-import main.java.ubicacciones.Ubicacion;
-import main.java.zonasDeCoberturas.ZonaDeCobertura;
+import organizaciones.OrganizacioneNoGubernamental;
+import ubicacciones.Ubicacion;
+import zonasDeCoberturas.ZonaDeCobertura;
 
 import static org.mockito.Mockito.*;
 
@@ -53,13 +53,16 @@ class ZonaDeCoberturaTest {
         zonaPlata = new ZonaDeCobertura("La Plata",ubicacionPlata,5,muestras,organizacionesIntPlata);
     }
 
-    // -------  getZonasSolapadas
+    //--------------------TEST getters--------------------//
+
+
+    //  getOrganizacionesInteresadas
     @Test
-    void getZonasSolapadas(){
-        assertEquals(organizacionesIntQuilmes,zonaQuilmes.getOrganizacionesInteresadas());  // Vacio
+    void getOrganizacionesInteresadasTest(){
+        assertEquals(organizacionesIntQuilmes,zonaQuilmes.getOrganizacionesInteresadas());
     }
 
-    // ----- getNombre
+    // getNombre
     @Test
     void getNombreQuilmes(){
         assertEquals("Quilmes",zonaQuilmes.getNombre());
@@ -70,7 +73,27 @@ class ZonaDeCoberturaTest {
         assertEquals("Berasategui",zonaBerasategui.getNombre());
     }
 
-    // -------------  estaSolapadaCon
+    // getEpicentro
+    @Test
+    void getEpicentroTest(){
+        assertEquals(ubicacionQuilmes,zonaQuilmes.getEpicentro());
+    }
+
+    // getRadio
+    @Test
+    void getRadioTest(){
+        assertEquals(10f,zonaQuilmes.getRadio());
+    }
+
+    // getMuestrasEnLaZona
+    @Test
+    void getMuestrasEnLaZonaTest(){
+        assertEquals(muestras,zonaQuilmes.getMuestrasEnLaZona());
+    }
+
+
+    //--------------------TEST Methods--------------------//
+    //  estaSolapadaCon
     @Test
     void estaSolapadaQuilmesConBerasategui(){
 
@@ -78,10 +101,8 @@ class ZonaDeCoberturaTest {
 
         //Berasategui  U(-2,0) Radio = 3
 
-        when(ubicacionBerasategui.distanciaEntre(ubicacionQuilmes)).thenReturn(2);
+        when(ubicacionBerasategui.distanciaEntre(ubicacionQuilmes)).thenReturn(2f);
 
-
-        assertTrue(zonaBerasategui.zonaEstaAdentroDe(zonaQuilmes));
         assertTrue(zonaQuilmes.estaSolapadaCon(zonaBerasategui));
     }
 
@@ -91,7 +112,7 @@ class ZonaDeCoberturaTest {
 
         //La plata U(12,0) Radio = 5
 
-        when(ubicacionPlata.distanciaEntre(ubicacionQuilmes)).thenReturn(12);
+        when(ubicacionPlata.distanciaEntre(ubicacionQuilmes)).thenReturn(12f);
 
         assertTrue(zonaQuilmes.estaSolapadaCon(zonaPlata));
     }
@@ -103,25 +124,159 @@ class ZonaDeCoberturaTest {
 
         //La plata U(12,0) Radio = 5
 
-        when(ubicacionBerasategui.distanciaEntre(ubicacionPlata)).thenReturn(14);
+        when(ubicacionBerasategui.distanciaEntre(ubicacionPlata)).thenReturn(14f);
 
         assertFalse(zonaBerasategui.estaSolapadaCon(zonaPlata));
     }
 
+    //zonaEstaAdentroDe
     @Test
-    void esLoMismoBerasateguiConBerasategui(){
+    void zonaNoEstaAdentroDeTest(){
+
+        //Berasategui  U(-2,0) Radio = 3   //La plata U(12,0) Radio = 5
+
+        when(ubicacionBerasategui.distanciaEntre(ubicacionPlata)).thenReturn(14f);
+
+        assertFalse(zonaBerasategui.zonaEstaAdentroDe(zonaPlata));
+    }
+
+    @Test
+    void zonaEstaAdentroDeTest(){
+
+        //Berasategui  U(-2,0) Radio = 3   //Quilmes U(0,0) Radio = 10
+
+        when(ubicacionBerasategui.distanciaEntre(ubicacionQuilmes)).thenReturn(2f);
+
+        assertTrue(zonaQuilmes.zonaEstaAdentroDe(zonaBerasategui));
+    }
+
+    // esLaMismaZona
+    @Test
+    void noEsLaMismaZonaTest(){
+
+        assertTrue(zonaBerasategui.esLaMismaZona(zonaPlata));
+    }
+
+    @Test
+    void esLaMismaZonaTest(){
 
         //Berasategui  U(-2,0) Radio = 3
         assertTrue(zonaBerasategui.esLaMismaZona(zonaBerasategui));
     }
 
-    ////////
-
+    //zonaChocaCon
     @Test
-    void zonaQuilmes(){
+    void zonaChocaConTest(){
 
         //Berasategui  U(-2,0) Radio = 3
-        assertTrue(zonaBerasategui.esLaMismaZona(zonaBerasategui));
+        when(ubicacionBerasategui.distanciaEntre(ubicacionQuilmes)).thenReturn(2f);
+        assertTrue(zonaBerasategui.zonaChocaCon(zonaPlata));
+    }
+
+    @Test
+    void zonaNoChocaConTest(){  /// Error
+
+        //Berasategui  U(-2,0) Radio = 3
+
+
+        when(ubicacionPlata.distanciaEntre(ubicacionBerasategui)).thenReturn(14f);  // zP no se toca con zB
+
+
+        assertFalse(zonaPlata.zonaChocaCon(zonaBerasategui)); // No toca
+    }
+
+
+    //agregarMuestra
+    @Test
+    void agregarMuestraTest(){
+
+        assertTrue(zonaBerasategui.getMuestrasEnLaZona().size() == 0);
+        Muestra muestra =  mock(Muestra.class);
+        zonaBerasategui.agregarMuestra(muestra);
+        assertTrue(zonaBerasategui.getMuestrasEnLaZona().size() == 1);
+    }
+
+    //agregarMuestraSiPerteneceALaZona
+    @Test
+    void agregarMuestraSiPerteneceALaZonaTest_Agrega(){
+        assertTrue(zonaPlata.getMuestrasEnLaZona().size() == 0);
+
+        Muestra muestra =  mock(Muestra.class);
+        Ubicacion ubicacionMuestra = mock(Ubicacion.class);
+
+        when(muestra.getUbicacion()).thenReturn(ubicacionMuestra);
+        when(ubicacionPlata.distanciaEntre(ubicacionMuestra)).thenReturn(2f);
+
+        zonaPlata.agregarMuestraSiPerteneceALaZona(muestra);
+        assertTrue(zonaPlata.getMuestrasEnLaZona().size() == 1);
+    }
+
+    @Test
+    void agregarMuestraSiPerteneceALaZonaTest_NoAgrega(){
+        assertTrue(zonaPlata.getMuestrasEnLaZona().size() == 0);
+
+        Muestra muestra =  mock(Muestra.class);
+        Ubicacion ubicacionMuestra = mock(Ubicacion.class);
+
+        when(muestra.getUbicacion()).thenReturn(ubicacionMuestra);
+        when(ubicacionPlata.distanciaEntre(ubicacionMuestra)).thenReturn(200f);
+
+        zonaPlata.agregarMuestraSiPerteneceALaZona(muestra);
+        assertTrue(zonaPlata.getMuestrasEnLaZona().size() == 0);
+    }
+
+
+
+    //avisarALasOrganizacionesQueSeRegistroNuevaMuestra
+    @Test
+    void avisarALasOrganizacionesQueSeRegistroNuevaMuestraTest(){
+
+        OrganizacioneNoGubernamental org =  mock(OrganizacioneNoGubernamental.class);
+        Muestra muestra =  mock(Muestra.class);
+
+        zonaPlata.getOrganizacionesInteresadas().add(org);  // agrego la org
+        zonaPlata.avisarALasOrganizacionesQueSeRegistroNuevaMuestra(muestra); // mando el mensaje
+
+        verify(org).seRegistroNuevaMuestra(zonaPlata,muestra);
+    }
+
+    //laOrganizacioEstaInteresadaEnEstaZona
+    @Test
+    void laOrganizacioEstaInteresadaEnEstaZonaTest(){
+
+        OrganizacioneNoGubernamental org =  mock(OrganizacioneNoGubernamental.class);
+
+        zonaPlata.getOrganizacionesInteresadas().add(org);  // agrego la org
+
+        assertTrue(zonaPlata.laOrganizacioEstaInteresadaEnEstaZona(org));
+    }
+
+    @Test
+    void laOrganizacioNoEstaInteresadaEnEstaZonaTest(){
+
+        OrganizacioneNoGubernamental org =  mock(OrganizacioneNoGubernamental.class);
+
+        assertFalse(zonaPlata.laOrganizacioEstaInteresadaEnEstaZona(org));
+    }
+
+
+
+    //avisarQueSeValidoLaMuestraMuestraNumero
+    @Test
+    void avisarQueSeValidoLaMuestraMuestraNumeroTest(){
+
+        OrganizacioneNoGubernamental org =  mock(OrganizacioneNoGubernamental.class);
+        Muestra muestra =  mock(Muestra.class);
+
+        zonaPlata.getMuestrasEnLaZona().add(muestra);  // agrego la Muestra
+        Integer id = 0;
+
+        when(muestra.getId()).thenReturn(id);
+
+        zonaPlata.getOrganizacionesInteresadas().add(org); // agrego la org
+        zonaPlata.avisarQueSeValidoLaMuestraMuestraNumero(id); // mando el mensaje
+
+        verify(org).seValidoUnaMuestra(zonaPlata,muestra);
     }
 
 

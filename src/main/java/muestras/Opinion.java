@@ -1,8 +1,8 @@
-package main.java.muestras;
+package muestras;
 
 import java.time.LocalDate;
 
-import main.java.usuarios.Usuario;
+import usuarios.Usuario;
 
 public class Opinion {
 	private Usuario usuario;
@@ -23,13 +23,15 @@ public class Opinion {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public LocalDate getFecha() {
+
+    public LocalDate getFecha() {
 		return fecha;
 	}
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-	public TipoDeOpinion getTipo() {
+
+    public TipoDeOpinion getTipo() {
 		return tipo;
 	}
 	public void setTipo(TipoDeOpinion tipo) {
