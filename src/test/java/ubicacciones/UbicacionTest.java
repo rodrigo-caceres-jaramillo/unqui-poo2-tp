@@ -19,10 +19,10 @@ class UbicacionTest {
 
     @BeforeEach
     void setUp() {
-        ubicacion1 = new Ubicacion(25,25);
-        ubicacion2 = new Ubicacion(0,0);
-        ubicacion3 = new Ubicacion(-25,-25);
-        ubicacion3 = new Ubicacion(-50,-50);
+        ubicacion1 = new Ubicacion(25f,25f);
+        ubicacion2 = new Ubicacion(0f,0f);
+        ubicacion3 = new Ubicacion(-25f,-25f);
+        ubicacion4 = new Ubicacion(-50f,-50f);
 
     }
 
@@ -48,15 +48,13 @@ class UbicacionTest {
     @Test
     void ubicacionesAMenosDe(){
         ArrayList<Ubicacion> todasLasUbi = new ArrayList<>();
-        todasLasUbi.add(ubicacion1);
         todasLasUbi.add(ubicacion2);
         todasLasUbi.add(ubicacion3);
         todasLasUbi.add(ubicacion4);
 
         ArrayList<Ubicacion> ubicacionesCercadeUbi1 = new ArrayList<>();
         ubicacionesCercadeUbi1.add(ubicacion2);
-        ubicacionesCercadeUbi1.add(ubicacion3);
 
-        assertEquals(ubicacion1.ubicacionesAMenosDe(todasLasUbi,25),ubicacionesCercadeUbi1);}
+        assertEquals(ubicacion1.ubicacionesAMenosDe(todasLasUbi,60),ubicacionesCercadeUbi1);}
 
 }

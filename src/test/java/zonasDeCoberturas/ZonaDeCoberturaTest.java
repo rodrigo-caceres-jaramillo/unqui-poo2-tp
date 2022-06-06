@@ -154,7 +154,7 @@ class ZonaDeCoberturaTest {
     @Test
     void noEsLaMismaZonaTest(){
 
-        assertTrue(zonaBerasategui.esLaMismaZona(zonaPlata));
+        assertFalse(zonaBerasategui.esLaMismaZona(zonaPlata));
     }
 
     @Test
@@ -274,7 +274,7 @@ class ZonaDeCoberturaTest {
         when(muestra.getId()).thenReturn(id);
 
         zonaPlata.getOrganizacionesInteresadas().add(org); // agrego la org
-        zonaPlata.avisarQueSeValidoLaMuestraMuestraNumero(id); // mando el mensaje
+        zonaPlata.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id); // mando el mensaje
 
         verify(org).seValidoUnaMuestra(zonaPlata,muestra);
     }

@@ -44,7 +44,7 @@ public class AdministradorDeZonasDeCoberturas {
 
     public void avisarALasOrganizacionesQueSeValidoLaMuestraNumero(Integer id){
         this.getTodasLasZonas().stream().
-                forEach(z->z.avisarQueSeValidoLaMuestraMuestraNumero(id));
+                forEach(z->z.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id));
     }
 
 }

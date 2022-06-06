@@ -71,7 +71,7 @@ class AdministradorDeZonasDeCoberturasTest {
     void setTodasLasZonas(){
         ArrayList<ZonaDeCobertura> zonasNuevas = new ArrayList<ZonaDeCobertura>();
         adminZonas.setTodasLasZonas(zonasNuevas);
-        assertEquals(zonas,adminZonas.getTodasLasZonas());
+        assertEquals(zonasNuevas,adminZonas.getTodasLasZonas());
     }
 
     @Test
@@ -145,12 +145,12 @@ class AdministradorDeZonasDeCoberturasTest {
         Integer id = 0;
         adminZonas.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
                 //Verificar si llegan los mensajes
-        verify(zonaSur).avisarQueSeValidoLaMuestraMuestraNumero(id);
-        verify(zonaSurEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
-        verify(zonaEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
-        verify(zonaNorEste).avisarQueSeValidoLaMuestraMuestraNumero(id);
-        verify(zonaNorte).avisarQueSeValidoLaMuestraMuestraNumero(id);
-        verify(zonaNorOeste).avisarQueSeValidoLaMuestraMuestraNumero(id);
+        verify(zonaSur).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaSurEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaNorEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaNorte).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaNorOeste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
     }
 
     @Test

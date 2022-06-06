@@ -82,7 +82,7 @@ public class ZonaDeCobertura {
         return this.getOrganizacionesInteresadas().contains(org);
    }
 
-   public void avisarQueSeValidoLaMuestraMuestraNumero(Integer id){
+   public void avisarALasOrganizacionesQueSeValidoLaMuestraNumero(Integer id){
         int indice = 0;
         for(int i=0; this.getMuestrasEnLaZona().get(i).getId() != id && this.getMuestrasEnLaZona().size() > i;i++){
             indice++;

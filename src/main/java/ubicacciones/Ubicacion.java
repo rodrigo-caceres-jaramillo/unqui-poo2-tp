@@ -11,7 +11,7 @@ public class Ubicacion  {
     private float latitud;
     private CalculadorDeDistancias calculador;
 
-    public Ubicacion(int nuevaLongitud, int nuevaLatitud){
+    public Ubicacion(float nuevaLongitud, float nuevaLatitud){
         longitud = nuevaLongitud;
         latitud  = nuevaLatitud ;
         calculador = calculador.getInstancia();
