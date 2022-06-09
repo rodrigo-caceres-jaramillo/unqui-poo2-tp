@@ -2,6 +2,10 @@ package test.java.muestras;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +14,7 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.TipoDeUsuario;
 
 
@@ -27,6 +32,7 @@ class UsuarioTest {
 		ubicacion1 = mock(Ubicacion.class);
 		sitioWeb = mock(SitioWeb.class);
 		user1 = new Usuario(123, "jose Marquez", sitioWeb);
+		user2 = new Usuario(124, "manuel Garquez", sitioWeb);
 		user3 = new Usuario(125, "martin Benitez", sitioWeb);
 		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
 		user3.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
