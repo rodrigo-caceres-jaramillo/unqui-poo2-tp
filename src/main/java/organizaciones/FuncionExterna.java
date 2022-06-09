@@ -1,8 +1,8 @@
-package organizaciones;
+package main.java.organizaciones;
 
 
-import muestras.Muestra;
-import zonasDeCoberturas.ZonaDeCobertura;
+import main.java.muestras.Muestra;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 public interface FuncionExterna {
 

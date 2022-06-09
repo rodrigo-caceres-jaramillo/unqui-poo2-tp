@@ -1,13 +1,11 @@
-package zonasDeCoberturas;
-
-import muestras.Muestra;
-import organizaciones.OrganizacioneNoGubernamental;
-import ubicacciones.CalculadorDeDistancias;
-import ubicacciones.Ubicacion;
-import organizaciones.FuncionExterna;
+package main.java.zonasDeCoberturas;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.Ubicacion;
 
 public class ZonaDeCobertura {
     private String nombre;

@@ -1,29 +1,32 @@
-package muestras;
+package main.java.muestras;
 
 import java.time.LocalDate;
 
-import usuarios.Usuario;
+import main.java.usuarios.tipos.TipoDeUsuario;
 
 public class Opinion {
-	private Usuario usuario;
+	private Integer idUsuario;
 	private LocalDate fecha;
 	private TipoDeOpinion tipo;
+	private TipoDeUsuario tipoUsuario;
 	// Constructor
-	public Opinion(Usuario usuario, TipoDeOpinion tipo) {
+	public Opinion(Integer idUsuario, TipoDeOpinion tipo, TipoDeUsuario tipoUsuario) {
 		super();
-		this.usuario = usuario;
+		this.setIdUsuario(idUsuario);
 		
 		this.fecha = LocalDate.now();
 		this.tipo = tipo;
 	}
 	// Gets y sets
-	public Usuario getUsuario() {
-		return usuario;
+	public TipoDeUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setId(Integer id) {
+		this.setIdUsuario(id);
 	}
-
+	public void setTipoUsuario(TipoDeUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
     public LocalDate getFecha() {
 		return fecha;
 	}
@@ -36,6 +39,12 @@ public class Opinion {
 	}
 	public void setTipo(TipoDeOpinion tipo) {
 		this.tipo = tipo;
+	}
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }
 

@@ -1,15 +1,15 @@
-package muestras;
+package test.java.muestras;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import muestras.Muestra;
-import sitoWeb.SitoWeb;
+import main.java.muestras.Muestra;
+import main.java.sitioWeb.SitioWeb;
 
 class MuestraTest {
-	SitoWeb sitioWeb;
+	SitioWeb sitioWeb;
 	Muestra muestra1;
 	Muestra muestra2;
 	Muestra muestra3;

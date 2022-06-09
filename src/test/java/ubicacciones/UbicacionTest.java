@@ -1,9 +1,9 @@
-package ubicacciones;
+package test.java.ubicacciones;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ubicacciones.Ubicacion;
+import main.java.ubicacciones.Ubicacion;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

@@ -1,18 +1,22 @@
-package zonasDeCoberturas;
+package test.java.zonasDeCoberturas;
 
-import muestras.Muestra;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import organizaciones.OrganizacioneNoGubernamental;
-import ubicacciones.Ubicacion;
-import zonasDeCoberturas.ZonaDeCobertura;
-
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.Ubicacion;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 class ZonaDeCoberturaTest {
 

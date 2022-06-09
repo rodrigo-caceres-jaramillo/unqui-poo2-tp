@@ -1,4 +1,4 @@
-package muestras;
+package main.java.muestras;
 
 public class Foto {
 

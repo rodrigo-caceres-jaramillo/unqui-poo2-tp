@@ -1,7 +1,7 @@
-package muestras.tipos;
+package main.java.muestras.tipos;
 
-import muestras.Muestra;
-import muestras.Opinion;
+import main.java.muestras.Muestra;
+import main.java.muestras.Opinion;
 
 public abstract class TipoDeMuestra {
 	public abstract void agregarOpinionA(Opinion opinion, Muestra muestra);

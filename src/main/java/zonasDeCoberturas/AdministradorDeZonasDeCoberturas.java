@@ -1,7 +1,7 @@
-package zonasDeCoberturas;
+package main.java.zonasDeCoberturas;
 
-import muestras.Muestra;
-import organizaciones.OrganizacioneNoGubernamental;
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
 
 import java.util.ArrayList;
 import java.util.List;

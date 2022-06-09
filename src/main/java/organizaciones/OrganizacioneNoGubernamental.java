@@ -1,8 +1,8 @@
-package organizaciones;
+package main.java.organizaciones;
 
-import muestras.Muestra;
-import ubicacciones.Ubicacion;
-import zonasDeCoberturas.ZonaDeCobertura;
+import main.java.muestras.Muestra;
+import main.java.ubicacciones.Ubicacion;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 public class OrganizacioneNoGubernamental {
 

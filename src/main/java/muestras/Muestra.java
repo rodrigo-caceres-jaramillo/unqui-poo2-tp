@@ -1,36 +1,44 @@
-package muestras;
+package main.java.muestras;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-import muestras.tipos.SiendoVerificada;
-import muestras.tipos.SinVerificar;
-import muestras.tipos.TipoDeMuestra;
-import ubicacciones.Ubicacion;
-import usuarios.Usuario;
-import usuarios.tipos.Basico;
+import main.java.muestras.tipos.TipoDeMuestra;
+import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 
 public class Muestra {
+	public TipoDeOpinion getTipoVinchuca() {
+		return tipoVinchuca;
+	}
+	public void setTipoVinchuca(TipoDeOpinion tipoVinchuca) {
+		this.tipoVinchuca = tipoVinchuca;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	private Integer id;
-	private TipoDeOpinion tipoVinchuta;
+	private TipoDeOpinion tipoVinchuca;
     private Usuario usuario;
     private LocalDate creacion;
     private LocalDate ultimaVotacion;
-    private Foto foto;
+    private String foto; // string1
     private Ubicacion ubicacion;
-    private ArrayList<Opinion> opiniones;
+    private ArrayList<Opinion> opiniones; 
     private TipoDeMuestra tipo;
     // Constructor
-	public Muestra(TipoDeOpinion tipoVinchuta, Usuario id, Foto foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
+	public Muestra(TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
-		this.tipoVinchuta = tipoVinchuta;
-		this.usuario = id;
+		this.tipoVinchuca = tipoVinchuca;
+		this.usuario = usuario;
 		this.creacion = LocalDate.now();
 		this.ultimaVotacion = null;
 		this.foto = foto;
 		this.ubicacion = ubicacion;
 		this.opiniones = new ArrayList<Opinion>();
-		Opinion opinionInicial = new Opinion(id, tipoVinchuta);
+		Opinion opinionInicial = new Opinion(usuario.getId(), tipoVinchuca, usuario.getTipo());
 		this.opiniones.add(opinionInicial);
 		this.tipo = tipo;
 	}
@@ -43,10 +51,10 @@ public class Muestra {
 	}
 
 	public TipoDeOpinion getTipoVinchuta() {
-		return tipoVinchuta;
+		return tipoVinchuca;
 	}
 	public void setTipoVinchuta(TipoDeOpinion tipoVinchuta) {
-		this.tipoVinchuta = tipoVinchuta;
+		this.tipoVinchuca = tipoVinchuta;
 	}
 
     public Usuario getUsuario() {
@@ -70,10 +78,10 @@ public class Muestra {
 		this.ultimaVotacion = ultimaVotacion;
 	}
 
-    public Foto getFoto() {
+    public String getFoto() {
 		return foto;
 	}
-	public void setFoto(Foto foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 
@@ -102,4 +110,15 @@ public class Muestra {
 	public void agregarOpinion(Opinion opinion) {
 		this.getTipo().agregarOpinionA(opinion, this);
 	}
+	public Object opinionesDeExpertos() {
+		/*
+		ArrayList<Opinion> opExpertos = new ArrayList<>();
+		
+		for(Opinion op : opiniones) {
+			opExpertos.add(singularSi(op, ))
+		}
+		*/
+		return this.getOpiniones().stream().filter(op -> !(op.getTipo().getClass()).equals(Basico.class)).collect(Collectors.toList());
+	}
+	
 }

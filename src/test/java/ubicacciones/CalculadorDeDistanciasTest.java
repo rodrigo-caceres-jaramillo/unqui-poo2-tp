@@ -1,13 +1,15 @@
-package ubicacciones;
+package test.java.ubicacciones;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ubicacciones.CalculadorDeDistancias;
-import ubicacciones.Ubicacion;
 
-import static org.mockito.Mockito.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import main.java.ubicacciones.CalculadorDeDistancias;
+import main.java.ubicacciones.Ubicacion;
 
 class CalculadorDeDistanciasTest {
 

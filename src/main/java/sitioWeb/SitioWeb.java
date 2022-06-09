@@ -1,20 +1,20 @@
-package sitoWeb;
+package main.java.sitioWeb;
 
-import muestras.AdministradorDeMuestras;
-import muestras.Muestra;
-import muestras.Opinion;
-import organizaciones.OrganizacioneNoGubernamental;
-import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import zonasDeCoberturas.ZonaDeCobertura;
 import java.util.List;
-import java.util.Set;
 
-public class SitoWeb {
+import main.java.muestras.AdministradorDeMuestras;
+import main.java.muestras.Muestra;
+import main.java.muestras.Opinion;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
+
+public class SitioWeb {
 	private AdministradorDeMuestras adminMuestras;
     private AdministradorDeZonasDeCoberturas adminzonasZonas;
     private List<OrganizacioneNoGubernamental> organizaciones;
     // Constructor
-    public SitoWeb(AdministradorDeMuestras adminDeLasMuestra,AdministradorDeZonasDeCoberturas adminDeLasZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
+    public SitioWeb(AdministradorDeMuestras adminDeLasMuestra,AdministradorDeZonasDeCoberturas adminDeLasZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
         this.adminMuestras = adminDeLasMuestra;
         this.adminzonasZonas = adminDeLasZonas;
         this.organizaciones = organizacionesAPoner;
@@ -85,10 +85,9 @@ public class SitoWeb {
         return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
     }
 
-    public void  opinarSobreLaMuestraNumero(Integer id, Opinion opinionAponer){
-        if(true){   // si esta opinion cambia el estado de la muestra a Validada  entonces ...
-            this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        }
+    public void  opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){
+    	this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
+            this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
     }
 
     }

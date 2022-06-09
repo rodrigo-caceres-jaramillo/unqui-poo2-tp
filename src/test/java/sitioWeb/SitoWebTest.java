@@ -1,26 +1,29 @@
-package sitoWeb;
+package test.java.sitioWeb;
 
-import muestras.AdministradorDeMuestras;
-import muestras.Muestra;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import organizaciones.OrganizacioneNoGubernamental;
-import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import zonasDeCoberturas.ZonaDeCobertura;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import main.java.muestras.AdministradorDeMuestras;
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.sitioWeb.SitioWeb;
+import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 class SitoWebTest {
 
     AdministradorDeMuestras adminMuestras;
     AdministradorDeZonasDeCoberturas adminzonasZonas;
     List<OrganizacioneNoGubernamental> organizaciones;
-    SitoWeb web;
+    SitioWeb web;
 
 
     @BeforeEach
@@ -28,7 +31,7 @@ class SitoWebTest {
         adminMuestras = mock(AdministradorDeMuestras.class);
         adminzonasZonas = mock(AdministradorDeZonasDeCoberturas.class);
         organizaciones = new ArrayList<OrganizacioneNoGubernamental>();
-        web = new SitoWeb(adminMuestras, adminzonasZonas, organizaciones);
+        web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
     }
 
 //Falta testear (organizacionSeDejaDeInterezaEnLaZona,muestraN,opinarSobreLaMuestraNumero)

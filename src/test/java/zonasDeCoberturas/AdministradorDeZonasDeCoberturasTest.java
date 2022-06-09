@@ -1,20 +1,22 @@
-package zonasDeCoberturas;
+package test.java.zonasDeCoberturas;
 
 
-import muestras.Muestra;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import organizaciones.OrganizacioneNoGubernamental;
-import sitoWeb.SitoWeb;
-import zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
-import zonasDeCoberturas.ZonaDeCobertura;
-import static org.mockito.Mockito.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import main.java.muestras.Muestra;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.sitioWeb.SitioWeb;
+import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 class AdministradorDeZonasDeCoberturasTest {
 
@@ -28,7 +30,7 @@ class AdministradorDeZonasDeCoberturasTest {
     OrganizacioneNoGubernamental org1;
 
     ArrayList<ZonaDeCobertura> zonas;
-    SitoWeb web;
+    SitioWeb web;
     AdministradorDeZonasDeCoberturas adminZonas;
 
     @BeforeEach
@@ -55,7 +57,7 @@ class AdministradorDeZonasDeCoberturasTest {
         zonas.add(zonaNorOeste);
 
         //SitioWeb
-        web = mock(SitoWeb.class);
+        web = mock(SitioWeb.class);
 
         //Administrador De Zonas De Coberturas
         adminZonas = new AdministradorDeZonasDeCoberturas(zonas);

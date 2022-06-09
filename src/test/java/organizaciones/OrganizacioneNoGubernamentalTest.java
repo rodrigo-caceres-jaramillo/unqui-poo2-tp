@@ -1,16 +1,18 @@
-package organizaciones;
+package test.java.organizaciones;
 
-import muestras.AdministradorDeMuestras;
-import muestras.Muestra;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import ubicacciones.Ubicacion;
-import zonasDeCoberturas.ZonaDeCobertura;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static organizaciones.TipoDeOrganizacion.Salud;
+import static main.java.organizaciones.TipoDeOrganizacion.Salud;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import main.java.muestras.Muestra;
+import main.java.organizaciones.FuncionExterna;
+import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.Ubicacion;
+import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
 class OrganizacioneNoGubernamentalTest {
 

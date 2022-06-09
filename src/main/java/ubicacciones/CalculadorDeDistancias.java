@@ -1,4 +1,4 @@
-package ubicacciones;
+package main.java.ubicacciones;
 
 public class CalculadorDeDistancias {   // Usa el patron Singleton
   private static CalculadorDeDistancias instancia;

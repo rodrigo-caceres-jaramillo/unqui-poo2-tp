@@ -1,4 +1,4 @@
-package muestras;
+package main.java.muestras;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +44,19 @@ public class AdministradorDeMuestras {
 
 	public List<Muestra> muestrasAMenosDeDesde(float metros, Muestra muestraAVer){
 		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
+	}
+	public void agregarOpinionAMuestraN(Integer idMuestra, Opinion unaOpinion) {
+		// TODO Auto-generated method stub
+		
+		Muestra muestra =this.muestraN(idMuestra);
+		muestra.agregarOpinion(unaOpinion);
+		this.comprobarValidacion(muestra);
+	}
+	private void comprobarValidacion(Muestra unaMuestra) {
+		// TODO Auto-generated method stub
+		//if(unaMuestra.opinionesDeExpertos()) {
+			
+		//}
 	}
 
 }
