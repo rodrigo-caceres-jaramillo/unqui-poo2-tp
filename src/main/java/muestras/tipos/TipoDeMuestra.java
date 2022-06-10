@@ -11,10 +11,10 @@ public abstract class TipoDeMuestra {
 	public abstract void agregarOpinionA(Opinion opinion, Muestra muestra);
 	public abstract TipoDeOpinion resultadoActual(ArrayList<Opinion> opiniones);
 	
-	public int ocurrenciasDeTipoEn(ArrayList<Opinion> opiniones, TipoDeUsuario tipo) {
+	public int ocurrenciasDeTipoEn(ArrayList<Opinion> opiniones, TipoDeOpinion tipo) {
 		int c = 0;
 		for (Opinion op : opiniones) {
-			if (op.getTipoUsuario() == tipo) {
+			if (op.getTipo() == tipo) {
 				c += 1;
 			}
 		}

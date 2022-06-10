@@ -11,17 +11,20 @@ import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 
 class BasicoTest {
 
     Usuario user;
+    Basico basico;
     Ubicacion ubi;
     TipoDeOpinion tipo;
     Muestra muestra;
 
     @BeforeEach
     void setUp() {
-        user = mock(Usuario.class);
+        basico = new Basico();
+    	user = mock(Usuario.class);
         ubi  = mock(Ubicacion.class);
         tipo = mock(TipoDeOpinion.class);
         muestra = mock(Muestra.class);
@@ -30,7 +33,7 @@ class BasicoTest {
 
     @Test
     void registrarMuestraBasicoTest() {
-        this.registrarMuestra(tipo,"Foto",ubi,user);  // Cambiar this
+    	basico.registrarMuestra(tipo,"Foto",ubi,user);  // Cambiar this
         verify(user).getSitio().agregarNuevaMuestra(muestra);
     }
 

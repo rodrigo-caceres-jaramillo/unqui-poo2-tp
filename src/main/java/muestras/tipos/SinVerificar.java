@@ -30,7 +30,7 @@ public class SinVerificar extends TipoDeMuestra{
                maxEntry = entry;
            }
        }*/
-		
+	
 		return null;
 	}
 

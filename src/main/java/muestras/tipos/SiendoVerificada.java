@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
 import main.java.muestras.TipoDeOpinion;
+import main.java.usuarios.tipos.Basico;
 import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.ExpertoValidado;
 import main.java.usuarios.tipos.TipoDeUsuario;
@@ -25,14 +26,14 @@ public class SiendoVerificada extends TipoDeMuestra {
 		   opinion.getTipoUsuario() instanceof ExpertoValidado) {
 					muestra.getOpiniones().add(opinion);
 		}
-		if (this.ocurrenciasDeTipoEn(muestra.getOpiniones(), opinion.getTipoUsuario()) == 2) {
+		if (this.ocurrenciasDeTipoEn(muestra.getOpiniones(), opinion.getTipo()) == 2) {
 			muestra.setTipo(new Verificada());
 		}
 	}
 
 	@Override
 	public TipoDeOpinion resultadoActual(ArrayList<Opinion> opiniones) {
-		return opiniones.get(opiniones.size()-1).getTipo();
+		ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) opiniones.stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());
+		return (opinionesExpertas.get(opinionesExpertas.size() - 1)).getTipo();
 	}
-
 }

@@ -12,10 +12,10 @@ public class Opinion {
 	// Constructor
 	public Opinion(Integer idUsuario, TipoDeOpinion tipo, TipoDeUsuario tipoUsuario) {
 		super();
-		this.setIdUsuario(idUsuario);
-		
+		this.idUsuario = idUsuario;
 		this.fecha = LocalDate.now();
 		this.tipo = tipo;
+		this.tipoUsuario = tipoUsuario;
 	}
 	// Gets y sets
 	public TipoDeUsuario getTipoUsuario() {

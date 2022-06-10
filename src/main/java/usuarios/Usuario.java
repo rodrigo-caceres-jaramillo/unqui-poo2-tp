@@ -88,7 +88,7 @@ public class Usuario {
 		registroPublicaciones.add(unaFecha);
 	}
 	
-	public void validarse() {
+	public void validarseExternamenta() {
 		this.setTipo(new ExpertoValidado());
 	}
 	
