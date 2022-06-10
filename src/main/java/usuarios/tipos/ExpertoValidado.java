@@ -1,6 +1,5 @@
 package main.java.usuarios.tipos;
 
-import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.tipos.SiendoVerificada;
 import main.java.ubicacciones.Ubicacion;

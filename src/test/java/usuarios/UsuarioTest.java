@@ -1,4 +1,4 @@
-package test.java.usuario;
+package test.java.usuarios;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

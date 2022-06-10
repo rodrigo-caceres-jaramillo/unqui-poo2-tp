@@ -1,5 +1,6 @@
 package main.java.muestras;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import main.java.muestras.tipos.Verificada;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Basico;
+import main.java.muestras.Criterios.Criterio;
 
 public class AdministradorDeMuestras {
     private ArrayList<Muestra> muestras;
@@ -66,4 +68,9 @@ public class AdministradorDeMuestras {
 		Integer ultimaId =this.getSiguienteId() - 1;
 		return this.muestraN(ultimaId);
 	}
+
+	public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
+		return criterioFiltro.realizarBusqueda(fechaABuscar,opinionABuscar,tipoABuscar,this.getMuestras());
+	}
+
 }
