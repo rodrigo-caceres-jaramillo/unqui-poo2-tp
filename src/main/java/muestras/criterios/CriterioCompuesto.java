@@ -1,14 +1,12 @@
-package main.java.muestras.Criterios;
+package main.java.muestras.criterios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.criterios.conectores.ConectorLogico;
 import main.java.muestras.tipos.TipoDeMuestra;
-import muestras.criterios.conectores.ConectorLogico;
-import main.java.muestras.Criterios.Criterio;
 
 public class CriterioCompuesto implements Criterio {
     private ConectorLogico conector;

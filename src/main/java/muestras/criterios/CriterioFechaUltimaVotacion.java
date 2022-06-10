@@ -1,4 +1,4 @@
-package main.java.muestras.Criterios;
+package main.java.muestras.criterios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class CriterioFechaUltimaVotacion implements Criterio{
         for(int i =0;i<muestras.size();i++){
             ultFecha = this.ultimaFechaEntre(ultFecha,muestras.get(i).getUltimaVotacion()) ;
         }
-        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getUltimaVotacion() == ultFecha).collect(Collectors.toList());
+        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getUltimaVotacion().isEqual(ultFecha)).collect(Collectors.toList());
     }
 
     public LocalDate ultimaFechaEntre(LocalDate d1, LocalDate d2){

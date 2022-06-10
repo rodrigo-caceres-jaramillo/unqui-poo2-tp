@@ -149,18 +149,23 @@ class MuestraTest {
 		assertEquals(muestra1.getTipo(), otroTipo);
 	}
 	
-// Metodos --------------------------------------
+	@Test
+	void getResultadoActualTest() {
+		assertEquals(muestra1.getResultadoActual(), TipoDeOpinion.ChincheFoliada);
+	}
+	
+	@Test
+	void setResultadoActualTest() {
+		muestra1.setResultadoActual(TipoDeOpinion.ImagenPocoClara);;
+		assertEquals(muestra1.getResultadoActual(), TipoDeOpinion.ImagenPocoClara);
+	}
+	
+	
+	// Metodos --------------------------------------
 	@Test
 	void agregarOpinionTest() {
 		Opinion opinion = mock(Opinion.class);
 		muestra1.agregarOpinion(opinion);
 		verify(muestra1.getTipo()).agregarOpinionA(opinion, muestra1);
-	}
-	
-	@Test
-	void resultadoActual() {
-		muestra1.resultadoActual();
-		ArrayList<Opinion> opiniones = muestra1.getOpiniones();
-		verify(muestra1.getTipo()).resultadoActual(opiniones);
 	}
 }

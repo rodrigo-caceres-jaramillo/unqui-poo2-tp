@@ -3,16 +3,12 @@ package main.java.muestras;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.muestras.tipos.Verificada;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Basico;
-import main.java.muestras.Criterios.Criterio;
+import main.java.muestras.criterios.Criterio;
 
 public class AdministradorDeMuestras {
     private ArrayList<Muestra> muestras;

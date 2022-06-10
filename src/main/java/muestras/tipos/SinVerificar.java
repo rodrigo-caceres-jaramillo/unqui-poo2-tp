@@ -1,10 +1,7 @@
 package main.java.muestras.tipos;
 
-import java.util.ArrayList;
-
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
-import main.java.muestras.TipoDeOpinion;
 import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.ExpertoValidado;
 
@@ -13,25 +10,22 @@ public class SinVerificar extends TipoDeMuestra{
 	@Override
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 		muestra.getOpiniones().add(opinion);
-		if(opinion.getTipoUsuario() instanceof Experto ||
-		   opinion.getTipoUsuario() instanceof ExpertoValidado) {
-			muestra.setTipo(new SiendoVerificada());
-		}
+		this.actualizarResultadoActual(muestra, opinion);
+		this.comprobarVerificacionDeLaMuestra(opinion, muestra);
 	}
-
-	@Override
-	public TipoDeOpinion resultadoActual(ArrayList<Opinion> opiniones) {
-		//Map<Opinion, Long> frecuentes = opiniones.stream()
-	     //       .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-		/*
-		TipoDeOpinion maxEntry = null;
-       for (TipoDeOpinion entry : frecuentes.entrySet()) {
-           if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
-               maxEntry = entry;
-           }
-       }*/
 	
-		return null;
+	public void actualizarResultadoActual(Muestra muestra, Opinion opinion) {
+		if(this.ocurrenciasDeTipoEn(muestra.getOpiniones(), opinion.getTipo()) 
+				>= this.ocurrenciasDeTipoEn(muestra.getOpiniones(), muestra.getResultadoActual())) {
+					muestra.setResultadoActual(opinion.getTipo());
+			}
 	}
-
+	
+	public void comprobarVerificacionDeLaMuestra(Opinion opinion, Muestra muestra) {
+		if(opinion.getTipoUsuario() instanceof Experto ||
+			   opinion.getTipoUsuario() instanceof ExpertoValidado) {
+				muestra.setTipo(new SiendoVerificada());
+				muestra.setResultadoActual(opinion.getTipo());
+			}
+	}
 }

@@ -1,4 +1,4 @@
-package muestras.criterios.conectores;
+package main.java.muestras.criterios.conectores;
 
 import java.util.ArrayList;
 
