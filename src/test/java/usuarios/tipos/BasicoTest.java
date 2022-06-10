@@ -1,4 +1,4 @@
-package test.java.usuario.tipo;
+package usuarios.tipos;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import main.java.usuarios.tipos.Basico;
 
 import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
@@ -18,6 +19,7 @@ class BasicoTest {
     Ubicacion ubi;
     TipoDeOpinion tipo;
     Muestra muestra;
+    Basico tipoBasico;
 
     @BeforeEach
     void setUp() {
@@ -25,12 +27,12 @@ class BasicoTest {
         ubi  = mock(Ubicacion.class);
         tipo = mock(TipoDeOpinion.class);
         muestra = mock(Muestra.class);
+        tipoBasico = new Basico();
     }
-
 
     @Test
     void registrarMuestraBasicoTest() {
-        this.registrarMuestra(tipo,"Foto",ubi,user);  // Cambiar this
+        tipoBasico.registrarMuestra(tipo,"Foto",ubi,user);  // Cambiar this
         verify(user).getSitio().agregarNuevaMuestra(muestra);
     }
 
