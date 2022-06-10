@@ -13,8 +13,12 @@ import org.junit.jupiter.api.Test;
 
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
+import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.organizaciones.OrganizacioneNoGubernamental;
 import main.java.sitioWeb.SitioWeb;
+import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
@@ -80,11 +84,13 @@ class SitoWebTest {
 
     @Test
     void agregarNuevaMuestraTest() {
-        Muestra muestra = mock(Muestra.class);
-        web.agregarNuevaMuestra(muestra);
+        Ubicacion ubicacion = mock(Ubicacion.class);
+        Usuario usuario = mock(Usuario.class);
+        TipoDeMuestra tipoDeMuestra = mock(TipoDeMuestra.class);
+        web.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
 
-        verify(adminMuestras).agregarNuevaMuestra(muestra);
-        verify(adminzonasZonas).actualizarZonasConNuevaMuestra(muestra);
+        verify(adminMuestras).agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);;
+        //verify(adminzonasZonas).actualizarZonasConNuevaMuestra(muestra);
     }
 
     @Test

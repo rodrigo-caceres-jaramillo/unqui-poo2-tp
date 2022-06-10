@@ -10,8 +10,7 @@ public class Basico extends TipoDeUsuario{
 
 	@Override
 	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario) {
-		Muestra muestra = new Muestra(especie, usuario, foto, ubicacion, new SinVerificar());
-		usuario.getSitio().agregarNuevaMuestra(muestra);
+		usuario.getSitio().agregarNuevaMuestra(especie, foto, ubicacion, usuario, new SinVerificar());
 	}
 
 

@@ -1,8 +1,9 @@
-package test.java.muestras;
+package test.java.usuario;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.TipoDeUsuario;
-
+import main.java.muestras.Opinion;
 
 class UsuarioTest {
 	Usuario user1;
@@ -25,15 +26,24 @@ class UsuarioTest {
 	SitioWeb sitioWeb;
 	Ubicacion ubicacion1;
 	Muestra unaMuestra;
-	TipoDeUsuario usuarioBasico;
+	TipoDeUsuario tipo;
 	
 	@BeforeEach
     void setUp() {
 		ubicacion1 = mock(Ubicacion.class);
 		sitioWeb = mock(SitioWeb.class);
+		tipo = mock(TipoDeUsuario.class);
+
 		user1 = new Usuario(123, "jose Marquez", sitioWeb);
+		user1.setTipo(tipo);
+
 		user2 = new Usuario(124, "manuel Garquez", sitioWeb);
+		user2.setTipo(tipo);
+
 		user3 = new Usuario(125, "martin Benitez", sitioWeb);
+		user3.setTipo(tipo);
+
+
 		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
 		user3.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
 		user3.registrarMuestra(TipoDeOpinion.VinchucaGuasayana, "estoEsUnaFoto", ubicacion1);
@@ -48,38 +58,127 @@ class UsuarioTest {
 		
 		//unaMuestra = mock(Muestra.class);
 	}
-	
-	@Test
-	void usuarioBienCreadoTest() {
-		String nombre= user1.getNombre();
-		Integer id = user1.getId();
-		//TipoDeUsuario tipo = user1.getTipo();
-		assertEquals(nombre, "jose Marquez");
-		assertEquals(id, 123);
-		//assertEquals(tipo);
 
+	//Getters
+
+	@Test
+	void getNombreTest() {
+		assertEquals(user1.getNombre(), "jose Marquez");
 	}
-	
+
+	@Test
+	void getIdTest() {
+		Integer id = 123;
+		assertEquals(user1.getId(), id);
+	}
+
+	@Test
+	void getSitioTest() {
+		assertEquals(user1.getSitio(), sitioWeb);
+	}
+
+	@Test
+	void getTipoTest() {
+		assertEquals(user1.getTipo(), tipo);
+	}
+
+	@Test
+	void getRegistroOpinionesTest() {
+		assertEquals(user1.getRegistroOpiniones().size(), 0);
+	}
+
+	@Test
+	void getRegistroPublicacionesTest() {
+		assertEquals(user1.getRegistroPublicaciones().size(), 0);
+	}
+
+	//Setters
+
+	@Test
+	void setNombreTest() {
+		user1.setNombre("Pablo");
+		assertEquals(user1.getNombre(), "Pablo");
+	}
+
+	@Test
+	void setIdTest() {
+		Integer id = 852;
+		user1.setId(id);
+		assertEquals(user1.getId(), id);
+	}
+
+	@Test
+	void setSitioTest() {
+		SitioWeb DailyBugle = mock(SitioWeb.class);
+		user1.setSitio(DailyBugle);
+		assertEquals(user1.getSitio(), DailyBugle);
+	}
+
+	@Test
+	void setTipoTest() {
+		TipoDeUsuario usuarioBeta = mock(TipoDeUsuario.class);
+		user1.setTipo(usuarioBeta);
+		assertEquals(user1.getTipo(), usuarioBeta);
+	}
+
+	@Test
+	void setRegistroOpinionesTest() {
+		ArrayList<LocalDate> registro = new ArrayList<LocalDate>();
+		registro.add(LocalDate.now());
+
+		user1.setRegistroOpiniones(registro);
+		assertEquals(user1.getRegistroOpiniones().size(), 1);
+	}
+
+	@Test
+	void setRegistroPublicacionesTest() {
+		ArrayList<LocalDate> registro = new ArrayList<LocalDate>();
+		registro.add(LocalDate.now());
+
+		user1.setRegistroPublicaciones(registro);
+		assertEquals(user1.getRegistroPublicaciones().size(), 1);
+	}
+
+//Metodos
+
 	@Test
 	void usuarioPublicaUnaVezTest() {
-		// EL TEST ANDA PERO SIN SER MOCKEADO, REVISAR
+
 		sitioWeb = mock(SitioWeb.class);
 		ubicacion1 = mock(Ubicacion.class);
-		user2 = new Usuario(124, "maria Rodriguez", sitioWeb);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		Integer cantPublis = user2.getRegistroPublicaciones().size();
-		assertEquals(cantPublis, 1);
+
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);  // manda el mensaje
+
+		verify(tipo).registrarMuestra(TipoDeOpinion.ChincheFoliada,"estoEsUnaFoto",ubicacion1,user2);  // se fija si le llega al tipo
+
+		assertEquals( user2.getRegistroPublicaciones().size(), 1); // se suma una publi
 	}
 	
 	@Test
 	void usuarioOpinaUnaVezTest() {
-		// EL TEST ANDA PERO SIN SER MOCKEADO, REVISAR
-		sitioWeb = mock(SitioWeb.class);
-		user2 = new Usuario(124, "maria Rodriguez", sitioWeb);
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
-		Integer cantOp = user2.getRegistroOpiniones().size();
+
+		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada); // manda el mensaje
+
+		Opinion opinionHecha =  mock(Opinion.class);
+		verify(sitioWeb).opinarSobreLaMuestraN(001,opinionHecha);  // se fija si le llega al sitio
+
+		int cantOp = user2.getRegistroOpiniones().size();  // se suma una opi
 		assertEquals(cantOp, 1);
 	}
+
+	@Test
+	void registrarOpinionesTest() {
+
+		user1.registrarOpiniones(LocalDate.now()) ;
+		assertEquals(user1.getRegistroOpiniones().size(), 1);
+	}
+
+	@Test
+	void registrarPublicacionTest() {
+		user1.registrarPublicacion(LocalDate.now()); ;
+		assertEquals(user1.getRegistroPublicaciones().size(), 1);
+	}
+
 	
 	/*
 	@Test

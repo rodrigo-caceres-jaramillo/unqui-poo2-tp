@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import main.java.muestras.tipos.SinVerificar;
+import main.java.muestras.tipos.TipoDeMuestra;
+import main.java.muestras.tipos.Verificada;
+import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
+
 public class AdministradorDeMuestras {
     private ArrayList<Muestra> muestras;
     private Integer siguienteId;
@@ -32,8 +39,9 @@ public class AdministradorDeMuestras {
 	}
 
 	// Metodos
-	public void agregarNuevaMuestra(Muestra muestra){
-        this.getMuestras().add(muestra);
+	public void agregarNuevaMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra){
+		Muestra muestra = new Muestra(this.getSiguienteId(), especie, usuario, foto, ubicacion, tipoDeMuestra);
+		this.getMuestras().add(muestra);
     }
 
 	public Muestra muestraN(Integer id) {
@@ -46,17 +54,16 @@ public class AdministradorDeMuestras {
 		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
 	}
 	public void agregarOpinionAMuestraN(Integer idMuestra, Opinion unaOpinion) {
-		// TODO Auto-generated method stub
-		
 		Muestra muestra =this.muestraN(idMuestra);
 		muestra.agregarOpinion(unaOpinion);
-		this.comprobarValidacion(muestra);
 	}
-	private void comprobarValidacion(Muestra unaMuestra) {
-		// TODO Auto-generated method stub
-		//if(unaMuestra.opinionesDeExpertos()) {
-			
-		//}
+	
+	public Boolean muestraNSeVerifico(Integer idMuestra, TipoDeMuestra tipoInicial) {
+		Muestra muestra =this.muestraN(idMuestra);
+		return (muestra.getTipo() instanceof Verificada && !(tipoInicial instanceof Verificada));
 	}
-
+	public Muestra ultimaMuestraCreada() {
+		Integer ultimaId =this.getSiguienteId() - 1;
+		return this.muestraN(ultimaId);
+	}
 }

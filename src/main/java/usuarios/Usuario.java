@@ -78,15 +78,20 @@ public class Usuario {
 		this.getSitio().opinarSobreLaMuestraN(idMuestra, opinion);
 		this.registrarOpiniones(LocalDate.now());
 		this.actualizarTipoDeUsuario();
-		
 	}
 	
-	private void registrarOpiniones(LocalDate unaFecha) {
+	public void registrarOpiniones(LocalDate unaFecha) {
 		registroOpiniones.add(unaFecha);
 	}
-	private void registrarPublicacion(LocalDate unaFecha) {
+	
+	public void registrarPublicacion(LocalDate unaFecha) {
 		registroPublicaciones.add(unaFecha);
 	}
+	
+	public void validarse() {
+		this.setTipo(new ExpertoValidado());
+	}
+	
 	
 	// ------------------- revisar ---------------------------------------------------
 	

@@ -10,15 +10,6 @@ import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Basico;
 
 public class Muestra {
-	public TipoDeOpinion getTipoVinchuca() {
-		return tipoVinchuca;
-	}
-	public void setTipoVinchuca(TipoDeOpinion tipoVinchuca) {
-		this.tipoVinchuca = tipoVinchuca;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	private Integer id;
 	private TipoDeOpinion tipoVinchuca;
     private Usuario usuario;
@@ -29,8 +20,9 @@ public class Muestra {
     private ArrayList<Opinion> opiniones; 
     private TipoDeMuestra tipo;
     // Constructor
-	public Muestra(TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
+	public Muestra(Integer id,TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
+		this.id = id;
 		this.tipoVinchuca = tipoVinchuca;
 		this.usuario = usuario;
 		this.creacion = LocalDate.now();
@@ -49,17 +41,24 @@ public class Muestra {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public TipoDeOpinion getTipoVinchuta() {
+	
+	public TipoDeOpinion getTipoVinchuca() {
 		return tipoVinchuca;
 	}
-	public void setTipoVinchuta(TipoDeOpinion tipoVinchuta) {
-		this.tipoVinchuca = tipoVinchuta;
+	
+	public void setTipoVinchuca(TipoDeOpinion tipoVinchuca) {
+		this.tipoVinchuca = tipoVinchuca;
 	}
+	
 
     public Usuario getUsuario() {
 		return usuario;
 	}
+    
+    public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+    
 	public void setId(Usuario usuario) {
 		this.usuario = usuario;
 	}
@@ -92,13 +91,14 @@ public class Muestra {
 		this.opiniones = opiniones;
 	}
 
-    public void setUbicacion(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
-	}
 	public Ubicacion getUbicacion(){
         return ubicacion;
     }
-
+	
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
     public TipoDeMuestra getTipo() {
 		return tipo;
 	}
@@ -110,15 +110,8 @@ public class Muestra {
 	public void agregarOpinion(Opinion opinion) {
 		this.getTipo().agregarOpinionA(opinion, this);
 	}
-	public Object opinionesDeExpertos() {
-		/*
-		ArrayList<Opinion> opExpertos = new ArrayList<>();
-		
-		for(Opinion op : opiniones) {
-			opExpertos.add(singularSi(op, ))
-		}
-		*/
-		return this.getOpiniones().stream().filter(op -> !(op.getTipo().getClass()).equals(Basico.class)).collect(Collectors.toList());
-	}
 	
+	public TipoDeOpinion resultadoActual() {
+		return (this.getTipo().resultadoActual(this.getOpiniones()));
+	}
 }

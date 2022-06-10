@@ -5,7 +5,13 @@ import java.util.List;
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
+import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.tipos.TipoDeMuestra;
+import main.java.muestras.tipos.Verificada;
 import main.java.organizaciones.OrganizacioneNoGubernamental;
+import main.java.ubicacciones.Ubicacion;
+import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
 
@@ -46,9 +52,10 @@ public class SitioWeb {
 
     // Metodos
 
-    public void agregarNuevaMuestra(Muestra mustraAAgregar){
-        this.getAdministradorDeMuestras().agregarNuevaMuestra(mustraAAgregar);
-        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(mustraAAgregar);
+    public void agregarNuevaMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra){
+        this.getAdministradorDeMuestras().agregarNuevaMuestra(especie, foto, ubicacion, usuario, tipoDeMuestra);;
+        Muestra nuevaMuestra = this.getAdministradorDeMuestras().ultimaMuestraCreada();
+        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(nuevaMuestra);
     }
 
     public void agregarNuevaZona(ZonaDeCobertura zonaAAgregar){
@@ -85,9 +92,15 @@ public class SitioWeb {
         return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
     }
 
-    public void  opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){
+    public void opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){
+    	TipoDeMuestra tipoInicial= this.getAdministradorDeMuestras().muestraN(idMuestra).getTipo();
     	this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
+    	if(this.getAdministradorDeMuestras().muestraNSeVerifico(idMuestra, tipoInicial)) {
             this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
+        }
     }
-
+    
+    public TipoDeOpinion resultadoActualDeMuestraN(Integer idMuestra) {
+    	return this.getAdministradorDeMuestras().muestraN(idMuestra).resultadoActual();
     }
+}
