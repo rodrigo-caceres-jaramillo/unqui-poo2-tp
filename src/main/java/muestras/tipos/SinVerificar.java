@@ -1,5 +1,7 @@
 package main.java.muestras.tipos;
 
+import java.time.LocalDate;
+
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
 import main.java.usuarios.tipos.Experto;
@@ -10,6 +12,7 @@ public class SinVerificar extends TipoDeMuestra{
 	@Override
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 		muestra.getOpiniones().add(opinion);
+		muestra.setUltimaVotacion(LocalDate.now());
 		this.actualizarResultadoActual(muestra, opinion);
 		this.comprobarVerificacionDeLaMuestra(opinion, muestra);
 	}

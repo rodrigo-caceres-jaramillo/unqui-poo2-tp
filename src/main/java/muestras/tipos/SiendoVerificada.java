@@ -1,5 +1,6 @@
 package main.java.muestras.tipos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,6 +26,7 @@ public class SiendoVerificada extends TipoDeMuestra {
 		if(opinion.getTipoUsuario() instanceof Experto ||
 		   opinion.getTipoUsuario() instanceof ExpertoValidado) {
 				muestra.getOpiniones().add(opinion);
+				muestra.setUltimaVotacion(LocalDate.now());
 				ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) muestra.getOpiniones().stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());
 				if (!opinionesExpertas.isEmpty()) {
 					muestra.setResultadoActual(TipoDeOpinion.NoDefinida);

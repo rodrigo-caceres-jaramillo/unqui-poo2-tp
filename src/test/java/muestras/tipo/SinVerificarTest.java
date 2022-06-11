@@ -8,6 +8,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -87,4 +88,9 @@ class SinVerificarTest {
 		verify(muestra, atMost(3)).setResultadoActual(TipoDeOpinion.ChincheFoliada);
 	}
 
+	@Test
+	void cuandoSeAgregaUnaOpinionLaUltimaFechaDeVotacionCambia() {
+		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
+		verify(muestra).setUltimaVotacion(LocalDate.now());
+	}
 }

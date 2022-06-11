@@ -8,6 +8,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,5 +81,11 @@ class SiendoVerificadaTest {
 	void cuandoSeAgregaUnaOpinionDeUnExpertoConUnTipoDeOpinionDistintaElResultadoActualEsNoDefinidoTest() {
 		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
 		verify(muestra, atMost(3)).setResultadoActual(TipoDeOpinion.NoDefinida);
+	}
+	
+	@Test
+	void cuandoSeAgregaUnaOpinionLaUltimaFechaDeVotacionCambia() {
+		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
+		verify(muestra).setUltimaVotacion(LocalDate.now());
 	}
 }
