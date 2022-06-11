@@ -1,17 +1,22 @@
 package muestras.criterios.conectores;
 
 import java.util.ArrayList;
+import main.java.muestras.Muestra;
 
 public class ConectorLogicoOr implements ConectorLogico{
 
-    public ArrayList<main.java.muestras.Muestra> conectarArray(ArrayList<main.java.muestras.Muestra> xs, ArrayList<main.java.muestras.Muestra> ys){
-        ArrayList<main.java.muestras.Muestra> muestrasEnComun = new ArrayList<main.java.muestras.Muestra>();
-        for (int i = 0; i < ys.size(); i++) {
-            if(xs.contains(ys.get(i)) && ! muestrasEnComun.contains(ys.get(i))){
-                muestrasEnComun.add(xs.get(i));
-            }
+    public ArrayList<main.java.muestras.Muestra> conectarArray(ArrayList<Muestra> xs, ArrayList<Muestra> ys){
+        for(int i = 0;i<ys.size();i++){
+            this.añadirSiNoEsta(xs,ys.get(i));
         }
-        return muestrasEnComun;
+        return xs;
     }
 
+    public void  añadirSiNoEsta(ArrayList<Muestra> array,Muestra m){
+        if(! array.contains(m)){
+            array.add(m);
+        }
+    }
 }
+
+
