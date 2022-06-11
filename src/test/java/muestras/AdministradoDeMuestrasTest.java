@@ -73,7 +73,18 @@ class AdministradoDeMuestrasTest {
 	
 	@Test
 	void muestrasAMenosDeDesdeTest() {
-		
+		float distancia = 5f;
+
+		Muestra muestraAVer = mock(Muestra.class);
+		Muestra muestra1 = mock(Muestra.class);
+
+		ArrayList<Muestra> muestras = new ArrayList<Muestra>();
+		adminDeMuestras.setMuestras(muestras);
+
+		muestras.add(muestra1);
+		when(muestra1.getUbicacion().distanciaEntre(muestraAVer)).thenReturn(1f);
+
+		assertEquals(muestras,adminDeMuestras.muestrasAMenosDeDesdeTest(distancia,muestraAVer));
 	}
 	
 	@Test
