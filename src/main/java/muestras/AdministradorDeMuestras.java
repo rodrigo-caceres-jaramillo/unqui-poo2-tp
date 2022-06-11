@@ -40,7 +40,8 @@ public class AdministradorDeMuestras {
 	public void agregarNuevaMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra){
 		Muestra muestra = new Muestra(this.getSiguienteId(), especie, usuario, foto, ubicacion, tipoDeMuestra);
 		this.getMuestras().add(muestra);
-    }
+		this.setSiguienteId(this.getSiguienteId() + 1);
+	} 
 
 	public Muestra muestraN(Integer id) {
 		return (this.getMuestras().stream()
@@ -51,6 +52,7 @@ public class AdministradorDeMuestras {
 	public List<Muestra> muestrasAMenosDeDesde(float metros, Muestra muestraAVer){
 		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
 	}
+	
 	public void agregarOpinionAMuestraN(Integer idMuestra, Opinion unaOpinion) {
 		Muestra muestra =this.muestraN(idMuestra);
 		muestra.agregarOpinion(unaOpinion);
@@ -60,6 +62,8 @@ public class AdministradorDeMuestras {
 		Muestra muestra =this.muestraN(idMuestra);
 		return (muestra.getTipo() instanceof Verificada && !(tipoInicial instanceof Verificada));
 	}
+	
+	//Precondicion: debe haber almenos una muestra subida
 	public Muestra ultimaMuestraCreada() {
 		Integer ultimaId =this.getSiguienteId() - 1;
 		return this.muestraN(ultimaId);
