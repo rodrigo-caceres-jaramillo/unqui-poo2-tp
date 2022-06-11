@@ -24,16 +24,15 @@ public class SiendoVerificada extends TipoDeMuestra {
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 		if(opinion.getTipoUsuario() instanceof Experto ||
 		   opinion.getTipoUsuario() instanceof ExpertoValidado) {
-					muestra.getOpiniones().add(opinion);
+				muestra.getOpiniones().add(opinion);
+				ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) muestra.getOpiniones().stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());
+				if (!opinionesExpertas.isEmpty()) {
+					muestra.setResultadoActual(TipoDeOpinion.NoDefinida);
+				}
+				
 		}
 		if (this.ocurrenciasDeTipoEn(muestra.getOpiniones(), opinion.getTipo()) == 2) {
 			muestra.setTipo(new Verificada());
 		}
-	}
-
-	@Override
-	public TipoDeOpinion resultadoActual(ArrayList<Opinion> opiniones) {
-		ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) opiniones.stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());
-		return (opinionesExpertas.get(opinionesExpertas.size() - 1)).getTipo();
 	}
 }

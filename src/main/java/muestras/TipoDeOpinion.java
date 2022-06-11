@@ -1,7 +1,7 @@
 package main.java.muestras;
 
 public enum TipoDeOpinion {
-	Ninguna,
+	NoDefinida,
     ImagenPocoClara,
 	ChincheFoliada,
     PhtiaChinche,

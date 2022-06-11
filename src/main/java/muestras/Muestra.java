@@ -2,12 +2,9 @@ package main.java.muestras;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Basico;
 
 public class Muestra {
 	private Integer id;
@@ -19,6 +16,7 @@ public class Muestra {
     private Ubicacion ubicacion;
     private ArrayList<Opinion> opiniones; 
     private TipoDeMuestra tipo;
+    private TipoDeOpinion resultadoActual;
     // Constructor
 	public Muestra(Integer id,TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
@@ -33,6 +31,7 @@ public class Muestra {
 		Opinion opinionInicial = new Opinion(usuario.getId(), tipoVinchuca, usuario.getTipo());
 		this.opiniones.add(opinionInicial);
 		this.tipo = tipo;
+		this.resultadoActual = tipoVinchuca;
 	}
 	// Gets y sets
 	public Integer getId() {
@@ -106,12 +105,16 @@ public class Muestra {
 		this.tipo = tipo;
 	}
 
-    // Metodos
-	public void agregarOpinion(Opinion opinion) {
-		this.getTipo().agregarOpinionA(opinion, this);
+	public TipoDeOpinion getResultadoActual() {
+		return resultadoActual;
 	}
 	
-	public TipoDeOpinion resultadoActual() {
-		return (this.getTipo().resultadoActual(this.getOpiniones()));
+	public void setResultadoActual(TipoDeOpinion tipo) {
+		this.resultadoActual = tipo;
+	}
+	
+	// Metodos
+	public void agregarOpinion(Opinion opinion) {
+		this.getTipo().agregarOpinionA(opinion, this);
 	}
 }

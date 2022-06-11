@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import main.java.usuarios.tipos.ExpertoValidado;
 
@@ -31,20 +32,20 @@ class ExpertoValidadoTest {
     
     @BeforeEach
     void setUp() {
-        user = mock(Usuario.class);
+    	tipoExpertoValidado = new ExpertoValidado();
+    	user = mock(Usuario.class);
         ubi = mock(Ubicacion.class);
         tipo = TipoDeOpinion.ChincheFoliada;
         muestra = mock(Muestra.class);
         sitio = mock(SitioWeb.class);
-        user.setSitio(sitio);
-        tipoExpertoValidado = new ExpertoValidado();
         user.setTipo(tipoExpertoValidado);
         
     }
 
     @Test
     void registrarMuestraBasicoTest() {
-        tipoExpertoValidado.registrarMuestra(tipo, "Foto", ubi, user);  // Cambiar this
+    	when(user.getSitio()).thenReturn(sitio);
+    	tipoExpertoValidado.registrarMuestra(tipo, "Foto", ubi, user);  // Cambiar this
         verify(user).getSitio().agregarNuevaMuestra(tipo, "Foto", ubi, user, any(SiendoVerificada.class));
         //TipoDeMuestra siendoValidada
     }

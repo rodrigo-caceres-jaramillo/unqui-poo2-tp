@@ -3,16 +3,12 @@ package main.java.muestras;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.muestras.tipos.Verificada;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Basico;
-import main.java.muestras.Criterios.Criterio;
+import main.java.muestras.criterios.Criterio;
 
 public class AdministradorDeMuestras {
     private ArrayList<Muestra> muestras;
@@ -44,7 +40,8 @@ public class AdministradorDeMuestras {
 	public void agregarNuevaMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra){
 		Muestra muestra = new Muestra(this.getSiguienteId(), especie, usuario, foto, ubicacion, tipoDeMuestra);
 		this.getMuestras().add(muestra);
-    }
+		this.setSiguienteId(this.getSiguienteId() + 1);
+	} 
 
 	public Muestra muestraN(Integer id) {
 		return (this.getMuestras().stream()
@@ -55,6 +52,7 @@ public class AdministradorDeMuestras {
 	public List<Muestra> muestrasAMenosDeDesde(float metros, Muestra muestraAVer){
 		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
 	}
+	
 	public void agregarOpinionAMuestraN(Integer idMuestra, Opinion unaOpinion) {
 		Muestra muestra =this.muestraN(idMuestra);
 		muestra.agregarOpinion(unaOpinion);
@@ -64,6 +62,8 @@ public class AdministradorDeMuestras {
 		Muestra muestra =this.muestraN(idMuestra);
 		return (muestra.getTipo() instanceof Verificada && !(tipoInicial instanceof Verificada));
 	}
+	
+	//Precondicion: debe haber almenos una muestra subida
 	public Muestra ultimaMuestraCreada() {
 		Integer ultimaId =this.getSiguienteId() - 1;
 		return this.muestraN(ultimaId);

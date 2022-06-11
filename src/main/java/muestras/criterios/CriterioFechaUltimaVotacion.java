@@ -1,4 +1,4 @@
-package main.java.muestras.Criterios;
+package main.java.muestras.criterios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

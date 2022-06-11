@@ -101,6 +101,6 @@ public class SitioWeb {
     }
     
     public TipoDeOpinion resultadoActualDeMuestraN(Integer idMuestra) {
-    	return this.getAdministradorDeMuestras().muestraN(idMuestra).resultadoActual();
+    	return this.getAdministradorDeMuestras().muestraN(idMuestra).getResultadoActual();
     }
 }
