@@ -1,4 +1,4 @@
-package muestras.criterios.conectores;
+package test.java.muestras.criterios.conectores;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import main.java.muestras.Muestra;
+import main.java.muestras.criterios.conectores.ConectorLogicoOr;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -76,14 +78,14 @@ class ConectorLogicoOrTest {
 
         //Agrego muestra4 pero falta muestra5
         conectorLogicoOr.añadirSiNoEsta(muestrasAVer,muestra4);
-        assertNotEquals(muestras,otraMuestras);
+        assertNotEquals(muestras,muestrasAVer);
 
         //Agrego muestra5 y no falta nada
         conectorLogicoOr.añadirSiNoEsta(muestrasAVer,muestra5);
-        assertEquals(muestras,otraMuestras);
+        assertEquals(muestras,muestrasAVer);
 
         //Se intenta agregar pero ya esta
         conectorLogicoOr.añadirSiNoEsta(muestrasAVer,muestra4);
-        assertEquals(muestras,otraMuestras);
+        assertEquals(muestras,muestrasAVer);
     }
 }

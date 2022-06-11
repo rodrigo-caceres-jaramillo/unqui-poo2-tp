@@ -27,7 +27,7 @@ public class CriterioCompuesto implements Criterio {
     @Override
     public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
         ArrayList<Muestra> resultadoDelCriterio1 = criterio1.realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, muestras);
-        ArrayList<Muestra> resultadoDelCriterio2 = criterio1.realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, muestras);
+        ArrayList<Muestra> resultadoDelCriterio2 = criterio2.realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, muestras);
         return conector.conectarArray(resultadoDelCriterio1,resultadoDelCriterio2);
     }
 

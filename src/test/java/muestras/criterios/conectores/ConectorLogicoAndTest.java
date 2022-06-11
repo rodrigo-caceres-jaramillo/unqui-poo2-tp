@@ -1,8 +1,9 @@
-package muestras.criterios.conectores;
+package test.java.muestras.criterios.conectores;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import main.java.muestras.Muestra;
+import main.java.muestras.criterios.conectores.ConectorLogicoAnd;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,8 +61,6 @@ class ConectorLogicoAndTest {
         respuesta.add(muestra4);
         respuesta.add(muestra5);
         assertEquals(conectorLogicoAnd.conectarArray(muestras,otraMuestras),respuesta);
-
-
     }
 
 

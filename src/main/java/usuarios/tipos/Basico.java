@@ -12,6 +12,4 @@ public class Basico extends TipoDeUsuario{
 	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario) {
 		usuario.getSitio().agregarNuevaMuestra(especie, foto, ubicacion, usuario, new SinVerificar());
 	}
-
-
 }

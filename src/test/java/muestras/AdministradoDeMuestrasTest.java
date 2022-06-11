@@ -2,6 +2,9 @@ package test.java.muestras;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,7 @@ import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
 import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.criterios.Criterio;
 import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.muestras.tipos.Verificada;
@@ -97,6 +101,9 @@ class AdministradoDeMuestrasTest {
 	
 	@Test
 	void realizarBusquedaTest() {
-		
+		LocalDate date = LocalDate.now();
+		Criterio criterio = mock(Criterio.class);
+		adminDeMuestras.realizarBusqueda(date, TipoDeOpinion.ChincheFoliada, tipoDeMuestra, criterio);
+		verify(criterio).realizarBusqueda(date,TipoDeOpinion.ChincheFoliada, tipoDeMuestra,adminDeMuestras.getMuestras());
 	}
 }

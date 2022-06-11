@@ -1,22 +1,20 @@
-package muestras.criterios;
+package test.java.muestras.criterios;
 
-import muestras.criterios.conectores.ConectorLogico;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import main.java.muestras.Criterios.CriterioCompuesto;
-import main.java.muestras.TipoDeOpinion;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import main.java.muestras.Muestra;
+import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.criterios.Criterio;
+import main.java.muestras.criterios.CriterioCompuesto;
+import main.java.muestras.criterios.conectores.ConectorLogico;
 import main.java.muestras.tipos.TipoDeMuestra;
-import org.mockito.Mock;
-import main.java.muestras.Criterios.Criterio;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 
 class CriterioCompuestoTest {
@@ -35,11 +33,12 @@ class CriterioCompuestoTest {
     @BeforeEach
     void setUp() {
         //Mocks
-        tipoDeOpinion = mock(TipoDeOpinion.class);
+        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
 
-        fecha = mock(LocalDate.class);
+        fecha = LocalDate.of(2020, Month.APRIL, 10);
 
+        muestras = new ArrayList<Muestra>();
         muestra1 =  mock(Muestra.class);
         muestra2 =  mock(Muestra.class);
 
@@ -63,7 +62,7 @@ class CriterioCompuestoTest {
 
     @Test
     void realizarBusqueda() {
-
+    	criterioCompuesto.realizarBusqueda(fecha, tipoDeOpinion, tipoDeMuestra, muestras);
         //Verificar que le llega a criterios
         verify(c1).realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras);
         verify(c2).realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras);

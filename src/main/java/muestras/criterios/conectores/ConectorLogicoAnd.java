@@ -9,7 +9,7 @@ public class ConectorLogicoAnd implements ConectorLogico{
         ArrayList<Muestra> muestrasEnComun = new ArrayList<main.java.muestras.Muestra>();
         for (int i = 0; i < ys.size(); i++) {
             if(xs.contains(ys.get(i)) && ! muestrasEnComun.contains(ys.get(i))){
-                muestrasEnComun.add(xs.get(i));
+                muestrasEnComun.add(ys.get(i));
             }
         }
         return muestrasEnComun;

@@ -19,7 +19,7 @@ public class CriterioFechaUltimaVotacion implements Criterio{
             ultFecha = this.ultimaFechaEntre(ultFecha,muestras.get(i).getUltimaVotacion()) ;
         }
         final LocalDate f = ultFecha;
-        return muestras.stream().filter(m-> m.getUltimaVotacion().equals(f)).collect(Collectors.toList());
+        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getUltimaVotacion().equals(f)).collect(Collectors.toList());
     }
 
     public LocalDate ultimaFechaEntre(LocalDate d1, LocalDate d2){

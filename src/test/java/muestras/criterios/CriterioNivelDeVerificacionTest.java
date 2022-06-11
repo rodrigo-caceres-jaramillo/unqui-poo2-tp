@@ -1,17 +1,15 @@
-package muestras.criterios;
+package test.java.muestras.criterios;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.java.muestras.Criterios.CriterioNivelDeVerificacion;
+import main.java.muestras.criterios.CriterioNivelDeVerificacion;
 import main.java.muestras.TipoDeOpinion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import main.java.muestras.Muestra;
 import main.java.muestras.tipos.TipoDeMuestra;
 import org.mockito.Mock;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -29,13 +27,14 @@ class CriterioNivelDeVerificacionTest {
     @BeforeEach
     void setUp() {
         //Mocks
-        tipoDeOpinion = mock(TipoDeOpinion.class);
+        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
 
         muestra1 =  mock(Muestra.class);
         muestra2 =  mock(Muestra.class);
 
         //Añado a la lista
+        muestras = new ArrayList<Muestra>();
         muestras.add(muestra1);
         muestras.add(muestra2);
 
