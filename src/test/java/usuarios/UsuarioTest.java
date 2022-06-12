@@ -17,6 +17,7 @@ import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Basico;
 import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.TipoDeUsuario;
+import main.java.usuarios.tipos.ExpertoValidado;
 
 class UsuarioTest {
 	Usuario user1;
@@ -197,7 +198,7 @@ class UsuarioTest {
 		user2.opinarDeMuestraN(234, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada);
 	}
-	
+
 	@Test
 	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
 		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
@@ -229,11 +230,40 @@ class UsuarioTest {
 		
 		assertEquals(user2.getRegistroOpiniones().size(), 1);
 	}
+
 	@Test
-	void usuarioCambiaDeTipo() {
-		Experto tipo = mock(Experto.class);
-		user1.setTipo(tipo);
-		assertEquals(user1.getTipo(), tipo);
+	void crearOpinionTest() {
+		Opinion opinionAVer =  mock(Opinion.class);
+
+		when(opinionAVer.getIdUsuario()).thenReturn(user1.getId());
+
+		assertEquals(user1.crearOpinion(TipoDeOpinion.ChincheFoliada).getIdUsuario(), opinionAVer);
+	}
+
+	@Test
+	void registrarOpinionesTest() {
+		assertEquals(user1.getRegistroOpiniones().size(),0);
+
+		user1.registrarPublicacion(LocalDateTime.now());
+
+		assertEquals(user1.getRegistroOpiniones().size(), 1);
+	}
+
+	@Test
+	void registrarPublicacionTest() {
+		assertEquals(user1.getRegistroOpiniones().size(),0);
+
+		user1.registrarPublicacion(LocalDateTime.now());
+
+		assertEquals(user1.getRegistroOpiniones().size(), 1);
+	}
+
+
+	@Test
+	void validarExternamenteTest() {
+		user1.validarseExternamenta();
+		ExpertoValidado expV = new ExpertoValidado;
+		assertEquals(user1.getTipo(), expV);
 	}
 	
 	

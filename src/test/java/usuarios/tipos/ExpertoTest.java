@@ -16,13 +16,14 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-
+import main.java.muestras.tipos.TipoDeMuestra;
 
 class ExpertoTest {
 
-    Usuario user1;
+    Usuario user;
     Ubicacion ubi;
     TipoDeOpinion tipo;
+    TipoDeOpinion tipoDeOpinion;
     Muestra muestra;
     Experto tipoExperto;
     SitioWeb sitioWeb;
@@ -30,24 +31,36 @@ class ExpertoTest {
     @BeforeEach
     void setUp() {
     	sitioWeb = mock(SitioWeb.class);
-        //muestra = mock(Muestra.class);
+        user = mock(Usuario.class);
         tipoExperto = mock(Experto.class);
-        user1 = new Usuario(123, "jose Marquez", sitioWeb);
-		user1.setTipo(tipoExperto);
+        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
     }
-    	/*
+
     @Test
     void registrarMuestraBasicoTest() {
-        tipoExperto.registrarMuestra(tipo,"Foto",ubi,user1);  // Cambiar this
-        verify(user1).getSitio().agregarNuevaMuestra(muestra);
+        tipoExperto.registrarMuestra(tipoDeOpinion,"Foto",ubi,user);
+        verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
     }
- 		*/
+
     @Test
-    void usuariocumpleCondicionDeExperto() {
-        	when(tipoExperto.cumpleCondicionDeExperto(user1)).thenReturn(true);
-        	//verify(tipoExperto).cumpleCondicionDeExperto(user1);
-        	assertTrue(user1.getTipo().cumpleCondicionDeExperto(user1));
+    void usuarioBasicoNocumpleCondicionDeExpertoTest() {
+        when(user.getTipo()).thenReturn(tipoExperto);
+
+        tipoExperto.actualizarUsuario(user);
+
+        assertEquals(user.getTipo(),tipoExperto);
     }
+
+    @Test
+    void usuarioBasicoCumpleCondicionDeExpertoTest() {
+        Experto experto = new Experto();
+        when(user.getTipo()).thenReturn(tipoExperto);
+
+        tipoExperto.actualizarUsuario(user);
+
+        assertEquals(user.getTipo(),experto);
+    }
+
 }
 
 
