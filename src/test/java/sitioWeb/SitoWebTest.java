@@ -108,7 +108,7 @@ class SitoWebTest {
     void zonasQueSolapadasConTest() {
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.zonasQueSolapadasCon(zona);
-        verify(adminzonasZonas).zonasQueSolapadasCon(zona);
+        verify(adminzonasZonas).zonasQueSolapanCon(zona);
     }
 
     @Test

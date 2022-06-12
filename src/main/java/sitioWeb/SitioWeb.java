@@ -70,7 +70,7 @@ public class SitioWeb {
     }
 
     public List<ZonaDeCobertura> zonasQueSolapadasCon(ZonaDeCobertura zonaAVer){
-        return this.getAdministradorDeZonas().zonasQueSolapadasCon(zonaAVer);
+        return this.getAdministradorDeZonas().zonasQueSolapaCon(zonaAVer);
     }
 
     public List<ZonaDeCobertura> zonasDeInteresDeLaOrg(OrganizacioneNoGubernamental orgAVer){

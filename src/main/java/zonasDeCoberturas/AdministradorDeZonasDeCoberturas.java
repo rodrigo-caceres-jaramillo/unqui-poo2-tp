@@ -32,7 +32,7 @@ public class AdministradorDeZonasDeCoberturas {
         todasLasZonas.add(nuevaZona);
     }
 
-    public List<ZonaDeCobertura> zonasQueSolapadasCon(ZonaDeCobertura zonaAVer) {
+    public List<ZonaDeCobertura> zonasQueSolapaCon(ZonaDeCobertura zonaAVer) {
         return this.getTodasLasZonas().stream().
                 filter(zona -> zona.estaSolapadaCon(zonaAVer)).collect(Collectors.toList());
     }
