@@ -14,6 +14,8 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
+import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.TipoDeUsuario;
 
 class UsuarioTest {
@@ -158,16 +160,6 @@ class UsuarioTest {
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 	}
 
-	@Test
-	void cumpleCondicionDeExpertoTest() {
-		crear21Opiniones();
-		registrar11Muestras();
-		assertEquals(user2.getRegistroPublicaciones().size(), 11);
-		assertEquals(user2.getRegistroOpiniones().size(), 21);
-		assertTrue(user2.esExperto());
-		
-	}
-
 	private void registrar11Muestras() {
 		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
 		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
@@ -205,26 +197,7 @@ class UsuarioTest {
 		user2.opinarDeMuestraN(234, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada);
 	}
-	@Test
-	void noCumpleCondicionDeExpertoTest() {
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
-		user2.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubicacion1);
-		assertFalse(user2.esExperto());
-	}
-	// unoSi no se puede testear// se ejecura en cumple20RevisionesEnElMes y cumple10EnviosEnElMes
-	@Test
-	void cumple20RevisionesEnElMesPeroNoCumple10EnviosTest() {
-		// forma de testear cumple20RevisionesEnElMes
-		crear21Opiniones();
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		assertFalse(user2.esExperto());
-	}
-	@Test
-	void esExpertoTest() {
-		registrar11Muestras();
-		crear21Opiniones();
-		assertTrue(user2.esExperto());
-	}
+	
 	@Test
 	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
 		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
@@ -256,4 +229,26 @@ class UsuarioTest {
 		
 		assertEquals(user2.getRegistroOpiniones().size(), 1);
 	}
+	@Test
+	void usuarioCambiaDeTipo() {
+		Experto tipo = mock(Experto.class);
+		user1.setTipo(tipo);
+		assertEquals(user1.getTipo(), tipo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
