@@ -33,7 +33,7 @@ class OpinionTest {
     @Test
     void setIdTest() {
         Integer idNuevo = 789;
-        opinion.setId(idNuevo);
+        opinion.setIdUsuario(idNuevo);
         assertEquals(idNuevo, opinion.getIdUsuario());
     }
 

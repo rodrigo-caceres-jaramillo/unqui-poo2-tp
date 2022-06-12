@@ -21,9 +21,7 @@ public class Opinion {
 	public TipoDeUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
-	public void setId(Integer id) {
-		this.setIdUsuario(id);
-	}
+
 	public void setTipoUsuario(TipoDeUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}

@@ -57,10 +57,6 @@ public class Muestra {
     public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-    
-	public void setId(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
     public LocalDate getCreacion() {
 		return creacion;
