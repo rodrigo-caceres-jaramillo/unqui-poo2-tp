@@ -1,5 +1,6 @@
 package main.java.sitioWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import main.java.muestras.AdministradorDeMuestras;
@@ -103,4 +104,15 @@ public class SitioWeb {
     public TipoDeOpinion resultadoActualDeMuestraN(Integer idMuestra) {
     	return this.getAdministradorDeMuestras().muestraN(idMuestra).getResultadoActual();
     }
+    
+    public boolean esSuMuestra(Integer idMuestra, Integer idDeUsuario) {
+		// para comprobar de que una muestra es de un usuario.
+		return this.muestraN(idMuestra).getUsuario().getId().equals(idDeUsuario);
+	}
+	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer id) {
+		// revisarrr
+		ArrayList<Opinion> ops = this.muestraN(idMuestra).getOpiniones();
+		boolean resultado = ops.stream().anyMatch(p -> p.getIdUsuario().equals(id));	
+		return resultado;
+	}
 }

@@ -38,26 +38,11 @@ class SitoWebTest {
         web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
     }
 
-//Falta testear (organizacionSeDejaDeInterezaEnLaZona,muestraN,opinarSobreLaMuestraNumero)
-
-// Tests de Gets
-
+// Gets y Sets
     @Test
     void getAdministradorDeMuestrasTest() {
         assertEquals(adminMuestras, web.getAdministradorDeMuestras());
     }
-
-    @Test
-    void getAdministradorDeZonasTest() {
-        assertEquals(adminzonasZonas, web.getAdministradorDeZonas());
-    }
-
-    @Test
-    void getOrganizacionesTest() {
-        assertEquals(organizaciones, web.getOrganizaciones());
-    }
-
-// Tests sets
 
     @Test
     void setMuestrasTest() {
@@ -65,12 +50,22 @@ class SitoWebTest {
         web.setMuestras(nuevoAdminMuestra);
         assertEquals(nuevoAdminMuestra, web.getAdministradorDeMuestras());
     }
+    
+    @Test
+    void getAdministradorDeZonasTest() {
+        assertEquals(adminzonasZonas, web.getAdministradorDeZonas());
+    }
 
     @Test
     void setZonasDeCoberturasTest() {
         AdministradorDeZonasDeCoberturas nuevoAdminZonas = mock(AdministradorDeZonasDeCoberturas.class);
         web.setZonasDeCoberturas(nuevoAdminZonas);
         assertEquals(nuevoAdminZonas, web.getAdministradorDeZonas());
+    }
+    
+    @Test
+    void getOrganizacionesTest() {
+        assertEquals(organizaciones, web.getOrganizaciones());
     }
 
     @Test
@@ -80,17 +75,14 @@ class SitoWebTest {
         assertEquals(nuevasOrg, web.getOrganizaciones());
     }
 
-// Methods
-
+// Metodos
     @Test
     void agregarNuevaMuestraTest() {
         Ubicacion ubicacion = mock(Ubicacion.class);
         Usuario usuario = mock(Usuario.class);
         TipoDeMuestra tipoDeMuestra = mock(TipoDeMuestra.class);
         web.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
-
         verify(adminMuestras).agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);;
-        //verify(adminzonasZonas).actualizarZonasConNuevaMuestra(muestra);
     }
 
     @Test
@@ -113,7 +105,6 @@ class SitoWebTest {
     void zonasQueSolapadasConTest() {
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.zonasQueSolapadasCon(zona);
-
         verify(adminzonasZonas).zonasQueSolapadasCon(zona);
     }
 
@@ -121,7 +112,6 @@ class SitoWebTest {
     void zonasDeInteresDeLaOrgTest() {
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         web.zonasDeInteresDeLaOrg(org);
-
         verify(adminzonasZonas).zonasDeInteresDeLaOrg(org);
     }
 
@@ -130,7 +120,6 @@ class SitoWebTest {
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeInterezaEnLaZona(org, zona);
-
         verify(zona).getOrganizacionesInteresadas();
     }
 
@@ -139,7 +128,6 @@ class SitoWebTest {
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeDejaDeInterezaEnLaZona(org, zona);
-
         verify(zona).getOrganizacionesInteresadas();
     }
 
@@ -147,7 +135,6 @@ class SitoWebTest {
     void muestraNTest() {
         Integer id = 0;
         web.muestraN(id);
-
         verify(adminMuestras).muestraN(id);
     }
 

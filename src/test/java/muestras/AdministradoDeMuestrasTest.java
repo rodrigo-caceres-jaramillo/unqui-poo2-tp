@@ -3,6 +3,7 @@ package test.java.muestras;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -82,9 +83,10 @@ class AdministradoDeMuestrasTest {
 		adminDeMuestras.setMuestras(muestras);
 
 		muestras.add(muestra1);
-		when(muestra1.getUbicacion().distanciaEntre(muestraAVer)).thenReturn(1f);
+		when(muestra1.getUbicacion()).thenReturn(ubicacion);
+		when(muestra1.getUbicacion().distanciaEntre(muestraAVer.getUbicacion())).thenReturn(1f);
 
-		assertEquals(muestras,adminDeMuestras.muestrasAMenosDeDesdeTest(distancia,muestraAVer));
+		assertEquals(muestras,adminDeMuestras.muestrasAMenosDeDesde(distancia,muestraAVer));
 	}
 	
 	@Test

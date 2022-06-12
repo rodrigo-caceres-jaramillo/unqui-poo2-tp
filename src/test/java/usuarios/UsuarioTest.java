@@ -3,26 +3,24 @@ package test.java.usuarios;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.java.muestras.Muestra;
+import main.java.muestras.Opinion;
 import main.java.muestras.TipoDeOpinion;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.TipoDeUsuario;
-import main.java.muestras.Opinion;
 
 class UsuarioTest {
 	Usuario user1;
 	Usuario user2;
 	Usuario user3;
+	Usuario user4;
 	SitioWeb sitioWeb;
 	Ubicacion ubicacion1;
 	Muestra unaMuestra;
@@ -31,8 +29,8 @@ class UsuarioTest {
 	@BeforeEach
     void setUp() {
 		ubicacion1 = mock(Ubicacion.class);
-		sitioWeb = mock(SitioWeb.class);
 		tipo = mock(TipoDeUsuario.class);
+		sitioWeb = mock(SitioWeb.class);
 
 		user1 = new Usuario(123, "jose Marquez", sitioWeb);
 		user1.setTipo(tipo);
@@ -43,20 +41,6 @@ class UsuarioTest {
 		user3 = new Usuario(125, "martin Benitez", sitioWeb);
 		user3.setTipo(tipo);
 
-
-		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.VinchucaGuasayana, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.VinchucaSordida, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user3.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		
-		//unaMuestra = mock(Muestra.class);
 	}
 
 	//Getters
@@ -123,8 +107,8 @@ class UsuarioTest {
 
 	@Test
 	void setRegistroOpinionesTest() {
-		ArrayList<LocalDate> registro = new ArrayList<LocalDate>();
-		registro.add(LocalDate.now());
+		ArrayList<LocalDateTime> registro = new ArrayList<LocalDateTime>();
+		registro.add(LocalDateTime.now());
 
 		user1.setRegistroOpiniones(registro);
 		assertEquals(user1.getRegistroOpiniones().size(), 1);
@@ -132,8 +116,8 @@ class UsuarioTest {
 
 	@Test
 	void setRegistroPublicacionesTest() {
-		ArrayList<LocalDate> registro = new ArrayList<LocalDate>();
-		registro.add(LocalDate.now());
+		ArrayList<LocalDateTime> registro = new ArrayList<LocalDateTime>();
+		registro.add(LocalDateTime.now());
 
 		user1.setRegistroPublicaciones(registro);
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
@@ -143,7 +127,7 @@ class UsuarioTest {
 
 	@Test
 	void usuarioPublicaUnaVezTest() {
-
+		
 		sitioWeb = mock(SitioWeb.class);
 		ubicacion1 = mock(Ubicacion.class);
 
@@ -156,34 +140,51 @@ class UsuarioTest {
 	
 	@Test
 	void usuarioOpinaUnaVezTest() {
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada); // manda el mensaje
-		//Opinion opinionHecha =  mock(Opinion.class);
-		verify(sitioWeb).opinarSobreLaMuestraN(001,any(Opinion.class));  // se fija si le llega al sitio
-		//int cantOp = user2.getRegistroOpiniones().size();  // se suma una opi
-		//assertEquals(cantOp, 1);
+		user1.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);        // manda el mensaje                                                              // se fija si le llega al sitio
+		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
+		assertEquals(cantOp, 1);
 	}
-
+	
 	@Test
 	void registrarOpinionesTest() {
 
-		user1.registrarOpiniones(LocalDate.now()) ;
+		user1.registrarOpiniones(LocalDateTime.now()) ;
 		assertEquals(user1.getRegistroOpiniones().size(), 1);
 	}
 
 	@Test
 	void registrarPublicacionTest() {
-		user1.registrarPublicacion(LocalDate.now()); ;
+		user1.registrarPublicacion(LocalDateTime.now()); ;
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 	}
 
-	
-	/*
 	@Test
-	void elUsuarioCambiaDeTipoTest() {
-		// REVISAR!!
-		// EL TEST ANDA PERO SIN SER MOCKEADO, REVISAR
-		sitioWeb = mock(SitioWeb.class);
+	void cumpleCondicionDeExpertoTest() {
+		crear21Opiniones();
+		registrar11Muestras();
+		assertEquals(user2.getRegistroPublicaciones().size(), 11);
+		assertEquals(user2.getRegistroOpiniones().size(), 21);
+		assertTrue(user2.esExperto());
+		
+	}
+
+	private void registrar11Muestras() {
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.VinchucaGuasayana, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.VinchucaSordida, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
+	}
+
+	private void crear21Opiniones() {
 		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(002, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(003, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(004, TipoDeOpinion.ChincheFoliada);
@@ -203,24 +204,56 @@ class UsuarioTest {
 		user2.opinarDeMuestraN(412, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(234, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada);
-		user2.opinarDeMuestraN(021, TipoDeOpinion.ChincheFoliada);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.VinchucaGuasayana, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.VinchucaSordida, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
-		assertTrue(user2.getTipo() instanceof Experto);
 	}
-	
 	@Test
-	void pruebaTest() {
+	void noCumpleCondicionDeExpertoTest() {
+		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+		user2.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubicacion1);
+		assertFalse(user2.esExperto());
+	}
+	// unoSi no se puede testear// se ejecura en cumple20RevisionesEnElMes y cumple10EnviosEnElMes
+	@Test
+	void cumple20RevisionesEnElMesPeroNoCumple10EnviosTest() {
+		// forma de testear cumple20RevisionesEnElMes
+		crear21Opiniones();
+		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		assertFalse(user2.esExperto());
+	}
+	@Test
+	void esExpertoTest() {
+		registrar11Muestras();
+		crear21Opiniones();
+		assertTrue(user2.esExperto());
+	}
+	@Test
+	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
+		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
+		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
+		assertEquals(cantOp, 0);
+	}
+	@Test
+	void opinarDeMuestraNTest() {
+
+		user1.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+		int cantOp = user2.getRegistroOpiniones().size(); 
+		assertEquals(cantOp, 1);
 		
 	}
-	*/
+	@Test 
+	void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
+		
+		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+
+		when(sitioWeb.esSuMuestra(001, user2.getId())).thenReturn(false);
+		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(false);
+		
+		assertEquals(user2.getRegistroOpiniones().size(), 1);
+		
+		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(true);
+		
+		user2.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara);
+		
+		assertEquals(user2.getRegistroOpiniones().size(), 1);
+	}
 }
