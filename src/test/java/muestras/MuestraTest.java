@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -23,12 +24,11 @@ import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 
 class MuestraTest {
 	SitioWeb sitioWeb;
 	Muestra muestra1;
-	Muestra muestra2;
-	Muestra muestra3;
 	Usuario usuario1;
 	Ubicacion unaUbicacion;
 	TipoDeMuestra unTipoDeMuestra;
@@ -40,6 +40,8 @@ class MuestraTest {
 		unaUbicacion = mock(Ubicacion.class);
 		unTipoDeMuestra = mock(TipoDeMuestra.class);
 		muestra1 = new Muestra(1, TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);
+		when(usuario1.getId()).thenReturn(10);
+		when(usuario1.getTipo()).thenReturn(mock(Basico.class));
 	}
 	
 //Gets/Sets -------------------------------------
@@ -167,5 +169,25 @@ class MuestraTest {
 		Opinion opinion = mock(Opinion.class);
 		muestra1.agregarOpinion(opinion);
 		verify(muestra1.getTipo()).agregarOpinionA(opinion, muestra1);
+	}
+	
+	@Test
+	void tieneUnaOpinionDeUsuarioN() {
+		assertTrue(muestra1.tieneUnaOpinionDeUsuarioN(10));
+	}
+	
+	@Test
+	void tieneUnaOpinionDeUsuarioN2() {
+		assertFalse(muestra1.tieneUnaOpinionDeUsuarioN(20));
+	}
+	
+	@Test
+	void fueCreadaPorUsuarioTest() {
+		assertTrue(muestra1.fueCreadaPorUsuario(10));
+	}
+	
+	@Test
+	void fueCreadaPorUsuarioTest2() {
+		assertFalse(muestra1.fueCreadaPorUsuario(20));
 	}
 }

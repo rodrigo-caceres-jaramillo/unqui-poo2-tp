@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
+import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.TipoDeMuestra;
 import main.java.organizaciones.OrganizacioneNoGubernamental;
 import main.java.sitioWeb.SitioWeb;
@@ -32,7 +33,7 @@ class SitoWebTest {
     List<OrganizacioneNoGubernamental> organizaciones;
     SitioWeb web;
     Usuario user;
-
+    Muestra muestra;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +41,11 @@ class SitoWebTest {
         adminzonasZonas = mock(AdministradorDeZonasDeCoberturas.class);
         organizaciones = new ArrayList<OrganizacioneNoGubernamental>();
         web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
-        user =new Usuario( 15, "jose", web);
+        user = mock(Usuario.class);
+        muestra = mock(Muestra.class);
+        when(adminMuestras.muestraN(10)).thenReturn(muestra);
+        when(muestra.getUsuario()).thenReturn(user);
+        when(user.getId()).thenReturn(1);
     }
 
 // Gets y Sets
@@ -107,9 +112,9 @@ class SitoWebTest {
     }
 
     @Test
-    void zonasQueSolapadasConTest() {
+    void zonasQueSolapanConTest() {
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
-        web.zonasQueSolapadasCon(zona);
+        web.zonasQueSolapanCon(zona);
         verify(adminzonasZonas).zonasQueSolapaCon(zona);
     }
 
@@ -154,56 +159,36 @@ class SitoWebTest {
     @Test
     void opinarSobreLaMuestraNTest() {
         Opinion opinion = mock(Opinion.class);
-        Muestra muestra = mock(Muestra.class);
-        Integer idMuestra = 58;
-
-        when(adminMuestras.muestraNSeVerifico(idMuestra, any(TipoDeMuestra.class))).thenReturn(true);
-
-        web.opinarSobreLaMuestraN(idMuestra,opinion);
-
+        Integer idMuestra = 10;
+        when(muestra.getTipo()).thenReturn(mock(SinVerificar.class));
+        web.opinarSobreLaMuestraN(idMuestra, opinion);
         verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
-        verify(adminMuestras).muestraNSeVerifico(idMuestra, any(TipoDeMuestra.class));  // if
-        verify(adminzonasZonas).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
     } 
 
     @Test
     void resultadoActualDeMuestraNTest() {
-        Integer idMuestra = 58;
-
-        web.resultadoActualDeMuestraN(idMuestra);
-        verify(adminMuestras).muestraN(idMuestra);
+        web.resultadoActualDeMuestraN(10);
+        verify(adminMuestras.muestraN(10)).getResultadoActual();
     }
 
     @Test
     void esSuMuestraTest() {
-    	Muestra muestra = mock(Muestra.class);
-    	Integer idMuestra = 23;
-        Integer idUsuarioEnMuestra = muestra.getUsuario().getId();
-        Integer idUsuario = 58;
-        when(muestra.getUsuario().getId()).thenReturn(58);
-
-        web.esSuMuestra(idUsuarioEnMuestra,idUsuario);
-        verify(adminMuestras).muestraN(idMuestra);
+        web.esSuMuestra(10,1);
+        verify(adminMuestras).muestraNEsDeUsuarioN(10, 1);
     }
 
     @Test
     void muestraNTieneOpinionDeUsuarioNTest() {
-        //Integer idMuestra = 58;
-        //Integer idUsuario = 58;
-        user.opinarDeMuestraN(01, TipoDeOpinion.ChincheFoliada);
-        web.muestraNTieneOpinionDeUsuarioN(01,user.getId());
-        verify(adminMuestras).muestraN(01);
+        web.muestraNTieneOpinionDeUsuarioN(10, 1);
+        verify(adminMuestras).muestraNTieneOpinionDeUsuarioN(10, 1);
     }
 
     @Test
     void realizarBusquedaTest() {
        Criterio criterio = mock(Criterio.class);
-       TipoDeOpinion tipoO = mock(TipoDeOpinion.class);
+       TipoDeOpinion tipoO = TipoDeOpinion.ChincheFoliada;
        TipoDeMuestra tipoM = mock(TipoDeMuestra.class);
-        web.realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
-        verify(adminMuestras).realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
+       web.realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
+       verify(adminMuestras).realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
     }
-
-
-
 }

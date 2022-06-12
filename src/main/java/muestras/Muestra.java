@@ -113,4 +113,12 @@ public class Muestra {
 	public void agregarOpinion(Opinion opinion) {
 		this.getTipo().agregarOpinionA(opinion, this);
 	}
+	
+	public boolean tieneUnaOpinionDeUsuarioN(Integer idUsuario) {	
+		return this.getOpiniones().stream().anyMatch(p -> p.getIdUsuario().equals(idUsuario));
+	}
+	
+	public boolean fueCreadaPorUsuario(Integer idDeUsuario) {
+		return this.getUsuario().getId().equals(idDeUsuario);
+	}
 }

@@ -69,7 +69,7 @@ public class SitioWeb {
         this.getOrganizaciones().add(orgAAgregar);
     }
 
-    public List<ZonaDeCobertura> zonasQueSolapadasCon(ZonaDeCobertura zonaAVer){
+    public List<ZonaDeCobertura> zonasQueSolapanCon(ZonaDeCobertura zonaAVer){
         return this.getAdministradorDeZonas().zonasQueSolapaCon(zonaAVer);
     }
 
@@ -108,19 +108,15 @@ public class SitioWeb {
     }
     
     public boolean esSuMuestra(Integer idMuestra, Integer idDeUsuario) {
-		// para comprobar de que una muestra es de un usuario.
-		return this.muestraN(idMuestra).getUsuario().getId().equals(idDeUsuario);
+		return this.getAdministradorDeMuestras().muestraNEsDeUsuarioN(idMuestra, idDeUsuario);
 	}
 
-	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer id) {
-		// revisarrr
-		ArrayList<Opinion> ops = this.muestraN(idMuestra).getOpiniones();
-		boolean resultado = ops.stream().anyMatch(p -> p.getIdUsuario().equals(id));	
-		return resultado;
+	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer idUsuario) {
+		return this.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(idMuestra, idUsuario);
 	}
 
     public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
-       return  this.realizarBusqueda(fechaABuscar,opinionABuscar,tipoABuscar,criterioFiltro);
+       return  this.realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, criterioFiltro);
     }
 
 }

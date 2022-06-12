@@ -159,7 +159,7 @@ class AdministradorDeZonasDeCoberturasTest {
     void zonasQueSolapadasConTest() {
         ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
 
-        adminZonas.zonasQueSolapadasCon(zonaNueva);
+        adminZonas.zonasQueSolapaCon(zonaNueva);
 
         verify(zonaSur).estaSolapadaCon(zonaNueva);
         verify(zonaSurEste).estaSolapadaCon(zonaNueva);

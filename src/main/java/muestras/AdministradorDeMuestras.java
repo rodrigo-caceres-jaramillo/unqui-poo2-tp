@@ -72,5 +72,12 @@ public class AdministradorDeMuestras {
 	public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
 		return criterioFiltro.realizarBusqueda(fechaABuscar,opinionABuscar,tipoABuscar,this.getMuestras());
 	}
+	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer idUsuario) {
+		return this.muestraN(idMuestra).tieneUnaOpinionDeUsuarioN(idUsuario);
+	}
+	
+	public boolean muestraNEsDeUsuarioN(Integer idMuestra, Integer idDeUsuario) {
+		return this.muestraN(idMuestra).fueCreadaPorUsuario(idDeUsuario);
+	}
 
 }

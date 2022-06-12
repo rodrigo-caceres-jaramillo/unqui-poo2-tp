@@ -119,4 +119,26 @@ class AdministradoDeMuestrasTest {
 		adminDeMuestras.realizarBusqueda(date, TipoDeOpinion.ChincheFoliada, tipoDeMuestra, criterio);
 		verify(criterio).realizarBusqueda(date,TipoDeOpinion.ChincheFoliada, tipoDeMuestra,adminDeMuestras.getMuestras());
 	}
+	
+	@Test
+	void muestraNTieneOpinionDeUsuarioNTest() {
+		adminDeMuestras.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
+		assertFalse(adminDeMuestras.muestraNTieneOpinionDeUsuarioN(0, 10));
+	}
+	
+	@Test
+	void muestraNTieneOpinionDeUsuarioN2Test() {
+		Opinion unaOpinion = mock(Opinion.class);
+		adminDeMuestras.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
+		adminDeMuestras.agregarOpinionAMuestraN(0, unaOpinion);
+		when(unaOpinion.getIdUsuario()).thenReturn(10);
+		assertTrue(adminDeMuestras.muestraNTieneOpinionDeUsuarioN(0, 10));
+		
+	}
+	@Test
+	void muestraNEsDeUsuarioNTest() {
+		adminDeMuestras.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
+		when(usuario.getId()).thenReturn(10);
+		assertTrue(adminDeMuestras.muestraNEsDeUsuarioN(0, 10));
+	}
 }
