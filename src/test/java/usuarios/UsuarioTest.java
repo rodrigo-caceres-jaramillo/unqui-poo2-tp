@@ -157,10 +157,10 @@ class UsuarioTest {
 
 	@Test
 	void registrarPublicacionTest() {
-		user1.registrarPublicacion(LocalDateTime.now()); ;
+		user1.registrarPublicacion(LocalDateTime.now()); 
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 	}
-
+/*
 	private void registrar11Muestras() {
 		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
 		user2.registrarMuestra(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubicacion1);
@@ -198,7 +198,7 @@ class UsuarioTest {
 		user2.opinarDeMuestraN(234, TipoDeOpinion.ChincheFoliada);
 		user2.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada);
 	}
-
+*/
 	@Test
 	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
 		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
@@ -237,45 +237,14 @@ class UsuarioTest {
 
 		when(opinionAVer.getIdUsuario()).thenReturn(user1.getId());
 
-		assertEquals(user1.crearOpinion(TipoDeOpinion.ChincheFoliada).getIdUsuario(), opinionAVer);
+		assertEquals(user1.crearOpinion(TipoDeOpinion.ChincheFoliada).getIdUsuario(), opinionAVer.getIdUsuario());
 	}
 
 	@Test
-	void registrarOpinionesTest() {
-		assertEquals(user1.getRegistroOpiniones().size(),0);
-
-		user1.registrarPublicacion(LocalDateTime.now());
-
-		assertEquals(user1.getRegistroOpiniones().size(), 1);
-	}
-
-	@Test
-	void registrarPublicacionTest() {
-		assertEquals(user1.getRegistroOpiniones().size(),0);
-
-		user1.registrarPublicacion(LocalDateTime.now());
-
-		assertEquals(user1.getRegistroOpiniones().size(), 1);
-	}
-
-
-	@Test
-	void validarExternamenteTest() {
-		user1.validarseExternamenta();
-		ExpertoValidado expV = new ExpertoValidado;
-		assertEquals(user1.getTipo(), expV);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    void validarExternamenteTest() {
+        user1.validarseExternamenta();
+        assertTrue(user1.getTipo() instanceof ExpertoValidado);
+    }
 	
 	
 	

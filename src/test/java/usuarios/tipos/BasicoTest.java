@@ -6,6 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import main.java.usuarios.tipos.Experto;
+import main.java.usuarios.tipos.ExpertoValidado;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import main.java.usuarios.tipos.Basico;
@@ -21,6 +23,7 @@ import main.java.usuarios.tipos.Experto;
 class BasicoTest {
 
     Usuario user;
+    Usuario user1;
     Ubicacion ubi;
     TipoDeOpinion tipoDeOpinion;
     Muestra muestra;
@@ -36,35 +39,43 @@ class BasicoTest {
         tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         //ubi  = mock(Ubicacion.class);
         //tipoDeOpinion = mock(TipoDeOpinion.class);
-        //muestra = mock(Muestra.class);
-        //user1 = new Usuario(123, "jose Marquez", sitioWeb);
+        muestra = mock(Muestra.class);
+        user1 = new Usuario(123, "jose Marquez", sitioWeb);
 
     }
-
+    /*
     @Test
     void registrarMuestraBasicoTest() {
         tipoBasico.registrarMuestra(tipoDeOpinion,"Foto",ubi,user);
-        verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
+        verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,muestra.getTipo());
     }
-
+	*/
     @Test
     void usuarioBasicoNocumpleCondicionDeExpertoTest() {
         when(user.getTipo()).thenReturn(tipoBasico);
 
         tipoBasico.actualizarUsuario(user);
 
-        assertEquals(user.getTipo(),tipoBasico);
+        assertFalse(tipoBasico.cumpleCondicionDeExperto(user));
+    } 
+    
+    @Test
+    void actualizarUsuarioTest() {
+    	when(tipoBasico.cumpleCondicionDeExperto(user1)).thenReturn(true);
+    	tipoBasico.actualizarUsuario(user1);
+    	assertTrue(user1.getTipo() instanceof Experto);
     }
-
+    /*
     @Test
     void usuarioBasicoCumpleCondicionDeExpertoTest() {
+    	//??
         Experto experto = new Experto();
         when(user.getTipo()).thenReturn(tipoBasico);
 
         tipoBasico.actualizarUsuario(user);
 
-        assertEquals(user.getTipo(),experto);
+        assertEquals(user.getTipo(),experto); 
     }
-
+	*/
 
 }

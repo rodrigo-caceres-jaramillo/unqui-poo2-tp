@@ -31,6 +31,7 @@ class SitoWebTest {
     AdministradorDeZonasDeCoberturas adminzonasZonas;
     List<OrganizacioneNoGubernamental> organizaciones;
     SitioWeb web;
+    Usuario user;
 
 
     @BeforeEach
@@ -39,6 +40,7 @@ class SitoWebTest {
         adminzonasZonas = mock(AdministradorDeZonasDeCoberturas.class);
         organizaciones = new ArrayList<OrganizacioneNoGubernamental>();
         web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
+        user =new Usuario( 15, "jose", web);
     }
 
 // Gets y Sets
@@ -108,7 +110,7 @@ class SitoWebTest {
     void zonasQueSolapadasConTest() {
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.zonasQueSolapadasCon(zona);
-        verify(adminzonasZonas).zonasQueSolapanCon(zona);
+        verify(adminzonasZonas).zonasQueSolapaCon(zona);
     }
 
     @Test
@@ -162,7 +164,7 @@ class SitoWebTest {
         verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
         verify(adminMuestras).muestraNSeVerifico(idMuestra, any(TipoDeMuestra.class));  // if
         verify(adminzonasZonas).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
-    }
+    } 
 
     @Test
     void resultadoActualDeMuestraNTest() {
@@ -174,20 +176,23 @@ class SitoWebTest {
 
     @Test
     void esSuMuestraTest() {
-        Integer idMuestra = 58;
+    	Muestra muestra = mock(Muestra.class);
+    	Integer idMuestra = 23;
+        Integer idUsuarioEnMuestra = muestra.getUsuario().getId();
         Integer idUsuario = 58;
+        when(muestra.getUsuario().getId()).thenReturn(58);
 
-        web.esSuMuestra(idMuestra,idUsuario);
+        web.esSuMuestra(idUsuarioEnMuestra,idUsuario);
         verify(adminMuestras).muestraN(idMuestra);
     }
 
     @Test
     void muestraNTieneOpinionDeUsuarioNTest() {
-        Integer idMuestra = 58;
-        Integer idUsuario = 58;
-
-        web.muestraNTieneOpinionDeUsuarioN(idMuestra,idUsuario);
-        verify(adminMuestras).muestraN(idMuestra);
+        //Integer idMuestra = 58;
+        //Integer idUsuario = 58;
+        user.opinarDeMuestraN(01, TipoDeOpinion.ChincheFoliada);
+        web.muestraNTieneOpinionDeUsuarioN(01,user.getId());
+        verify(adminMuestras).muestraN(01);
     }
 
     @Test

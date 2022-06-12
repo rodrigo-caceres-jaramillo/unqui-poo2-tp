@@ -30,7 +30,7 @@ public class Usuario {
 	}
 	// Gets y sets
 	public ArrayList<LocalDateTime> getRegistroPublicaciones(){
-		return registroPublicaciones;
+		return registroPublicaciones; 
 	}
 	public void setRegistroPublicaciones(ArrayList<LocalDateTime> lista) {
 		this.registroPublicaciones = lista;
@@ -94,5 +94,5 @@ public class Usuario {
 	
 	public void validarseExternamenta() {
 		this.setTipo(new ExpertoValidado());
-	} 
+	}  
 }

@@ -35,7 +35,7 @@ public abstract class TipoDeUsuario {
 	private int unoSi(LocalDateTime fecha, LocalDateTime unaFecha) {
 		LocalDateTime f1= unaFecha.minusDays(30);
 		boolean diff = fecha.isAfter(f1);
-		
+		 
 		if(diff) { 
 			return 1;
 		} else { 
