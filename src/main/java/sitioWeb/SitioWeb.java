@@ -1,5 +1,6 @@
 package main.java.sitioWeb;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Basico;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
+import main.java.muestras.criterios.Criterio;
 
 public class SitioWeb {
 	private AdministradorDeMuestras adminMuestras;
@@ -109,10 +111,16 @@ public class SitioWeb {
 		// para comprobar de que una muestra es de un usuario.
 		return this.muestraN(idMuestra).getUsuario().getId().equals(idDeUsuario);
 	}
+
 	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer id) {
 		// revisarrr
 		ArrayList<Opinion> ops = this.muestraN(idMuestra).getOpiniones();
 		boolean resultado = ops.stream().anyMatch(p -> p.getIdUsuario().equals(id));	
 		return resultado;
 	}
+
+    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
+       return  this.realizarBusqueda(fechaABuscar,opinionABuscar,tipoABuscar,criterioFiltro);
+    }
+
 }

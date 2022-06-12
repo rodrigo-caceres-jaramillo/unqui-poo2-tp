@@ -2,9 +2,10 @@ package test.java.sitioWeb;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
+import main.java.muestras.criterios.Criterio;
+import main.java.muestras.Opinion;
 
 class SitoWebTest {
 
@@ -146,7 +149,55 @@ class SitoWebTest {
         verify(adminMuestras).muestrasAMenosDeDesde(15f,muestra);
     }
 
+    @Test
+    void opinarSobreLaMuestraNTest() {
+        Opinion opinion = mock(Opinion.class);
+        Muestra muestra = mock(Muestra.class);
+        Integer idMuestra = 58;
 
+        when(adminMuestras.muestraNSeVerifico(idMuestra, any(TipoDeMuestra.class))).thenReturn(true);
+
+        web.opinarSobreLaMuestraN(idMuestra,opinion);
+
+        verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
+        verify(adminMuestras).muestraNSeVerifico(idMuestra, any(TipoDeMuestra.class));  // if
+        verify(adminzonasZonas).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
+    }
+
+    @Test
+    void resultadoActualDeMuestraNTest() {
+        Integer idMuestra = 58;
+
+        web.resultadoActualDeMuestraN(idMuestra);
+        verify(adminMuestras).muestraN(idMuestra);
+    }
+
+    @Test
+    void esSuMuestraTest() {
+        Integer idMuestra = 58;
+        Integer idUsuario = 58;
+
+        web.esSuMuestra(idMuestra,idUsuario);
+        verify(adminMuestras).muestraN(idMuestra);
+    }
+
+    @Test
+    void muestraNTieneOpinionDeUsuarioNTest() {
+        Integer idMuestra = 58;
+        Integer idUsuario = 58;
+
+        web.muestraNTieneOpinionDeUsuarioN(idMuestra,idUsuario);
+        verify(adminMuestras).muestraN(idMuestra);
+    }
+
+    @Test
+    void realizarBusquedaTest() {
+       Criterio criterio = mock(Criterio.class);
+       TipoDeOpinion tipoO = mock(TipoDeOpinion.class);
+       TipoDeMuestra tipoM = mock(TipoDeMuestra.class);
+        web.realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
+        verify(adminMuestras).realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
+    }
 
 
 
