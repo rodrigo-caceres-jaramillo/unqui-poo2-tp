@@ -1,6 +1,7 @@
 package test.java.usuarios.tipos;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -16,7 +17,7 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.muestras.tipos.TipoDeMuestra;
+import main.java.muestras.tipos.SiendoVerificada;
 
 class ExpertoTest {
 
@@ -33,34 +34,30 @@ class ExpertoTest {
     	sitioWeb = mock(SitioWeb.class);
         user = mock(Usuario.class);
         tipoExperto = mock(Experto.class);
+        ubi = mock(Ubicacion.class);
         tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
     }
 
     @Test
     void registrarMuestraBasicoTest() {
-        tipoExperto.registrarMuestra(tipoDeOpinion,"Foto",ubi,user);
-        verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
+    	tipoExperto.registrarMuestra(tipoDeOpinion,"Foto",ubi,user);
+        verify(sitioWeb).agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user, any(SiendoVerificada.class));
     }
 
     @Test
-    void usuarioBasicoNocumpleCondicionDeExpertoTest() {
+    void usuarioExpertoCumpleCondicionDeExpertoTest() {
         when(user.getTipo()).thenReturn(tipoExperto);
-
+        when(tipoExperto.cumpleCondicionDeExperto(user)).thenReturn(true);
         tipoExperto.actualizarUsuario(user);
-
+        assertTrue(tipoExperto.cumpleCondicionDeExperto(user));
         assertEquals(user.getTipo(),tipoExperto);
     }
 
     @Test
-    void usuarioBasicoCumpleCondicionDeExpertoTest() {
-        Experto experto = new Experto();
+    void usuarioExpertoactualizarUsuarioTest() {
+      //  Experto experto = new Experto();
         when(user.getTipo()).thenReturn(tipoExperto);
-
         tipoExperto.actualizarUsuario(user);
-
-        assertEquals(user.getTipo(),experto);
+        assertTrue(user.getTipo() instanceof Experto);
     }
-
 }
-
-

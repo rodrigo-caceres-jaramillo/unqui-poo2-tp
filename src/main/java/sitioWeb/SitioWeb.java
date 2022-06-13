@@ -116,7 +116,7 @@ public class SitioWeb {
 	}
 
     public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
-       return  this.realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, criterioFiltro);
+       return  this.getAdministradorDeMuestras().realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, criterioFiltro);
     }
 
 }

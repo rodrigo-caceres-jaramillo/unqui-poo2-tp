@@ -39,9 +39,9 @@ class MuestraTest {
 		usuario1 = mock(Usuario.class);
 		unaUbicacion = mock(Ubicacion.class);
 		unTipoDeMuestra = mock(TipoDeMuestra.class);
-		muestra1 = new Muestra(1, TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);
 		when(usuario1.getId()).thenReturn(10);
 		when(usuario1.getTipo()).thenReturn(mock(Basico.class));
+		muestra1 = new Muestra(1, TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);
 	}
 	
 //Gets/Sets -------------------------------------
