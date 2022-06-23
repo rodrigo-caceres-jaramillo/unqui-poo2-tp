@@ -14,32 +14,32 @@ public class Usuario {
 	private SitioWeb sitio;
 	private Integer id;
 	private String nombre;
-	private TipoDeUsuario tipo;
-	private ArrayList<LocalDateTime> registroPublicaciones;
-	private ArrayList<LocalDateTime> registroOpiniones;
+	private TipoDeUsuario tipoDeUsuario;
+	private ArrayList<LocalDateTime> fechasDePublicaciones;
+	private ArrayList<LocalDateTime> fechasDeOpiniones;
 	// private Boolean esExpertoExterno;
 	// Constructor
 	public Usuario(Integer id, String nombre, SitioWeb unSitio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.tipo = new Basico();
+		this.tipoDeUsuario = new Basico();
 		this.sitio = unSitio;
-		this.registroPublicaciones = new ArrayList<LocalDateTime>();
-		this.registroOpiniones = new ArrayList<LocalDateTime>();
+		this.fechasDePublicaciones = new ArrayList<LocalDateTime>();
+		this.fechasDeOpiniones = new ArrayList<LocalDateTime>();
 	}
 	// Gets y sets
 	public ArrayList<LocalDateTime> getRegistroPublicaciones(){
-		return registroPublicaciones; 
+		return fechasDePublicaciones; 
 	}
 	public void setRegistroPublicaciones(ArrayList<LocalDateTime> lista) {
-		this.registroPublicaciones = lista;
+		this.fechasDePublicaciones = lista;
 	}
 	public ArrayList<LocalDateTime> getRegistroOpiniones(){
-		return registroOpiniones;
+		return fechasDeOpiniones;
 	}
 	public void setRegistroOpiniones(ArrayList<LocalDateTime> lista) {
-		this.registroOpiniones = lista;
+		this.fechasDeOpiniones = lista;
 	}
 	public SitioWeb getSitio() {
 		return sitio;
@@ -60,23 +60,25 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 	public TipoDeUsuario getTipo() {
-		return tipo;
+		return tipoDeUsuario;
 	}
 	public void setTipo(TipoDeUsuario tipo) {
-		this.tipo = tipo;
+		this.tipoDeUsuario = tipo;
 	}
 	// Metodos
 	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
-		this.tipo.registrarMuestra(especie, foto, ubicacion, this);
-		this.registrarPublicacion(LocalDateTime.now());
-		this.tipo.actualizarUsuario(this);
+		this.tipoDeUsuario.registrarMuestra(especie, foto, ubicacion, this);
+		this.agregarFechaDePublicacion(LocalDateTime.now());
+		this.tipoDeUsuario.actualizarUsuario(this);
 	}
 	public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo) {
+		// Cambiar if por subtarea en sitio web
+		// Se podria agreagar el funcionamineto de crearOpinion en este mismo metodo
 		if(! this.sitio.esSuMuestra(idMuestra, this.getId()) &&
 		   ! this.sitio.muestraNTieneOpinionDeUsuarioN(idMuestra, this.getId())) {
 			    this.getSitio().opinarSobreLaMuestraN(idMuestra, crearOpinion(tipo));
-			    this.registrarOpiniones(LocalDateTime.now());
-			    this.tipo.actualizarUsuario(this);
+			    this.agregarFechaDeOpinion(LocalDateTime.now());
+			    this.tipoDeUsuario.actualizarUsuario(this);
 		} 
 	}
 	public Opinion crearOpinion(TipoDeOpinion tipo) {
@@ -84,12 +86,12 @@ public class Usuario {
 		return opinion;
 	}
 	
-	public void registrarOpiniones(LocalDateTime unaFecha) {
-		registroOpiniones.add(unaFecha);
+	public void agregarFechaDeOpinion(LocalDateTime unaFecha) {
+		fechasDeOpiniones.add(unaFecha);
 	}
 	
-	public void registrarPublicacion(LocalDateTime unaFecha) {
-		registroPublicaciones.add(unaFecha);
+	public void agregarFechaDePublicacion(LocalDateTime unaFecha) {
+		fechasDePublicaciones.add(unaFecha);
 	} 
 	
 	public void validarseExternamenta() {

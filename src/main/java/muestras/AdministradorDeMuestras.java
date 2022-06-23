@@ -58,9 +58,12 @@ public class AdministradorDeMuestras {
 		muestra.agregarOpinion(unaOpinion);
 	}
 	
-	public Boolean muestraNSeVerifico(Integer idMuestra, TipoDeMuestra tipoInicial) {
+	public Boolean muestraNSeVerifico(Integer idMuestra, TipoDeMuestra tipoInicial) { 
 		Muestra muestra =this.muestraN(idMuestra);
-		return (muestra.getTipo() instanceof Verificada && !(tipoInicial instanceof Verificada));
+		return (muestra.getTipo() instanceof Verificada && !(tipoInicial instanceof Verificada)); 
+		// Se puede usar equals o
+		// Se puede hacer un metodo en el Tipo 
+		// Questionar cuanto va a escalar el sistema
 	}
 	
 	//Precondicion: debe haber almenos una muestra subida

@@ -151,13 +151,13 @@ class UsuarioTest {
 	@Test
 	void registrarOpinionesTest() {
 
-		user1.registrarOpiniones(LocalDateTime.now()) ;
+		user1.agregarFechaDeOpinion(LocalDateTime.now()) ;
 		assertEquals(user1.getRegistroOpiniones().size(), 1);
 	}
 
 	@Test
 	void registrarPublicacionTest() {
-		user1.registrarPublicacion(LocalDateTime.now()); 
+		user1.agregarFechaDePublicacion(LocalDateTime.now()); 
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 	}
 /*

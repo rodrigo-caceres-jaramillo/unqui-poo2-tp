@@ -79,12 +79,12 @@ public class SitioWeb {
 
     //Precondicion debe existir la zon
     public void organizacionSeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
-        zonaDeInteres.getOrganizacionesInteresadas().add(org);  // Ver si esta bien
+        zonaDeInteres.getOrganizacionesInteresadas().add(org);  // Cambiar por un metodo en organizacion por agreagar
     }
 
     //Precondicion debe existir la zon
     public void organizacionSeDejaDeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
-        zonaDeInteres.getOrganizacionesInteresadas().remove(org);  // Ver si esta bien
+        zonaDeInteres.getOrganizacionesInteresadas().remove(org);  // Cambiar por un metodo en organizacion
     }
 
     public Muestra muestraN(Integer id) {
@@ -95,8 +95,9 @@ public class SitioWeb {
         return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
     }
 
-    public void opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){
-    	TipoDeMuestra tipoInicial= this.getAdministradorDeMuestras().muestraN(idMuestra).getTipo();
+    public void opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){  //Reducimos en 1 la cantidad de busquedas al quedarnos con la muestra y crear una variable con el tipo inicial de la misma
+    	Muestra muestra =  this.getAdministradorDeMuestras().muestraN(idMuestra);
+    	TipoDeMuestra tipoInicial= muestra.getTipo();
     	this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
     	if(this.getAdministradorDeMuestras().muestraNSeVerifico(idMuestra, tipoInicial)) {
             this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
@@ -115,7 +116,7 @@ public class SitioWeb {
 		return this.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(idMuestra, idUsuario);
 	}
 
-    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, Criterio criterioFiltro){
+    public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
        return  this.getAdministradorDeMuestras().realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, criterioFiltro);
     }
 

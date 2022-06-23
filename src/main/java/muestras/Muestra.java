@@ -24,7 +24,7 @@ public class Muestra {
 		this.tipoVinchuca = tipoVinchuca;
 		this.usuario = usuario;
 		this.creacion = LocalDate.now();
-		this.ultimaVotacion = null;
+		this.ultimaVotacion = LocalDate.now();
 		this.foto = foto;
 		this.ubicacion = ubicacion;
 		this.opiniones = new ArrayList<Opinion>();

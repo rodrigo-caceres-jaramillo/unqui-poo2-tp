@@ -15,7 +15,8 @@ public abstract class TipoDeUsuario {
 		return this.cumple10EnviosEnElMes(usuario, LocalDateTime.now()) &&
 				this.cumple20RevisionesEnElMes(usuario, LocalDateTime.now());
 	}
-
+	// Combinar el funcionamiento de los dos metodos, agregando la cantidad de revisiones/opiniones
+	// Si es sobre opiniones o revisiones
 	private boolean cumple20RevisionesEnElMes(Usuario usuario , LocalDateTime unaFecha) {
 		int counter = 0;
 		for(LocalDateTime fecha : usuario.getRegistroOpiniones()) {
