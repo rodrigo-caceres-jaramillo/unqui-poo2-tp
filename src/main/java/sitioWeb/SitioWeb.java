@@ -79,12 +79,15 @@ public class SitioWeb {
 
     //Precondicion debe existir la zon
     public void organizacionSeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
-        zonaDeInteres.getOrganizacionesInteresadas().add(org);  // Cambiar por un metodo en organizacion por agreagar
+        //zonaDeInteres.getOrganizacionesInteresadas().add(org);  --> antes
+        zonaDeInteres.agregarOrganizacionInterezada(org);
     }
 
-    //Precondicion debe existir la zon
+    //Precondicion debe existir la zon y
+    // la organizacion debe estar interesada en la zona de la que quiere "desligarse"
     public void organizacionSeDejaDeInterezaEnLaZona(OrganizacioneNoGubernamental org,ZonaDeCobertura zonaDeInteres){
-        zonaDeInteres.getOrganizacionesInteresadas().remove(org);  // Cambiar por un metodo en organizacion
+        //zonaDeInteres.getOrganizacionesInteresadas().remove(org);  --> antes
+        zonaDeInteres.eliminarOrganizacionQueSeDejoDeInterezar(org);
     }
 
     public Muestra muestraN(Integer id) {

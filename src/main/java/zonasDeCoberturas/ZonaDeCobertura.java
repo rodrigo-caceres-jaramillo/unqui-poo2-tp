@@ -89,9 +89,14 @@ public class ZonaDeCobertura {
        this.getOrganizacionesInteresadas().stream().forEach(o-> o.seValidoUnaMuestra(this,muestraQueSeValido));
    }
 
+  public void agregarOrganizacionInterezada(OrganizacioneNoGubernamental org){
+        this.getOrganizacionesInteresadas().add(org);
+  }
 
-
-
+  //Precondicion debe existir la organizacion a remover
+  public void eliminarOrganizacionQueSeDejoDeInterezar(OrganizacioneNoGubernamental org){
+        this.getOrganizacionesInteresadas().remove(org);
+  }
 
 }
 
