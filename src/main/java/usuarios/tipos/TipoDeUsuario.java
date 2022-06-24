@@ -43,4 +43,7 @@ public abstract class TipoDeUsuario {
 			return 0;
 		}
 	}
+
+	public abstract boolean esUnTipoDeExperto();
+
 }

@@ -108,4 +108,10 @@ class BasicoTest {
 		user1.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada);
 	}
 
+
+	@Test
+	void esUnTipoDeExpertoVerdadero() {
+		assertTrue(tipoBasico.esUnTipoDeExperto());
+	}
+
 }

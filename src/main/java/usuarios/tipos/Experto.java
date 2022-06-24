@@ -19,4 +19,10 @@ public class Experto extends TipoDeUsuario{
 			usuario.setTipo(new Basico());
 		}
 	}
+
+	@Override
+	public boolean esUnTipoDeExperto(){
+		return true;
+	}
+
 }

@@ -48,4 +48,11 @@ class ExpertoValidadoTest {
         user.registrarMuestra(tipoDeOpinion,"Foto",ubi);
         verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
     }
+
+
+    @Test
+    void esUnTipoDeExpertoVerdadero() {
+        assertTrue(tipoExpertoValido.esUnTipoDeExperto());
+    }
+
 }

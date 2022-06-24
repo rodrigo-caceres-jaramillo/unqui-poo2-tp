@@ -60,4 +60,12 @@ class ExpertoTest {
         tipoExperto.actualizarUsuario(user);
         assertTrue(user.getTipo() instanceof Experto);
     }
+
+
+    @Test
+    void esUnTipoDeExpertoVerdadero() {
+        assertTrue(tipoExperto.esUnTipoDeExperto());
+    }
+
+
 }
