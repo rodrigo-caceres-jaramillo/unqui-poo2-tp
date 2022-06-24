@@ -117,7 +117,7 @@ public class SitioWeb {
 	}
 
     public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
-       return  this.getAdministradorDeMuestras().realizarBusqueda(fechaABuscar, opinionABuscar, tipoABuscar, criterioFiltro);
+       return  this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
     }
 
 }

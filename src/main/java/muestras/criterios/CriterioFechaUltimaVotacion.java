@@ -12,8 +12,9 @@ import main.java.muestras.tipos.TipoDeMuestra;
 
 public class CriterioFechaUltimaVotacion implements Criterio{
 
+
     @Override
-    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
+    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
         LocalDate ultFecha = muestras.get(0).getUltimaVotacion();
         for(int i =0;i<muestras.size();i++){
             ultFecha = this.ultimaFechaEntre(ultFecha,muestras.get(i).getUltimaVotacion()) ;

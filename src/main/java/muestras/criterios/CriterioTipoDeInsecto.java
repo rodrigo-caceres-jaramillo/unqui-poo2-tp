@@ -10,8 +10,18 @@ import main.java.muestras.tipos.TipoDeMuestra;
 
 public class CriterioTipoDeInsecto implements Criterio{
 
+    private TipoDeOpinion opinionABuscar;
+
+    public CriterioNivelDeVerificacion(TipoDeOpinion opinionATenerEnCuenta) {
+        opinionABuscar = opinionATenerEnCuenta;
+    }
+
+    public TipoDeOpinion getTipoABuscar(){
+        return opinionABuscar;
+    }
+
     @Override
-    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
-        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipoVinchuca() == opinionABuscar).collect(Collectors.toList());
+    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
+        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipoVinchuca() == this.getTipoABuscar()).collect(Collectors.toList()); // cambiar == por equals
     }
 }

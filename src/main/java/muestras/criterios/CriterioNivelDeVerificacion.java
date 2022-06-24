@@ -10,8 +10,18 @@ import main.java.muestras.tipos.TipoDeMuestra;
 
 public class CriterioNivelDeVerificacion implements Criterio{
 
+    private TipoDeMuestra tipoABuscar;
+
+    public CriterioNivelDeVerificacion(TipoDeMuestra tipoATenerEnCuenta) {
+        tipoABuscar = tipoATenerEnCuenta;
+    }
+
+    public TipoDeMuestra getTipoABuscar(){
+        return tipoABuscar;
+    }
+
     @Override
-    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
-        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipo() == tipoABuscar).collect(Collectors.toList());
+    public ArrayList<Muestra> realizarBusqueda(TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
+        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipo() == this.getTipoABuscar() ).collect(Collectors.toList()); // cambiar == por equals
     }
 }

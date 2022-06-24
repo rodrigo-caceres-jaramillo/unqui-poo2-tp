@@ -7,5 +7,5 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.tipos.TipoDeMuestra;
 
 public interface Criterio {
-    public ArrayList<Muestra> realizarBusqueda (LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar,ArrayList<Muestra>  muestras);
+    public ArrayList<Muestra> realizarBusqueda (ArrayList<Muestra>  muestras);
 }
