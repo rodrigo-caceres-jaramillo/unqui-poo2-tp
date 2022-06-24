@@ -1,6 +1,7 @@
 package main.java.usuarios.tipos;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import main.java.muestras.TipoDeOpinion;
 import main.java.ubicacciones.Ubicacion;
@@ -18,6 +19,7 @@ public abstract class TipoDeUsuario {
 	// Combinar el funcionamiento de los dos metodos, agregando la cantidad de revisiones/opiniones
 	// Si es sobre opiniones o revisiones
 	private boolean cumple20RevisionesEnElMes(Usuario usuario , LocalDateTime unaFecha) {
+		// cumpleXCantidadDeYEnElMes(20,usuario.getRegistroOpiniones(),unaFecha);
 		int counter = 0;
 		for(LocalDateTime fecha : usuario.getRegistroOpiniones()) {
 			counter = counter + this.unoSi(fecha, unaFecha); 
@@ -26,6 +28,7 @@ public abstract class TipoDeUsuario {
 	}
 	
 	private boolean cumple10EnviosEnElMes(Usuario usuario, LocalDateTime unaFecha) {
+		// cumpleXCantidadDeYEnElMes(10,usuario.getRegistroPublicaciones(),unaFecha);
 		int counter = 0;
 		for(LocalDateTime fecha : usuario.getRegistroPublicaciones()) {
 			counter = counter + this.unoSi(fecha, unaFecha); 
@@ -45,5 +48,14 @@ public abstract class TipoDeUsuario {
 	}
 
 	public abstract boolean esUnTipoDeExperto();
+
+	private boolean cumpleXCantidadDeYEnElMes(int cantidad,ArrayList<LocalDateTime> fechas,LocalDateTime unaFecha) {
+		int counter = 0;
+		for(LocalDateTime fecha : fechas) {
+			counter = counter + this.unoSi(fecha, unaFecha);
+		}
+	  return (counter > cantidad);
+	}
+
 
 }
