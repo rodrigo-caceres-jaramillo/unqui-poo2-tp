@@ -14,10 +14,9 @@ import main.java.muestras.tipos.TipoDeMuestra;
 import org.mockito.Mock;
 
 class CriterioTipoDeInsectoTest {
-
     CriterioTipoDeInsecto criterioDeInsectos;
     LocalDate fecha;
-    TipoDeOpinion tipoDeOpinion;
+    TipoDeOpinion tipoDeInsecto;
     TipoDeMuestra tipoDeMuestra;
     ArrayList<Muestra> muestras;
     Muestra muestra1;
@@ -26,9 +25,8 @@ class CriterioTipoDeInsectoTest {
     @BeforeEach
     void setUp() {
         //Mocks
-        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
+        tipoDeInsecto = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
-
         muestra1 =  mock(Muestra.class);
         muestra2 =  mock(Muestra.class);
 
@@ -38,24 +36,23 @@ class CriterioTipoDeInsectoTest {
         muestras.add(muestra2);
 
         //Critertio a ver (SUT)
-        criterioDeInsectos = new CriterioTipoDeInsecto();
+        criterioDeInsectos = new CriterioTipoDeInsecto(tipoDeInsecto);
     }
 
     @Test
     void realizarBusqueda() {
-
         //Armo el resultado
         ArrayList<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
         muestrasEsperadas.add(muestra2);
 
         //Caso no querido
-        TipoDeOpinion tipoDeOpinionNoQuerido = TipoDeOpinion.VinchucaGuasayana;
+        TipoDeOpinion tipoDeInsectoNoQuerido = TipoDeOpinion.VinchucaGuasayana;
 
         //Respuestas del mock
-        when(muestra1.getTipoVinchuca()).thenReturn(tipoDeOpinionNoQuerido);
-        when(muestra2.getTipoVinchuca()).thenReturn(tipoDeOpinion);
+        when(muestra1.getTipoVinchuca()).thenReturn(tipoDeInsectoNoQuerido);
+        when(muestra2.getTipoVinchuca()).thenReturn(tipoDeInsecto);
 
-        assertEquals(muestrasEsperadas,criterioDeInsectos.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras));
+        assertEquals(muestrasEsperadas,criterioDeInsectos.realizarBusqueda(muestras));
     }
 
 

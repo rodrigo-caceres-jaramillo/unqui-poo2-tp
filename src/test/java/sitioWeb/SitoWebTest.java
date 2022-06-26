@@ -186,9 +186,7 @@ class SitoWebTest {
     @Test
     void realizarBusquedaTest() {
        Criterio criterio = mock(Criterio.class);
-       TipoDeOpinion tipoO = TipoDeOpinion.ChincheFoliada;
-       TipoDeMuestra tipoM = mock(TipoDeMuestra.class);
-       web.realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
-       verify(adminMuestras).realizarBusqueda(LocalDate.now(),tipoO,tipoM,criterio);
+       web.realizarBusqueda(criterio);
+       verify(adminMuestras).realizarBusqueda(criterio);
     }
 }

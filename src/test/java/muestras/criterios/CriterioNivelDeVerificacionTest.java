@@ -15,7 +15,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class CriterioNivelDeVerificacionTest {
-
     CriterioNivelDeVerificacion criterioNivelDeVerificacion;
     LocalDate fecha;
     TipoDeOpinion tipoDeOpinion;
@@ -29,7 +28,6 @@ class CriterioNivelDeVerificacionTest {
         //Mocks
         tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
-
         muestra1 =  mock(Muestra.class);
         muestra2 =  mock(Muestra.class);
 
@@ -39,7 +37,7 @@ class CriterioNivelDeVerificacionTest {
         muestras.add(muestra2);
 
         //Critertio a ver (SUT)
-        criterioNivelDeVerificacion = new CriterioNivelDeVerificacion();
+        criterioNivelDeVerificacion = new CriterioNivelDeVerificacion(tipoDeMuestra);
     }
 
     @Test
@@ -55,7 +53,7 @@ class CriterioNivelDeVerificacionTest {
         when(muestra1.getTipo()).thenReturn(tipoDeMuestraNoQuerido);
         when(muestra2.getTipo()).thenReturn(tipoDeMuestra);
 
-        assertEquals(muestrasEsperadas,criterioNivelDeVerificacion.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras));
+        assertEquals(muestrasEsperadas,criterioNivelDeVerificacion.realizarBusqueda(muestras));
     }
 
 }

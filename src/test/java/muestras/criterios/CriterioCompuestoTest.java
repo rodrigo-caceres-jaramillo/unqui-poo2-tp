@@ -16,9 +16,7 @@ import main.java.muestras.criterios.CriterioCompuesto;
 import main.java.muestras.criterios.conectores.ConectorLogico;
 import main.java.muestras.tipos.TipoDeMuestra;
 
-
 class CriterioCompuestoTest {
-
     CriterioCompuesto criterioCompuesto;
     LocalDate fecha;
     TipoDeOpinion tipoDeOpinion;
@@ -62,17 +60,17 @@ class CriterioCompuestoTest {
 
     @Test
     void realizarBusqueda() {
-    	criterioCompuesto.realizarBusqueda(fecha, tipoDeOpinion, tipoDeMuestra, muestras);
+    	criterioCompuesto.realizarBusqueda(muestras);
         //Verificar que le llega a criterios
-        verify(c1).realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras);
-        verify(c2).realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras);
+        verify(c1).realizarBusqueda(muestras);
+        verify(c2).realizarBusqueda(muestras);
 
         //Verificar que le llega a connector
         ArrayList<Muestra> resultadoc1 = new ArrayList<>();
-        when(c1.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras)).thenReturn(resultadoc1);
+        when(c1.realizarBusqueda(muestras)).thenReturn(resultadoc1);
 
         ArrayList<Muestra> resultadoc2 = new ArrayList<>();
-        when(c2.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras)).thenReturn(resultadoc2);
+        when(c2.realizarBusqueda(muestras)).thenReturn(resultadoc2);
 
         verify(conectorLogico).conectarArray(resultadoc1,resultadoc2);
 
@@ -81,7 +79,7 @@ class CriterioCompuestoTest {
         when(conectorLogico.conectarArray(resultadoc1,resultadoc2)).thenReturn(resultado);
 
         //Respuestas del mock
-        assertEquals(resultado,criterioCompuesto.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras));
+        assertEquals(resultado,criterioCompuesto.realizarBusqueda(muestras));
     }
 
 }

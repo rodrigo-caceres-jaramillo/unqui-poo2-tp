@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import main.java.muestras.criterios.CriterioFechaDeCreacion;
+import main.java.muestras.criterios.comparadorDeFechas.ComparadorDeFechas;
 import main.java.muestras.TipoDeOpinion;
 import java.time.LocalDate;
 import java.time.Month;
@@ -19,11 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
-
 class CriterioFechaDeCreacionTest {
-
     CriterioFechaDeCreacion criterioFechaDeCreacion;
+    ComparadorDeFechas comparador;
     LocalDate fecha;
     LocalDate f1;
     TipoDeOpinion tipoDeOpinion;
@@ -35,7 +34,8 @@ class CriterioFechaDeCreacionTest {
     @BeforeEach
     void setUp() {
         //Mocks
-        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
+        comparador = mock(ComparadorDeFechas.class);
+    	tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
 
         fecha = LocalDate.of(2020, Month.APRIL, 10);
@@ -50,14 +50,14 @@ class CriterioFechaDeCreacionTest {
         muestras.add(muestra2);
 
         //Critertio a ver (SUT)
-        criterioFechaDeCreacion = new CriterioFechaDeCreacion();
+        criterioFechaDeCreacion = new CriterioFechaDeCreacion(comparador, fecha);
     }
 
     @Test
     void realizarBusqueda() {
         //Armo el resultado
         ArrayList<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
-        muestrasEsperadas.add(muestra2);
+        muestrasEsperadas.add(muestra1);
 
         //Caso no querido
         TipoDeMuestra tipoDeMuestraNoQuerido = mock(TipoDeMuestra.class);
@@ -65,8 +65,9 @@ class CriterioFechaDeCreacionTest {
         //Respuestas del mock
         when(muestra1.getCreacion()).thenReturn(f1);
         when(muestra2.getCreacion()).thenReturn(fecha);
+        when(comparador.compararEntre(f1, fecha)).thenReturn(true);
 
-        assertEquals(muestrasEsperadas,criterioFechaDeCreacion.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras));
+        assertEquals(muestrasEsperadas, criterioFechaDeCreacion.realizarBusqueda(muestras));
     }
 
 

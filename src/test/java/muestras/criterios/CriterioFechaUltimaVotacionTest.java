@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import main.java.muestras.criterios.CriterioFechaUltimaVotacion;
+import main.java.muestras.criterios.comparadorDeFechas.ComparadorDeFechas;
 import main.java.muestras.TipoDeOpinion;
 import java.time.LocalDate;
 import java.time.Month;
@@ -17,8 +18,8 @@ import static org.mockito.Mockito.when;
 
 
 class CriterioFechaUltimaVotacionTest {
-
     CriterioFechaUltimaVotacion criterioFechaUltimaVotacion;
+    ComparadorDeFechas comparador;
     LocalDate fecha;
     LocalDate f1;
     TipoDeOpinion tipoDeOpinion;
@@ -30,7 +31,8 @@ class CriterioFechaUltimaVotacionTest {
     @BeforeEach
     void setUp() {
         //Mocks
-        tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
+    	comparador = mock(ComparadorDeFechas.class);
+    	tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         tipoDeMuestra = mock(TipoDeMuestra.class);
 
         fecha = LocalDate.of(2020, Month.APRIL, 10);
@@ -45,14 +47,14 @@ class CriterioFechaUltimaVotacionTest {
         muestras.add(muestra2);
 
         //Critertio a ver (SUT)
-        criterioFechaUltimaVotacion = new CriterioFechaUltimaVotacion();
+        criterioFechaUltimaVotacion = new CriterioFechaUltimaVotacion(comparador, fecha);
     }
 
     @Test
     void realizarBusqueda() {
         //Armo el resultado
         ArrayList<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
-        muestrasEsperadas.add(muestra2);
+        muestrasEsperadas.add(muestra1);
 
         //Caso no querido
         TipoDeMuestra tipoDeMuestraNoQuerido = mock(TipoDeMuestra.class);
@@ -60,15 +62,8 @@ class CriterioFechaUltimaVotacionTest {
         //Respuestas del mock
         when(muestra1.getUltimaVotacion()).thenReturn(f1);
         when(muestra2.getUltimaVotacion()).thenReturn(fecha);
+        when(comparador.compararEntre(f1, fecha)).thenReturn(true);
 
-        assertEquals(muestrasEsperadas,criterioFechaUltimaVotacion.realizarBusqueda(fecha,tipoDeOpinion,tipoDeMuestra,muestras));
-    }
-
-    @Test
-    void ultimaFechaEntre() {
-
-        assertTrue(fecha.isAfter(f1));  
-
-        assertEquals(fecha,criterioFechaUltimaVotacion.ultimaFechaEntre(fecha,f1));
+        assertEquals(muestrasEsperadas,criterioFechaUltimaVotacion.realizarBusqueda(muestras));
     }
 }
