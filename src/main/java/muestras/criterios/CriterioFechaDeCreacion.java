@@ -5,23 +5,30 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import main.java.muestras.Muestra;
-import main.java.muestras.TipoDeOpinion;
-import main.java.muestras.tipos.TipoDeMuestra;
-
+import main.java.muestras.criterios.comparadorDeFechas.ComparadorDeFechas;
 
 public class CriterioFechaDeCreacion implements Criterio{
     private LocalDate fecha;
+    private ComparadorDeFechas comparador;
 
-    public CriterioFechaDeCreacion(LocalDate fechaAver) {
-        fecha = fechaAver;
+    public CriterioFechaDeCreacion(ComparadorDeFechas comparador, LocalDate fechaAver) {
+        this.comparador = comparador;
+    	this.fecha = fechaAver;
     }
 
     public LocalDate getFecha(){
-        return fecha;
+        return this.fecha;
+    }
+    
+    public ComparadorDeFechas getComparador() {
+    	return this.comparador;
     }
 
     @Override
     public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
-        return (ArrayList<Muestra>) muestras.stream().filter(m-> m.getCreacion() == this.getFecha() ).collect(Collectors.toList()); // sacar Stream del return
+    	ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream()
+				.filter(m -> comparador.compararEntre(m.getCreacion(), fecha))
+				.collect(Collectors.toList());
+		return resultado;
     }
 }

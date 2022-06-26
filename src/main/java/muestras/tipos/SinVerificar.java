@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
-import main.java.usuarios.tipos.Experto;
-import main.java.usuarios.tipos.ExpertoValidado;
 
 public class SinVerificar extends TipoDeMuestra{
 

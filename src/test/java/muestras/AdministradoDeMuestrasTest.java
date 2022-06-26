@@ -116,8 +116,8 @@ class AdministradoDeMuestrasTest {
 	void realizarBusquedaTest() {
 		LocalDate date = LocalDate.now();
 		Criterio criterio = mock(Criterio.class);
-		adminDeMuestras.realizarBusqueda(date, TipoDeOpinion.ChincheFoliada, tipoDeMuestra, criterio);
-		verify(criterio).realizarBusqueda(date,TipoDeOpinion.ChincheFoliada, tipoDeMuestra,adminDeMuestras.getMuestras());
+		adminDeMuestras.realizarBusqueda(criterio);
+		verify(criterio).realizarBusqueda(adminDeMuestras.getMuestras());
 	}
 	
 	@Test

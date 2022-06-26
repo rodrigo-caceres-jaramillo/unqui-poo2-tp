@@ -1,12 +1,8 @@
 package main.java.muestras.criterios;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-
 import main.java.muestras.Muestra;
-import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.criterios.conectores.ConectorLogico;
-import main.java.muestras.tipos.TipoDeMuestra;
 
 public class CriterioCompuesto implements Criterio {
     private ConectorLogico conector;
@@ -20,15 +16,22 @@ public class CriterioCompuesto implements Criterio {
     }
 
     public ConectorLogico getConector() {
-        return conector;
+        return this.conector;
+    }
+    
+    public Criterio getCriterio1() {
+    	return this.criterio1;
+    }
+    
+    public Criterio getCriterio2() {
+    	return this.criterio2;
     }
 
-
     @Override
-    public ArrayList<Muestra> realizarBusqueda(LocalDate fechaABuscar, TipoDeOpinion opinionABuscar, TipoDeMuestra tipoABuscar, ArrayList<Muestra> muestras) {
-        ArrayList<Muestra> resultadoDelCriterio1 = criterio1.realizarBusqueda(muestras);
-        ArrayList<Muestra> resultadoDelCriterio2 = criterio2.realizarBusqueda(muestras);
-        return conector.conectarArray(resultadoDelCriterio1,resultadoDelCriterio2);
+    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
+        ArrayList<Muestra> resultadoDelCriterio1 = this.getCriterio1().realizarBusqueda(muestras);
+        ArrayList<Muestra> resultadoDelCriterio2 = this.getCriterio2().realizarBusqueda(muestras);
+        return this.getConector().conectarArray(resultadoDelCriterio1,resultadoDelCriterio2);
     }
 
 }
