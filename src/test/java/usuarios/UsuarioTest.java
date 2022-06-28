@@ -131,11 +131,11 @@ class UsuarioTest {
 	@Test
 	void usuarioPublicaUnaVezTest() {
 		
-		sitioWeb = mock(SitioWeb.class);
+		//sitioWeb = mock(SitioWeb.class);
 		ubicacion1 = mock(Ubicacion.class);
 
-		user2.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);  // manda el mensaje
-
+		user2.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);  // manda el mensaje
+		//sitioWeb.registrarMuestra( TipoDeOpinion.ChincheFoliada , "estoEsUnaFoto", ubicacion1, user2);
 		verify(tipo).registrarMuestra(TipoDeOpinion.ChincheFoliada,"estoEsUnaFoto",ubicacion1,user2);  // se fija si le llega al tipo
 
 		assertEquals( user2.getRegistroPublicaciones().size(), 1); // se suma una publi
@@ -143,7 +143,7 @@ class UsuarioTest {
 	
 	@Test
 	void usuarioOpinaUnaVezTest() {
-		user1.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);        // manda el mensaje                                                              // se fija si le llega al sitio
+		user1.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);        // manda el mensaje                                                              // se fija si le llega al sitio
 		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
 		assertEquals(cantOp, 1);
 	}
@@ -201,15 +201,15 @@ class UsuarioTest {
 */
 	@Test
 	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
-		user2.opinarDeMuestraN(050, TipoDeOpinion.ChincheFoliada);
+		user2.publicarOpinion(050, TipoDeOpinion.ChincheFoliada);
 		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
 		assertEquals(cantOp, 0);
 	}
 	@Test
 	void opinarDeMuestraNTest() {
 
-		user1.registrarMuestra(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
+		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
 		int cantOp = user2.getRegistroOpiniones().size(); 
 		assertEquals(cantOp, 1);
 		
@@ -217,7 +217,7 @@ class UsuarioTest {
 	@Test 
 	void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
 		
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada);
+		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
 
 		when(sitioWeb.esSuMuestra(001, user2.getId())).thenReturn(false);
 		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(false);
@@ -226,7 +226,7 @@ class UsuarioTest {
 		
 		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(true);
 		
-		user2.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara);
+		user2.publicarOpinion(001, TipoDeOpinion.ImagenPocoClara);
 		
 		assertEquals(user2.getRegistroOpiniones().size(), 1);
 	}

@@ -1,6 +1,7 @@
 package main.java.sitioWeb;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,5 +123,19 @@ public class SitioWeb {
     public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
        return  this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
     }
-
+    // nuevos metodos para registrar muestra y opinion. NO FUNCIONAN TODAVIA
+    public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario user) {
+        user.getTipo().registrarMuestra(especie, foto, ubicacion, user);
+        user.agregarFechaDePublicacion(LocalDateTime.now());
+        user.getTipo().actualizarUsuario(user);
+    }
+    
+    public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo, Usuario user) {
+        if(! this.esSuMuestra(idMuestra, user.getId()) &&
+            ! this.muestraNTieneOpinionDeUsuarioN(idMuestra, user.getId())) {
+                 this.opinarSobreLaMuestraN(idMuestra, user.crearOpinion(tipo));
+                 user.agregarFechaDeOpinion(LocalDateTime.now());
+                 user.getTipo().actualizarUsuario(user);
+        }  
+    }
 }

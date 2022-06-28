@@ -66,11 +66,13 @@ public class Usuario {
 		this.tipoDeUsuario = tipo;
 	}
 	// Metodos
+	/*
 	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
 		this.tipoDeUsuario.registrarMuestra(especie, foto, ubicacion, this);
 		this.agregarFechaDePublicacion(LocalDateTime.now());
 		this.tipoDeUsuario.actualizarUsuario(this);
 	}
+	
 	public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo) {
 		// Cambiar if por subtarea en sitio web
 		// Se podria agreagar el funcionamineto de crearOpinion en este mismo metodo
@@ -81,6 +83,15 @@ public class Usuario {
 			    this.tipoDeUsuario.actualizarUsuario(this);
 		} 
 	}
+	*/
+	//---------------------------------
+	public void publicarMuestraEnSitioWeb(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
+		this.getSitio().registrarMuestra(especie, foto, ubicacion, this);
+	}
+	public void publicarOpinion(Integer idMuestra,TipoDeOpinion tipo){
+		this.getSitio().opinarDeMuestraN(idMuestra, tipo, this);
+	}
+	//-----------------------------------
 	public Opinion crearOpinion(TipoDeOpinion tipo) {
 		Opinion opinion = new Opinion(this.getId(), tipo, this.getTipo());
 		return opinion;

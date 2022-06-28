@@ -45,7 +45,7 @@ class ExpertoValidadoTest {
 
     @Test
     void registrarMuestraTest() {
-        user.registrarMuestra(tipoDeOpinion,"Foto",ubi);
+        user.publicarMuestraEnSitioWeb(tipoDeOpinion,"Foto",ubi);
         verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
     }
 

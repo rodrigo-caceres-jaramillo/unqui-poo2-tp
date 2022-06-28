@@ -94,7 +94,7 @@ class MuestraTest {
 	}
 	@Test
 	void getUltimaVotacionTest() {
-		assertEquals(muestra1.getUltimaVotacion(), null);
+		assertEquals(muestra1.getUltimaVotacion(), LocalDate.now());
 	}
 	
 	@Test
