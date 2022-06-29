@@ -111,7 +111,7 @@ public class SitioWeb {
     
     public TipoDeOpinion resultadoActualDeMuestraN(Integer idMuestra) {
     	return this.getAdministradorDeMuestras().muestraN(idMuestra).getResultadoActual();
-    }
+    } 
     
     public boolean esSuMuestra(Integer idMuestra, Integer idDeUsuario) {
 		return this.getAdministradorDeMuestras().muestraNEsDeUsuarioN(idMuestra, idDeUsuario);
@@ -126,9 +126,9 @@ public class SitioWeb {
     }
     // nuevos metodos para registrar muestra y opinion. NO FUNCIONAN TODAVIA
     public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario user) {
-        user.getTipo().registrarMuestra(especie, foto, ubicacion, user);
-        user.agregarFechaDePublicacion(LocalDateTime.now());
-        user.getTipo().actualizarUsuario(user);
+        //user.getTipo().registrarMuestra(especie, foto, ubicacion, user);
+        //user.agregarFechaDePublicacion(LocalDateTime.now());
+        user.registrarMuestra(especie, foto, ubicacion);
     }
      
     public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo, Usuario user) {
@@ -138,5 +138,5 @@ public class SitioWeb {
                  this.opinarSobreLaMuestraN(idMuestra, user.crearOpinion(tipo));
                  user.agregarFechaDeOpinion(LocalDateTime.now());
         }  
-    }
+    } 
 }

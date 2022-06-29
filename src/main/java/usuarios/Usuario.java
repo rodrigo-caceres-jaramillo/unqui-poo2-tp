@@ -97,10 +97,14 @@ public class Usuario {
 	
 	public void agregarFechaDePublicacion(LocalDateTime unaFecha) {
 		fechasDePublicaciones.add(unaFecha);
-		this.getTipo().actualizarUsuario(this);
+		this.getTipo().actualizarUsuario(this); 
 	} 
 	
 	public void validarseExternamenta() {
 		this.setTipo(new ExpertoValidado());
 	}  
+	 public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
+	 	this.getTipo().registrarMuestra(especie, foto, ubicacion, this);
+        this.agregarFechaDePublicacion(LocalDateTime.now());
+	 }
 }

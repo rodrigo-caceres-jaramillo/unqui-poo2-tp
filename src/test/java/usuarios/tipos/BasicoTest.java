@@ -31,27 +31,27 @@ class BasicoTest {
     TipoDeOpinion tipoDeOpinion;
     Muestra muestra;
     Basico tipoBasico;
-    SitioWeb sitioWeb;
+    SitioWeb web;
     TipoDeMuestra tipoDeMuestra;
 
     @BeforeEach
     void setUp() {
         user = mock(Usuario.class);
-        sitioWeb = mock(SitioWeb.class);
+        web = mock(SitioWeb.class);
         tipoBasico = new Basico();
         tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
         ubi  = mock(Ubicacion.class);
         //tipoDeOpinion = mock(TipoDeOpinion.class);
         muestra = mock(Muestra.class);
-        user1 = new Usuario(123, "jose Marquez", sitioWeb);
-        when(user.getSitio()).thenReturn(sitioWeb);
+        user1 = new Usuario(123, "jose Marquez", web);
+        when(user.getSitio()).thenReturn(web);
 
     }
     
     @Test
     void registrarMuestraBasicoTest() {
         tipoBasico.registrarMuestra(tipoDeOpinion,"Foto",ubi,user);
-        verify(sitioWeb).agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi ,user , any(SinVerificar.class));
+        verify(web).agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi ,user , any(SinVerificar.class));
         //verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,new SinVerificar());
     } 
 	 
@@ -69,49 +69,50 @@ class BasicoTest {
     	tipoBasico.actualizarUsuario(user1);
     	//assertTrue(tipoBasico.cumpleCondicionDeExperto(user1));
     	assertTrue(user1.getTipo() instanceof Experto);
-    }  
-    
+    }    
 	private void registrar11Muestras() {
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.VinchucaGuasayana, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.VinchucaInfestans, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.VinchucaSordida, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubi);
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ImagenPocoClara, "estoEsUnaFoto", ubi);
+	
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+		web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
 	}
 	private void crear21Opiniones() {
-		user1.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(050, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(002, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(003, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(004, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(005, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(006, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(007, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(123, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(132, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(010, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(011, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(012, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(013, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(014, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(015, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(016, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(017, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(412, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(234, TipoDeOpinion.ChincheFoliada);
-		user1.publicarOpinion(020, TipoDeOpinion.ChincheFoliada);
+		web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(002, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(003, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(004, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(005, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(006, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(007, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(032, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(043, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(010, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(011, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(012, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(013, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(014, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(015, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(016, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(017, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(023, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(031, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(020, TipoDeOpinion.ChincheFoliada, user1);
+		web.opinarDeMuestraN(021, TipoDeOpinion.ChincheFoliada, user1);
+		
 	}
 
 
 	@Test
 	void esUnTipoDeExpertoVerdadero() {
-		assertTrue(tipoBasico.esUnTipoDeExperto());
+		assertFalse(tipoBasico.esUnTipoDeExperto());
 	}
 
 }

@@ -200,29 +200,42 @@ class SitoWebTest {
     }
     @Test
 	void opinarDeMuestraNTest() {  
-    	//ARREGLAR
+ 
     	Usuario user1 = new Usuario(12, "jose marquez", web);
-    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
+    	when(web.getAdministradorDeMuestras().muestraN(001)).
+			thenReturn(new Muestra(001,TipoDeOpinion.PhtiaChinche, user1, "foto", ubi, new SinVerificar()));
     	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
-		int cantOp = user.getRegistroOpiniones().size(); 
-		//verify(adminMuestras).agregarOpinionAMuestraN(001, user.crearOpinion(TipoDeOpinion.ChincheFoliada));;
-		assertEquals(cantOp, 1);
+    	
+		verify(adminMuestras).agregarOpinionAMuestraN(001, user.crearOpinion(TipoDeOpinion.ChincheFoliada));
 	}
+    
     @Test
     void registrarMuestraNTest() {
-    	//ARREGLAR
-    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
-    	when(user.getRegistroPublicaciones().size()).thenReturn(1);
-    	int cantPubli = user.getRegistroPublicaciones().size();
-    	assertEquals(cantPubli, 1);
+       	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	//verify(web.getAdministradorDeMuestras()).agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user, new SinVerificar());
+    	verify(user).registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi);
     }
+    
     @Test
     void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
     	//ARREGLAR
-    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
-    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
-    	web.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara, user);
-		int cantOp = user.getRegistroOpiniones().size(); 
-		assertEquals(cantOp, 1);
+    	Usuario user1 = mock (Usuario.class);
+    	Muestra muestra = mock (Muestra.class);
+    	//web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	when(web.getAdministradorDeMuestras().muestraN(001)).
+			thenReturn(muestra);
+    	
+    	when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(false);
+    	when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(false);
+    	
+    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user1);
+    	verify(user1).agregarFechaDeOpinion( any (LocalDateTime.class));
+    	
+    	when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(true);
+    	when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(true);
+    	web.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara, user1);
+    	//verify(user1).agregarFechaDeOpinion( any (LocalDateTime.class));
+    	//falta un verify negando lo de arriba...
     }
+    
 }

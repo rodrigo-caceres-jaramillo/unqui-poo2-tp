@@ -230,7 +230,15 @@ class UsuarioTest {
         user1.validarseExternamenta();
         assertTrue(user1.getTipo() instanceof ExpertoValidado);
     }
-	
+	@Test
+	void registrarMuestraTest() {
+		assertEquals(0, user1.getRegistroPublicaciones().size());
+		
+		user1.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "foto", ubicacion1);
+		verify(user1.getTipo()).registrarMuestra(TipoDeOpinion.VinchucaInfestans, "foto", ubicacion1, user1); // le llega mensaje al tipoDeUsuario
+		
+		assertEquals(1, user1.getRegistroPublicaciones().size());
+	}
 	
 	
 	
