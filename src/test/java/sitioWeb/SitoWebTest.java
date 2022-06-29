@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import main.java.organizaciones.OrganizacioneNoGubernamental;
 import main.java.sitioWeb.SitioWeb;
 import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
+import main.java.usuarios.tipos.Basico;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
 import main.java.muestras.criterios.Criterio;
@@ -33,7 +35,9 @@ class SitoWebTest {
     List<OrganizacioneNoGubernamental> organizaciones;
     SitioWeb web;
     Usuario user;
+    Usuario user2;
     Muestra muestra;
+    Ubicacion ubi;
 
     @BeforeEach
     void setUp() {
@@ -43,9 +47,12 @@ class SitoWebTest {
         web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
         user = mock(Usuario.class);
         muestra = mock(Muestra.class);
+        ubi = mock(Ubicacion.class);
         when(adminMuestras.muestraN(10)).thenReturn(muestra);
         when(muestra.getUsuario()).thenReturn(user);
         when(user.getId()).thenReturn(1);
+        when(user.getTipo()).thenReturn(new Basico());
+        when(user.getSitio()).thenReturn(web);
     }
 
 // Gets y Sets
@@ -127,6 +134,7 @@ class SitoWebTest {
 
     @Test
     void organizacionSeInterezaEnLaZonaTest() {
+    	//REVISAR
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeInterezaEnLaZona(org, zona);
@@ -135,6 +143,7 @@ class SitoWebTest {
 
     @Test
     void organizacionSeDejaDeInterezaEnLaZonaTest() {
+    	//REVISAR
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeDejaDeInterezaEnLaZona(org, zona);
@@ -188,5 +197,31 @@ class SitoWebTest {
        Criterio criterio = mock(Criterio.class);
        web.realizarBusqueda(criterio);
        verify(adminMuestras).realizarBusqueda(criterio);
+    }
+    @Test
+	void opinarDeMuestraNTest() {  
+    	//ARREGLAR
+    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
+		int cantOp = user.getRegistroOpiniones().size(); 
+		//verify(adminMuestras).agregarOpinionAMuestraN(001, user.crearOpinion(TipoDeOpinion.ChincheFoliada));;
+		assertEquals(cantOp, 1);
+	}
+    @Test
+    void registrarMuestraNTest() {
+    	//ARREGLAR
+    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	when(user.getRegistroPublicaciones().size()).thenReturn(1);
+    	int cantPubli = user.getRegistroPublicaciones().size();
+    	assertEquals(cantPubli, 1);
+    }
+    @Test
+    void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
+    	//ARREGLAR
+    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
+    	web.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara, user);
+		int cantOp = user.getRegistroOpiniones().size(); 
+		assertEquals(cantOp, 1);
     }
 }

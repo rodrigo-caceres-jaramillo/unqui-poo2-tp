@@ -84,14 +84,7 @@ public class Usuario {
 		} 
 	}
 	*/
-	//---------------------------------
-	public void publicarMuestraEnSitioWeb(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
-		this.getSitio().registrarMuestra(especie, foto, ubicacion, this);
-	}
-	public void publicarOpinion(Integer idMuestra,TipoDeOpinion tipo){
-		this.getSitio().opinarDeMuestraN(idMuestra, tipo, this);
-	}
-	//-----------------------------------
+	
 	public Opinion crearOpinion(TipoDeOpinion tipo) {
 		Opinion opinion = new Opinion(this.getId(), tipo, this.getTipo());
 		return opinion;
@@ -99,10 +92,12 @@ public class Usuario {
 	
 	public void agregarFechaDeOpinion(LocalDateTime unaFecha) {
 		fechasDeOpiniones.add(unaFecha);
+		 this.getTipo().actualizarUsuario(this);
 	}
 	
 	public void agregarFechaDePublicacion(LocalDateTime unaFecha) {
 		fechasDePublicaciones.add(unaFecha);
+		this.getTipo().actualizarUsuario(this);
 	} 
 	
 	public void validarseExternamenta() {

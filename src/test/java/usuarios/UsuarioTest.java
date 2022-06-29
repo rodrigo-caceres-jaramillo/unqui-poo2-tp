@@ -141,9 +141,9 @@ class UsuarioTest {
 	}
 
 //Metodos
-
+/*
 	@Test
-	void usuarioPublicaUnaVezTest() {
+	void usuarioPublicaUnaVezTest() {  <----------------mover a sitio web
 		
 		//sitioWeb = mock(SitioWeb.class);
 		ubicacion1 = mock(Ubicacion.class);
@@ -156,32 +156,39 @@ class UsuarioTest {
 	}
 	
 	@Test
-	void usuarioOpinaUnaVezTest() {
+	void usuarioOpinaUnaVezTest() { // <-----------------------------------------
 		user1.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);        // manda el mensaje                                                              // se fija si le llega al sitio
 		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
 		assertEquals(cantOp, 1);
 	}
+	*/
 	
 	@Test
 	void registrarOpinionesTest() {
 
 		user1.agregarFechaDeOpinion(LocalDateTime.now()) ;
 		assertEquals(user1.getRegistroOpiniones().size(), 1);
+		
+		verify(user1.getTipo()).actualizarUsuario(user1);
 	}
 
 	@Test
 	void registrarPublicacionTest() {
 		user1.agregarFechaDePublicacion(LocalDateTime.now()); 
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
+		
+		verify(user1.getTipo()).actualizarUsuario(user1);
 	}
+	/*
 	@Test
-	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {
+	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {  // <------- mover a sitio web
 		user2.publicarOpinion(050, TipoDeOpinion.ChincheFoliada);
 		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
 		assertEquals(cantOp, 0);
 	}
+	
 	@Test
-	void opinarDeMuestraNTest() {
+	void opinarDeMuestraNTest() { // <----------------mover a sitio web
 		
 		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
 		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
@@ -190,8 +197,9 @@ class UsuarioTest {
 		assertEquals(cantOp, 1);
 		 
 	}
+	
 	@Test 
-	void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
+	void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() { <----------------mover a sitio web
 		
 		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
 
@@ -206,6 +214,7 @@ class UsuarioTest {
 		
 		assertEquals(user2.getRegistroOpiniones().size(), 1);
 	}
+	*/
 
 	@Test
 	void crearOpinionTest() {
