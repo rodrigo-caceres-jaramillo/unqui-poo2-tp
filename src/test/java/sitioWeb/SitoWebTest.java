@@ -201,7 +201,8 @@ class SitoWebTest {
     @Test
 	void opinarDeMuestraNTest() {  
     	//ARREGLAR
-    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+    	Usuario user1 = new Usuario(12, "jose marquez", web);
+    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user1);
     	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
 		int cantOp = user.getRegistroOpiniones().size(); 
 		//verify(adminMuestras).agregarOpinionAMuestraN(001, user.crearOpinion(TipoDeOpinion.ChincheFoliada));;
