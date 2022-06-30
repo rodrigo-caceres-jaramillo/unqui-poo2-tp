@@ -22,7 +22,9 @@ public class ZonaDeCobertura {
         organizacionesInteresadas = orgsInteresadas;
     }
 
-    public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){return organizacionesInteresadas;}
+    public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){
+    	return organizacionesInteresadas;
+    }
 
     public Ubicacion getEpicentro(){
         return  epicentro;

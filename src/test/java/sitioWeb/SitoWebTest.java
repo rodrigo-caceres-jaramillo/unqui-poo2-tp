@@ -138,7 +138,7 @@ class SitoWebTest {
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeInterezaEnLaZona(org, zona);
-        verify(zona).getOrganizacionesInteresadas();
+        verify(zona).agregarOrganizacionInterezada(org);
     }
 
     @Test
@@ -147,7 +147,7 @@ class SitoWebTest {
         OrganizacioneNoGubernamental org = mock(OrganizacioneNoGubernamental.class);
         ZonaDeCobertura zona = mock(ZonaDeCobertura.class);
         web.organizacionSeDejaDeInterezaEnLaZona(org, zona);
-        verify(zona).getOrganizacionesInteresadas();
+        verify(zona).eliminarOrganizacionQueSeDejoDeInterezar(org);
     }
 
     @Test
