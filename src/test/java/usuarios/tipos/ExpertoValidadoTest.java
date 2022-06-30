@@ -27,31 +27,30 @@ class ExpertoValidadoTest {
     TipoDeOpinion tipo;
     Muestra muestra;
     ExpertoValidado tipoExpertoValido;
-    SitioWeb sitioWeb;
+    SitioWeb web;
     TipoDeOpinion tipoDeOpinion;
 
     
     @BeforeEach
     void setUp() {
-    	sitioWeb = mock(SitioWeb.class);
+    	web = mock(SitioWeb.class);
         user = mock(Usuario.class);
         tipoExpertoValido = new ExpertoValidado();
         tipo = mock(TipoDeOpinion.class);
         ubi = mock(Ubicacion.class);
         tipoDeOpinion = TipoDeOpinion.ChincheFoliada;
-        user1 = new Usuario(123, "jose Marquez", sitioWeb);
+        user1 = new Usuario(123, "jose Marquez", web);
         user1.setTipo(tipoExpertoValido);
     }
 
     @Test
     void registrarMuestraTest() {
-        user.publicarMuestraEnSitioWeb(tipoDeOpinion,"Foto",ubi);
+    	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
         verify(user).getSitio().agregarNuevaMuestra(tipoDeOpinion,"Foto",ubi,user,any(TipoDeMuestra.class));
     }
 
-
     @Test
-    void esUnTipoDeExpertoVerdadero() {
+    void esUnTipoDeExpertoVerdaderoTest() {
         assertTrue(tipoExpertoValido.esUnTipoDeExperto());
     }
 
