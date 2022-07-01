@@ -65,34 +65,10 @@ public class Usuario {
 	public void setTipo(TipoDeUsuario tipo) {
 		this.tipoDeUsuario = tipo;
 	}
-	// Metodos
-	/*
-	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
-		this.tipoDeUsuario.registrarMuestra(especie, foto, ubicacion, this);
-		this.agregarFechaDePublicacion(LocalDateTime.now());
-		this.tipoDeUsuario.actualizarUsuario(this);
-	}
-	
-	public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo) {
-		// Cambiar if por subtarea en sitio web
-		// Se podria agreagar el funcionamineto de crearOpinion en este mismo metodo
-		if(! this.sitio.esSuMuestra(idMuestra, this.getId()) &&
-		   ! this.sitio.muestraNTieneOpinionDeUsuarioN(idMuestra, this.getId())) {
-			    this.getSitio().opinarSobreLaMuestraN(idMuestra, crearOpinion(tipo));
-			    this.agregarFechaDeOpinion(LocalDateTime.now());
-			    this.tipoDeUsuario.actualizarUsuario(this);
-		} 
-	}
-	*/
-	
-	public Opinion crearOpinion(TipoDeOpinion tipo) {
-		Opinion opinion = new Opinion(this.getId(), tipo, this.getTipo());
-		return opinion;
-	}
 	
 	public void agregarFechaDeOpinion(LocalDateTime unaFecha) {
 		fechasDeOpiniones.add(unaFecha);
-		 this.getTipo().actualizarUsuario(this);
+		this.getTipo().actualizarUsuario(this);
 	}
 	
 	public void agregarFechaDePublicacion(LocalDateTime unaFecha) {

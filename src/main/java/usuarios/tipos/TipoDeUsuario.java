@@ -12,6 +12,8 @@ public abstract class TipoDeUsuario {
 
 	public abstract void actualizarUsuario(Usuario usuario);
 	
+	public abstract boolean esUnTipoDeExperto();
+	
 	public boolean cumpleCondicionDeExperto(Usuario usuario) {
 		//return this.cumple10EnviosEnElMes(usuario, LocalDateTime.now()) &&
 		//this.cumple20RevisionesEnElMes(usuario, LocalDateTime.now());
@@ -39,28 +41,12 @@ public abstract class TipoDeUsuario {
 		return (counter > 10);
 	}
 	*/
-	private int unoSi(LocalDateTime fecha, LocalDateTime unaFecha) {
-		LocalDateTime f1= unaFecha.minusDays(30);
-		boolean diff = fecha.isAfter(f1);
-		 
-		if(diff) { 
-			return 1;
-		} else { 
-			return 0;
-		}
+	private boolean esDespuesDe(LocalDateTime fecha, LocalDateTime unaFecha) {
+		LocalDateTime f1 = unaFecha.minusDays(30);
+		return fecha.isAfter(f1);
 	}
 	
-
-	public abstract boolean esUnTipoDeExperto();
-
 	private boolean cumpleXCantidadDeYEnElMes(int cantidad,ArrayList<LocalDateTime> fechas,LocalDateTime unaFecha) {
-		int counter = 0;
-		for(LocalDateTime fecha : fechas) {
-			counter = counter + this.unoSi(fecha, unaFecha);
-		}
-	  return (counter > cantidad);
+		return fechas.stream().filter(f -> this.esDespuesDe(f, unaFecha)).count() > cantidad;
 	}
-	
-
-
 }

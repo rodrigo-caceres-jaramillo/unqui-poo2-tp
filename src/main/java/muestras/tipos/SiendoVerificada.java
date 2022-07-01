@@ -15,15 +15,13 @@ public class SiendoVerificada extends TipoDeMuestra {
 	@Override
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 		// Hacer subtarea esAlgunTipoDeExperto
-		if(opinion.getTipoUsuario() instanceof Experto ||
-		   opinion.getTipoUsuario() instanceof ExpertoValidado){
-				muestra.getOpiniones().add(opinion);
+		if(opinion.getTipoUsuario().esUnTipoDeExperto()){
+				muestra.getOpiniones().add(opinion);//Rompe encapsulamiento pero ya existe un agreagar opinion
 				muestra.setUltimaVotacion(LocalDate.now());
 				ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) muestra.getOpiniones().stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());
 				if (!opinionesExpertas.isEmpty()) {
 					muestra.setResultadoActual(TipoDeOpinion.NoDefinida);
-				}
-				
+				}	
 		}
 		if (this.ocurrenciasDeTipoEn(muestra.getOpiniones(), opinion.getTipo()) == 2) {
 			muestra.setTipo(new Verificada());

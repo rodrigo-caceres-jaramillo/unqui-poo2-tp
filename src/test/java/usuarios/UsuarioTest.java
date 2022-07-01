@@ -47,7 +47,6 @@ class UsuarioTest {
         adminzonasZonas = mock(AdministradorDeZonasDeCoberturas.class);
         
         organizaciones = new ArrayList<OrganizacioneNoGubernamental>();
-        web = new SitioWeb(adminMuestras, adminzonasZonas, organizaciones);
 
 		user1 = new Usuario(123, "jose Marquez", web);
 		user1.setTipo(tipo);
@@ -178,52 +177,7 @@ class UsuarioTest {
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 		
 		verify(user1.getTipo()).actualizarUsuario(user1);
-	}
-	/*
-	@Test
-	void unUsuarioNoOpinaUnaMuestraQueNoExiste() {  // <------- mover a sitio web
-		user2.publicarOpinion(050, TipoDeOpinion.ChincheFoliada);
-		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
-		assertEquals(cantOp, 0);
-	}
-	
-	@Test
-	void opinarDeMuestraNTest() { // <----------------mover a sitio web
-		
-		user1.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);
-		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
-		int cantOp = user2.getRegistroOpiniones().size(); 
-		
-		assertEquals(cantOp, 1);
-		 
-	}
-	
-	@Test 
-	void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() { <----------------mover a sitio web
-		
-		user2.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);
-
-		when(sitioWeb.esSuMuestra(001, user2.getId())).thenReturn(false);
-		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(false);
-		
-		assertEquals(user2.getRegistroOpiniones().size(), 1);
-		
-		when(sitioWeb.muestraNTieneOpinionDeUsuarioN(001, user2.getId())).thenReturn(true);
-		
-		user2.publicarOpinion(001, TipoDeOpinion.ImagenPocoClara);
-		
-		assertEquals(user2.getRegistroOpiniones().size(), 1);
-	}
-	*/
-
-	@Test
-	void crearOpinionTest() {
-		Opinion opinionAVer =  mock(Opinion.class);
-
-		when(opinionAVer.getIdUsuario()).thenReturn(user1.getId());
-
-		assertEquals(user1.crearOpinion(TipoDeOpinion.ChincheFoliada).getIdUsuario(), opinionAVer.getIdUsuario());
-	}
+	}	
 
 	@Test
     void validarExternamenteTest() {

@@ -68,7 +68,7 @@ class BasicoTest {
     	crear21Opiniones();
     	tipoBasico.actualizarUsuario(user1);
     	//assertTrue(tipoBasico.cumpleCondicionDeExperto(user1));
-    	assertTrue(user1.getTipo() instanceof Experto);
+    	assertTrue(user1.getTipo().esUnTipoDeExperto());
     }    
 	private void registrar11Muestras() {
 	

@@ -22,11 +22,9 @@ public class Ubicacion  {
     public float getLatitud(){return latitud;}
 
     public float distanciaEntre(Ubicacion ubicacionAVer){
-        CalculadorDeDistancias calculador = new CalculadorDeDistancias();
         return  calculador.distanciaEntreLasUbicaciones(this,ubicacionAVer);
     }
     public List<Ubicacion> ubicacionesAMenosDe(ArrayList<Ubicacion> ubicaciones, int metros){
-        CalculadorDeDistancias calculador = new CalculadorDeDistancias();
         return  ubicaciones.stream().
                 filter(u->calculador.distanciaEntreLasUbicaciones(this,u) <= metros).
                 collect(Collectors.toList()) ;

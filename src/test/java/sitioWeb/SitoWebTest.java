@@ -4,15 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
 import main.java.muestras.TipoDeOpinion;
@@ -200,13 +196,12 @@ class SitoWebTest {
     }
     @Test
 	void opinarDeMuestraNTest() {  
- 
     	Usuario user1 = new Usuario(12, "jose marquez", web);
     	when(web.getAdministradorDeMuestras().muestraN(001)).
 			thenReturn(new Muestra(001,TipoDeOpinion.PhtiaChinche, user1, "foto", ubi, new SinVerificar()));
     	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
     	
-		verify(adminMuestras).agregarOpinionAMuestraN(001, user.crearOpinion(TipoDeOpinion.ChincheFoliada));
+		verify(adminMuestras).agregarOpinionAMuestraN(001, );
 	}
     
     @Test
@@ -218,24 +213,22 @@ class SitoWebTest {
     
     @Test
     void usuarioNoPuesdeOpinarDosVecesLaMismaMuestra() {
-    	//ARREGLAR
-    	Usuario user1 = mock (Usuario.class);
-    	Muestra muestra = mock (Muestra.class);
-    	//web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
-    	when(web.getAdministradorDeMuestras().muestraN(001)).
-			thenReturn(muestra);
-    	
-    	when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(false);
-    	when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(false);
-    	
-    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user1);
-    	verify(user1).agregarFechaDeOpinion( any (LocalDateTime.class));
-    	
-    	when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(true);
-    	when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(true);
-    	web.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara, user1);
-    	//verify(user1).agregarFechaDeOpinion( any (LocalDateTime.class));
-    	//falta un verify negando lo de arriba...
+        Usuario user1 = mock (Usuario.class);
+        Muestra muestra = mock (Muestra.class);
+        //web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
+        when(web.getAdministradorDeMuestras().muestraN(001)).
+            thenReturn(muestra);
+
+        when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(false);
+        when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(false);
+
+        web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user1);
+        verify(user1).agregarFechaDeOpinion( any (LocalDateTime.class));
+
+        when(web.getAdministradorDeMuestras().muestraNEsDeUsuarioN(001, 11)).thenReturn(true);
+        when(web.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(001, 11)).thenReturn(true);
+        web.opinarDeMuestraN(001, TipoDeOpinion.ImagenPocoClara, user1);
+        verify(user1, times(2));
     }
     
 }

@@ -99,7 +99,6 @@ public class SitioWeb {
     }
 
     public void opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){  
-    	//Reducimos en 1 la cantidad de busquedas al quedarnos con la muestra y crear una variable con el tipo inicial de la misma
     	Muestra muestra =  this.getAdministradorDeMuestras().muestraN(idMuestra);
     	TipoDeMuestra tipoInicial= muestra.getTipo();
     	this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
@@ -133,9 +132,9 @@ public class SitioWeb {
     public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo, Usuario user) {
         if(! this.esSuMuestra(idMuestra, user.getId()) &&
             ! this.muestraNTieneOpinionDeUsuarioN(idMuestra, user.getId())) {
-        		// Opinion op = user.crearOpinion(tipo);
-                 this.opinarSobreLaMuestraN(idMuestra, user.crearOpinion(tipo));
-                 user.agregarFechaDeOpinion(LocalDateTime.now());
+        	Opinion op = new Opinion(user.getId(), tipo, user.getTipo());
+            this.opinarSobreLaMuestraN(idMuestra, op);
+            user.agregarFechaDeOpinion(LocalDateTime.now());
         }  
     } 
 }
