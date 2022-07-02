@@ -8,4 +8,10 @@ public class Verificada extends TipoDeMuestra{
 	@Override
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 	}
+
+	@Override
+	public boolean esVerificado(){
+		return true;
+	}
+
 }

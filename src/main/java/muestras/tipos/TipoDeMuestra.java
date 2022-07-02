@@ -23,4 +23,8 @@ public abstract class TipoDeMuestra {
 		*/
 		return  opiniones.stream().filter(op -> op.getTipo().equals(tipo)).collect(Collectors.toList()).size();
 	}
+
+	public boolean esVerificado(){
+		return false;
+	}
 }

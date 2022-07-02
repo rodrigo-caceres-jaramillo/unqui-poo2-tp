@@ -42,9 +42,9 @@ public class AdministradorDeZonasDeCoberturas {
                 filter(z -> z.laOrganizacioEstaInteresadaEnEstaZona(orgAVer)).collect(Collectors.toList());
     }
 
-    public void avisarALasOrganizacionesQueSeValidoLaMuestraNumero(Integer id){
+    public void avisarALasOrganizacionesQueSeValidoLaMuestraNumero(Muestra muestra){ // Integer id
         this.getTodasLasZonas().stream().
-                forEach(z->z.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id));
+                forEach(z->z.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra)); // id
     }
 
 }

@@ -83,5 +83,10 @@ public class Usuario {
 	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
 	 	this.getTipo().registrarMuestra(especie, foto, ubicacion, this);
         this.agregarFechaDePublicacion(LocalDateTime.now());
-	 }
+	}
+
+	public void hiceUnaPublicacion(){
+		// muestra.setTipo(this.tipo().subTarea);
+		this.agregarFechaDePublicacion(LocalDateTime.now());
+	}
 }

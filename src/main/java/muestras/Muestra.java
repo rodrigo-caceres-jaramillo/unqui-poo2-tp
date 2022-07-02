@@ -7,7 +7,7 @@ import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
 
 public class Muestra {
-	private Integer id;
+	//private Integer id;
 	private TipoDeOpinion tipoVinchuca;
     private Usuario usuario;
     private LocalDate creacion;
@@ -18,9 +18,9 @@ public class Muestra {
     private TipoDeMuestra tipo;
     private TipoDeOpinion resultadoActual;
     // Constructor
-	public Muestra(Integer id,TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
+	public Muestra(/*Integer id,*/TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.tipoVinchuca = tipoVinchuca;
 		this.usuario = usuario;
 		this.creacion = LocalDate.now();
@@ -34,13 +34,15 @@ public class Muestra {
 		this.resultadoActual = tipoVinchuca;
 	}
 	// Gets y sets
-	public Integer getId() {
+
+	/*public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+	*/
+
 	public TipoDeOpinion getTipoVinchuca() {
 		return tipoVinchuca;
 	}
@@ -121,4 +123,9 @@ public class Muestra {
 	public boolean fueCreadaPorUsuario(Integer idDeUsuario) {
 		return this.getUsuario().getId().equals(idDeUsuario);
 	}
+
+	public boolean seVerifico(TipoDeMuestra tipoM){
+		return  this.getTipo().esVerificado() && (tipoM != this.getTipo());
+	}
+
 }

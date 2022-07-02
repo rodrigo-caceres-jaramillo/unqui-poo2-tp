@@ -55,10 +55,14 @@ public class SitioWeb {
 
     // Metodos
 
-    public void agregarNuevaMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra){
-        this.getAdministradorDeMuestras().agregarNuevaMuestra(especie, foto, ubicacion, usuario, tipoDeMuestra);;
-        Muestra nuevaMuestra = this.getAdministradorDeMuestras().ultimaMuestraCreada();
-        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(nuevaMuestra);
+    public void agregarNuevaMuestra(Muestra muestra){  // antes --> TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra
+        //this.getAdministradorDeMuestras().agregarNuevaMuestra(especie, foto, ubicacion, usuario, tipoDeMuestra);;
+        this.getAdministradorDeMuestras().agregarNuevaMuestra(muestra);
+
+        muestra.getUsuario().hiceUnaPublicacion();
+
+        //Muestra nuevaMuestra = this.getAdministradorDeMuestras().ultimaMuestraCreada();
+        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(muestra); // nuevaMuestra
     }
 
     public void agregarNuevaZona(ZonaDeCobertura zonaAAgregar){
@@ -90,45 +94,53 @@ public class SitioWeb {
         zonaDeInteres.eliminarOrganizacionQueSeDejoDeInterezar(org);
     }
 
-    public Muestra muestraN(Integer id) {
+    /*public Muestra muestraN(Integer id) {
     	return this.getAdministradorDeMuestras().muestraN(id);
     }
+    */
 
     public List<Muestra> muestrasAMenosDeDesde(float metros,Muestra muestraAVer){
         return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
     }
 
-    public void opinarSobreLaMuestraN(Integer idMuestra, Opinion opinion){  
-    	Muestra muestra =  this.getAdministradorDeMuestras().muestraN(idMuestra);
+    public void opinarSobreLaMuestraN(Muestra muestra, Opinion opinion){  // antes --> Integer idMuestra, Opinion opinion
+    	//Muestra muestra =  this.getAdministradorDeMuestras().muestraN(idMuestra);
     	TipoDeMuestra tipoInicial= muestra.getTipo();
-    	this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
-    	if(this.getAdministradorDeMuestras().muestraNSeVerifico(idMuestra, tipoInicial)) {
-            this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(idMuestra);
-        }
+    	//this.getAdministradorDeMuestras().agregarOpinionAMuestraN(idMuestra, opinion);
+        muestra.agregarOpinion(opinion);
+        //if(this.getAdministradorDeMuestras().muestraNSeVerifico(idMuestra, tipoInicial)) {
+         if(muestra.seVerifico(tipoInicial)){
+            this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // idMuestra
+         }
     }
-    
-    public TipoDeOpinion resultadoActualDeMuestraN(Integer idMuestra) {
-    	return this.getAdministradorDeMuestras().muestraN(idMuestra).getResultadoActual();
+
+    public TipoDeOpinion resultadoActualDeMuestraN(Muestra muestra) { // Integer idMuestra
+    	//return this.getAdministradorDeMuestras().muestraN(idMuestra).getResultadoActual();
+        return muestra.getResultadoActual();
     } 
     
-    public boolean esSuMuestra(Integer idMuestra, Integer idDeUsuario) {
-		return this.getAdministradorDeMuestras().muestraNEsDeUsuarioN(idMuestra, idDeUsuario);
+    public boolean esSuMuestra(Muestra muestra, Integer idDeUsuario) { // Integer idMuestra, Integer idDeUsuario
+		//return this.getAdministradorDeMuestras().muestraNEsDeUsuarioN(idMuestra, idDeUsuario);
+        return muestra.fueCreadaPorUsuario(idDeUsuario);
 	}
 
-	public boolean muestraNTieneOpinionDeUsuarioN(Integer idMuestra, Integer idUsuario) {
-		return this.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(idMuestra, idUsuario);
+	public boolean muestraNTieneOpinionDeUsuarioN(Muestra muestra, Integer idUsuario) { // Integer idMuestra, Integer idUsuario
+		//return this.getAdministradorDeMuestras().muestraNTieneOpinionDeUsuarioN(idMuestra, idUsuario);
+        return muestra.tieneUnaOpinionDeUsuarioN(idUsuario);
 	}
 
     public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
        return  this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
     }
+
     // nuevos metodos para registrar muestra y opinion. NO FUNCIONAN TODAVIA
     public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario user) {
         //user.getTipo().registrarMuestra(especie, foto, ubicacion, user);
         //user.agregarFechaDePublicacion(LocalDateTime.now());
         user.registrarMuestra(especie, foto, ubicacion);
     }
-     
+
+    /*
     public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo, Usuario user) {
         if(! this.esSuMuestra(idMuestra, user.getId()) &&
             ! this.muestraNTieneOpinionDeUsuarioN(idMuestra, user.getId())) {
@@ -136,5 +148,16 @@ public class SitioWeb {
             this.opinarSobreLaMuestraN(idMuestra, op);
             user.agregarFechaDeOpinion(LocalDateTime.now());
         }  
-    } 
+    }
+    */
+
+    public void opinarDeMuestraN(Muestra muestra, TipoDeOpinion tipo, Usuario user) {
+        if(! this.esSuMuestra(muestra, user.getId()) &&
+           ! this.muestraNTieneOpinionDeUsuarioN(muestra, user.getId())) {
+              Opinion op = new Opinion(user.getId(), tipo, user.getTipo());
+              this.opinarSobreLaMuestraN(muestra, op);
+              user.agregarFechaDeOpinion(LocalDateTime.now());
+        }
+    }
+
 }
