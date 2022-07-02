@@ -273,12 +273,12 @@ class ZonaDeCoberturaTest {
         Muestra muestra =  mock(Muestra.class);
 
         zonaPlata.getMuestrasEnLaZona().add(muestra);  // agrego la Muestra
-        Integer id = 0;
+        //Integer id = 0;
 
-        when(muestra.getId()).thenReturn(id);
+        // when(muestra.getId()).thenReturn(id);
 
         zonaPlata.getOrganizacionesInteresadas().add(org); // agrego la org
-        zonaPlata.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id); // mando el mensaje
+        zonaPlata.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // mando el mensaje
 
         verify(org).seValidoUnaMuestra(zonaPlata,muestra);
     }

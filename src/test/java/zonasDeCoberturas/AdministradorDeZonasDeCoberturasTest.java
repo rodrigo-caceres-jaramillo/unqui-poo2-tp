@@ -144,15 +144,16 @@ class AdministradorDeZonasDeCoberturasTest {
 
     @Test
     void avisarALasOrganizacionesQueSeValidoLaMuestraNumeroTest() {
-        Integer id = 0;
-        adminZonas.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        //Integer id = 0;
+        Muestra muestra = mock( Muestra.class);
+        adminZonas.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
                 //Verificar si llegan los mensajes
-        verify(zonaSur).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        verify(zonaSurEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        verify(zonaEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        verify(zonaNorEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        verify(zonaNorte).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
-        verify(zonaNorOeste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(id);
+        verify(zonaSur).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+        verify(zonaSurEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+        verify(zonaEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+        verify(zonaNorEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+        verify(zonaNorte).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+        verify(zonaNorOeste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
     }
 
     @Test

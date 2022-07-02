@@ -190,4 +190,18 @@ class MuestraTest {
 	void fueCreadaPorUsuarioTest2() {
 		assertFalse(muestra1.fueCreadaPorUsuario(20));
 	}
+
+	@Test
+	void fueCreadaPorUsuario() {
+		muestra1.fueCreadaPorUsuario(10);
+		verify(usuario1).getId().equals(10);
+	}
+
+	@Test
+	void seVerifico() {
+		when(unTipoDeMuestra.esVerificado()).thenReturn(false);
+
+		assertFalse(muestra1.seVerifico( any(TipoDeMuestra)) );
+	}
+
 }

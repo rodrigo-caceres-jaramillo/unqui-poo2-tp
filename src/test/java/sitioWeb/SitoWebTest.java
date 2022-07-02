@@ -91,11 +91,11 @@ class SitoWebTest {
 // Metodos
     @Test
     void agregarNuevaMuestraTest() {
-        Ubicacion ubicacion = mock(Ubicacion.class);
-        Usuario usuario = mock(Usuario.class);
-        TipoDeMuestra tipoDeMuestra = mock(TipoDeMuestra.class);
-        web.agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);
-        verify(adminMuestras).agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra);;
+        //Ubicacion ubicacion = mock(Ubicacion.class);
+        //Usuario usuario = mock(Usuario.class);
+        //TipoDeMuestra tipoDeMuestra = mock(TipoDeMuestra.class);
+        web.agregarNuevaMuestra(muestra); // TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra
+        verify(adminMuestras).agregarNuevaMuestra(muestra); // TipoDeOpinion.ChincheFoliada, "foto", ubicacion, usuario, tipoDeMuestra
     }
 
     @Test
@@ -146,12 +146,14 @@ class SitoWebTest {
         verify(zona).eliminarOrganizacionQueSeDejoDeInterezar(org);
     }
 
+    /*
     @Test
     void muestraNTest() {
         Integer id = 0;
         web.muestraN(id);
         verify(adminMuestras).muestraN(id);
     }
+    */
 
     @Test
     void muestrasAMenosDeDesdeTest() {
@@ -161,31 +163,59 @@ class SitoWebTest {
         verify(adminMuestras).muestrasAMenosDeDesde(15f,muestra);
     }
 
+
     @Test
     void opinarSobreLaMuestraNTest() {
         Opinion opinion = mock(Opinion.class);
-        Integer idMuestra = 10;
+        //Integer idMuestra = 10;
         when(muestra.getTipo()).thenReturn(mock(SinVerificar.class));
-        web.opinarSobreLaMuestraN(idMuestra, opinion);
-        verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
-    } 
+        web.opinarSobreLaMuestraN(muestra, opinion); //idMuestra, opinion
+        //verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
+
+        verify(muestra).seVerifico(muestra.getTipo());
+        verify(muestra).agregarOpinion(opinion);
+
+        when(muestra.seVerifico( any(TipoDeMuestra) )).thenReturn(false);
+
+        verify(adminzonasZonas).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+    }
+
+    @Test
+    void opinarSobreLaMuestraNSeVerificaTest() {
+        Opinion opinion = mock(Opinion.class);
+        //Integer idMuestra = 10;
+        when(muestra.getTipo()).thenReturn(mock(SinVerificar.class));
+        web.opinarSobreLaMuestraN(muestra, opinion); //idMuestra, opinion
+        //verify(adminMuestras).agregarOpinionAMuestraN(idMuestra, opinion);
+
+        verify(muestra).seVerifico(muestra.getTipo());
+        verify(muestra).agregarOpinion(opinion);
+
+        when(muestra.seVerifico( any(TipoDeMuestra) )).thenReturn(true);
+
+        verify(adminzonasZonas).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra).never();
+    }
+
 
     @Test
     void resultadoActualDeMuestraNTest() {
-        web.resultadoActualDeMuestraN(10);
-        verify(adminMuestras.muestraN(10)).getResultadoActual();
+        web.resultadoActualDeMuestraN(muestra); //10
+        //verify(adminMuestras.muestraN(10)).getResultadoActual();
+        verify(muestra).getResultadoActual();
     }
 
     @Test
     void esSuMuestraTest() {
-        web.esSuMuestra(10,1);
-        verify(adminMuestras).muestraNEsDeUsuarioN(10, 1);
+        web.esSuMuestra(muestra,1); // 10 ,1
+        //verify(adminMuestras).muestraNEsDeUsuarioN(10, 1);
+        verify(muestra).fueCreadaPorUsuario(1);
     }
 
     @Test
     void muestraNTieneOpinionDeUsuarioNTest() {
-        web.muestraNTieneOpinionDeUsuarioN(10, 1);
-        verify(adminMuestras).muestraNTieneOpinionDeUsuarioN(10, 1);
+        web.muestraNTieneOpinionDeUsuarioN(muestra, 1); // 10, 1
+        //verify(adminMuestras).muestraNTieneOpinionDeUsuarioN(10, 1);
+        verify(muestra).tieneUnaOpinionDeUsuarioN(1);
     }
 
     @Test
@@ -196,16 +226,19 @@ class SitoWebTest {
     }
     @Test
 	void opinarDeMuestraNTest() {  
-    	Usuario user1 = new Usuario(12, "jose marquez", web);
-    	when(web.getAdministradorDeMuestras().muestraN(001)).
-			thenReturn(new Muestra(001,TipoDeOpinion.PhtiaChinche, user1, "foto", ubi, new SinVerificar()));
-    	web.opinarDeMuestraN(001, TipoDeOpinion.ChincheFoliada, user);
-    	
+    	//Usuario user1 = new Usuario(12, "jose marquez", web);
+    	//when(web.getAdministradorDeMuestras().muestraN(001)).
+			//thenReturn(new Muestra(001,TipoDeOpinion.PhtiaChinche, user1, "foto", ubi, new SinVerificar()));
+    	web.opinarDeMuestraN(muestra, TipoDeOpinion.ChincheFoliada, user);
+
+        verify(muestra).fueCreadaPorUsuario( any(int) );
+        verify(muestra).tieneUnaOpinionDeUsuarioN(any(int) );
+
 		verify(adminMuestras).agregarOpinionAMuestraN(001, );
 	}
     
     @Test
-    void registrarMuestraNTest() {
+    void registrarMuestraNTest() {  //Ver
        	web.registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user);
     	//verify(web.getAdministradorDeMuestras()).agregarNuevaMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi, user, new SinVerificar());
     	verify(user).registrarMuestra(TipoDeOpinion.ChincheFoliada, "foto", ubi);
