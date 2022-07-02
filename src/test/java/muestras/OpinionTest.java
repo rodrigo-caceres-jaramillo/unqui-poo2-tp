@@ -2,6 +2,8 @@ package test.java.muestras;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,4 +81,20 @@ class OpinionTest {
         opinion.setIdUsuario(idNuevo);
         assertEquals(idNuevo,opinion.getIdUsuario());
     }
+    
+    
+    // metodos
+    
+    @Test 
+    void esOpinionDeAlgunExpertoTest() {
+    	when(tipoDeUsuario.esUnTipoDeExperto()).thenReturn(true);
+    	assertTrue(opinion.esOpinionDeAlgunExperto());
+    }
+    
+    @Test 
+    void noEsOpinionDeAlgunExpertoTest() {
+    	when(tipoDeUsuario.esUnTipoDeExperto()).thenReturn(false);
+    	assertFalse(opinion.esOpinionDeAlgunExperto());
+    }
+    
 }

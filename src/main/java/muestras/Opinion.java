@@ -44,5 +44,12 @@ public class Opinion {
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+	
+	
+	//metodos
+	
+	public boolean esOpinionDeAlgunExperto(){ 
+		return this.getTipoUsuario().esUnTipoDeExperto();
+	}
 }
 

@@ -15,7 +15,7 @@ public class SiendoVerificada extends TipoDeMuestra {
 	@Override
 	public void agregarOpinionA(Opinion opinion, Muestra muestra) {
 		// Hacer subtarea esAlgunTipoDeExperto
-		if(opinion.getTipoUsuario().esUnTipoDeExperto()){
+		if(opinion.esOpinionDeAlgunExperto()){
 				muestra.getOpiniones().add(opinion);//Rompe encapsulamiento pero ya existe un agreagar opinion
 				muestra.setUltimaVotacion(LocalDate.now());
 				ArrayList<Opinion> opinionesExpertas = (ArrayList<Opinion>) muestra.getOpiniones().stream().filter(op -> !op.getTipoUsuario().getClass().equals(Basico.class)).collect(Collectors.toList());

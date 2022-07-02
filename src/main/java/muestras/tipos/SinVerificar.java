@@ -26,7 +26,7 @@ public class SinVerificar extends TipoDeMuestra{
 
 	/*	if(opinion.getTipoUsuario() instanceof Experto ||
 			   opinion.getTipoUsuario() instanceof ExpertoValidado) {  */
-		if(opinion.getTipoUsuario().esUnTipoDeExperto()){
+		if(opinion.esOpinionDeAlgunExperto()){
 				muestra.setTipo(new SiendoVerificada());
 				muestra.setResultadoActual(opinion.getTipo());
 			}
