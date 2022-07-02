@@ -163,7 +163,7 @@ class UsuarioTest {
 	*/
 	
 	@Test
-	void registrarOpinionesTest() {
+	void agregarFechaDeOpinionTest() {
 
 		user1.agregarFechaDeOpinion(LocalDateTime.now()) ;
 		assertEquals(user1.getRegistroOpiniones().size(), 1);
@@ -172,7 +172,7 @@ class UsuarioTest {
 	}
 
 	@Test
-	void registrarPublicacionTest() {
+	void agregarFechaDePublicacionTest() {
 		user1.agregarFechaDePublicacion(LocalDateTime.now()); 
 		assertEquals(user1.getRegistroPublicaciones().size(), 1);
 		
@@ -184,6 +184,7 @@ class UsuarioTest {
         user1.validarseExternamenta();
         assertTrue(user1.getTipo() instanceof ExpertoValidado);
     }
+	/*
 	@Test
 	void registrarMuestraTest() {
 		assertEquals(0, user1.getRegistroPublicaciones().size());
@@ -193,7 +194,22 @@ class UsuarioTest {
 		
 		assertEquals(1, user1.getRegistroPublicaciones().size());
 	}
+	*/
+	@Test
+	void registrarMuestraTest() {
+		assertEquals(user1.getRegistroPublicaciones().size(), 0);
+		user1.registrarMuestra();
+		
+		assertEquals(user1.getRegistroPublicaciones().size(), 1);
+	}
 	
+	@Test
+	void hiceUnaOpinionTest() {
+		assertEquals(user1.getRegistroOpiniones().size(), 0);
+		user1.hiceUnaOpinion();
+		
+		assertEquals(user1.getRegistroOpiniones().size(), 1);
+	}
 	
 	
 	

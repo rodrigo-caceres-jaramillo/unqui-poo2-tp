@@ -28,7 +28,7 @@ public class AdministradorDeMuestras {
 	public void setMuestras(ArrayList<Muestra> muestras) {
 		this.muestras = muestras;
 	}
-
+/*
 	public Integer getSiguienteId() {
 		return siguienteId;
 	}
@@ -36,7 +36,7 @@ public class AdministradorDeMuestras {
 	public void setSiguienteId(Integer siguienteId) {
 		this.siguienteId = siguienteId;
 	}
-
+*/
 	// Metodos
 	public void agregarNuevaMuestra(Muestra muestra){ // antes --> TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra
 		//Muestra muestra = new Muestra(this.getSiguienteId(), especie, usuario, foto, ubicacion, tipoDeMuestra);
@@ -75,11 +75,12 @@ public class AdministradorDeMuestras {
 
 
 	//Precondicion: debe haber almenos una muestra subida
+	/*
 	public Muestra ultimaMuestraCreada() {
 		Integer ultimaId =this.getSiguienteId() - 1;
 		return this.muestraN(ultimaId);
 	}
-
+	*/
 	public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
 		return criterioFiltro.realizarBusqueda(this.getMuestras());
 	}

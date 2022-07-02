@@ -125,7 +125,8 @@ public class Muestra {
 	}
 
 	public boolean seVerifico(TipoDeMuestra tipoM){
-		return  this.getTipo().esVerificado() && (tipoM != this.getTipo());
+		return  this.getTipo().esVerificado() && (! tipoM.equals(this.getTipo())); // tipoM != this.getTipo. -->¿nosotros estamos preguntando por instancia? 
+	//                                              crear un nuevo mensaje que indique que son del mismo tipo.
 	}
 
 }

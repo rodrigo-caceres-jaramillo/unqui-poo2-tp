@@ -80,13 +80,13 @@ public class Usuario {
 		this.setTipo(new ExpertoValidado());
 	}
 	
-	public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion) {
-	 	this.getTipo().registrarMuestra(especie, foto, ubicacion, this);
+	public void registrarMuestra() { // TipoDeOpinion especie, String foto, Ubicacion ubicacion
+	 	//this.getTipo().registrarMuestra(especie, foto, ubicacion, this);
         this.agregarFechaDePublicacion(LocalDateTime.now());
 	}
 
-	public void hiceUnaPublicacion(){
+	public void hiceUnaOpinion(){
 		// muestra.setTipo(this.tipo().subTarea);
-		this.agregarFechaDePublicacion(LocalDateTime.now());
+		this.agregarFechaDeOpinion(LocalDateTime.now());
 	}
 }

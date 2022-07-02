@@ -41,10 +41,11 @@ class MuestraTest {
 		unTipoDeMuestra = mock(TipoDeMuestra.class);
 		when(usuario1.getId()).thenReturn(10);
 		when(usuario1.getTipo()).thenReturn(mock(Basico.class));
-		muestra1 = new Muestra(1, TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);
+		muestra1 = new Muestra(TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);// 1 (parametro id)
 	}
 	
 //Gets/Sets -------------------------------------
+	/*
 	@Test
 	void getIdTest() {
 		assertEquals((int)muestra1.getId(), 1);
@@ -56,6 +57,7 @@ class MuestraTest {
 		muestra1.setId(id);
 		assertEquals(muestra1.getId(), id);
 	}
+	*/
 	
 	@Test
 	void getTipoVinchutaTest() {
@@ -193,15 +195,24 @@ class MuestraTest {
 
 	@Test
 	void fueCreadaPorUsuario() {
-		muestra1.fueCreadaPorUsuario(10);
-		verify(usuario1).getId().equals(10);
+		
+		assertTrue(muestra1.fueCreadaPorUsuario(10));
+	}
+	
+	@Test
+	void noFueCreadaPorUsuario() {
+		
+		assertFalse(muestra1.fueCreadaPorUsuario(11));
 	}
 
 	@Test
 	void seVerifico() {
+		TipoDeMuestra tipoMuestra = mock(TipoDeMuestra.class);
+		
 		when(unTipoDeMuestra.esVerificado()).thenReturn(false);
-
-		assertFalse(muestra1.seVerifico( any(TipoDeMuestra)) );
+		
+		assertFalse(muestra1.seVerifico(tipoMuestra));
+		verify(muestra1.getTipo()).esVerificado();
 	}
 
 }

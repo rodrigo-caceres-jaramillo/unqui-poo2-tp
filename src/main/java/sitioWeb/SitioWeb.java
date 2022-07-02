@@ -57,9 +57,12 @@ public class SitioWeb {
 
     public void agregarNuevaMuestra(Muestra muestra){  // antes --> TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario usuario, TipoDeMuestra tipoDeMuestra
         //this.getAdministradorDeMuestras().agregarNuevaMuestra(especie, foto, ubicacion, usuario, tipoDeMuestra);;
+    	
+    	//muestra.getUsuario().procesarMuestra(muestra); ---> settea la muestra base, agregandole los datos correctos o se podria poner por precondicion.
+    	
         this.getAdministradorDeMuestras().agregarNuevaMuestra(muestra);
 
-        muestra.getUsuario().hiceUnaPublicacion();
+        muestra.getUsuario().registrarMuestra();
 
         //Muestra nuevaMuestra = this.getAdministradorDeMuestras().ultimaMuestraCreada();
         this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(muestra); // nuevaMuestra
@@ -102,7 +105,7 @@ public class SitioWeb {
     public List<Muestra> muestrasAMenosDeDesde(float metros,Muestra muestraAVer){
         return this.getAdministradorDeMuestras().muestrasAMenosDeDesde(metros,muestraAVer);
     }
-
+    
     public void opinarSobreLaMuestraN(Muestra muestra, Opinion opinion){  // antes --> Integer idMuestra, Opinion opinion
     	//Muestra muestra =  this.getAdministradorDeMuestras().muestraN(idMuestra);
     	TipoDeMuestra tipoInicial= muestra.getTipo();
@@ -134,12 +137,14 @@ public class SitioWeb {
     }
 
     // nuevos metodos para registrar muestra y opinion. NO FUNCIONAN TODAVIA
+    // se decidio utilizar agregarNuevaMuestra.
+    /* 
     public void registrarMuestra(TipoDeOpinion especie, String foto, Ubicacion ubicacion, Usuario user) {
         //user.getTipo().registrarMuestra(especie, foto, ubicacion, user);
         //user.agregarFechaDePublicacion(LocalDateTime.now());
         user.registrarMuestra(especie, foto, ubicacion);
     }
-
+	*/
     /*
     public void opinarDeMuestraN(Integer idMuestra, TipoDeOpinion tipo, Usuario user) {
         if(! this.esSuMuestra(idMuestra, user.getId()) &&
@@ -156,7 +161,7 @@ public class SitioWeb {
            ! this.muestraNTieneOpinionDeUsuarioN(muestra, user.getId())) {
               Opinion op = new Opinion(user.getId(), tipo, user.getTipo());
               this.opinarSobreLaMuestraN(muestra, op);
-              user.agregarFechaDeOpinion(LocalDateTime.now());
+              user.hiceUnaOpinion();
         }
     }
 
