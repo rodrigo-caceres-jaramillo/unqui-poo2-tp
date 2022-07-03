@@ -19,52 +19,45 @@ import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.tipos.SiendoVerificada;
 import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.Verificada;
+import main.java.usuarios.Usuario;
 import main.java.usuarios.tipos.Basico;
 import main.java.usuarios.tipos.Experto;
 import main.java.usuarios.tipos.ExpertoValidado;
 
 class SinVerificarTest {
 	SinVerificar tipoSinVerificar;
-	Opinion opinionInicial;
-	Muestra muestra;
-	Opinion opinionBasica1;
-	Opinion opinionBasica2;
-	Opinion opinionBasica3;
-	Opinion opinionBasica4;
+	Opinion opinionBasicaInicial;
+	Opinion opinionBasica;
 	Opinion opinionExperto;
-	Opinion opinionExpertoValidado;
 	ArrayList<Opinion> opiniones;
+	Muestra muestra;
 	
 	@BeforeEach
     void setUp() {
-		tipoSinVerificar = new SinVerificar();
-		opinionInicial = new Opinion(0, TipoDeOpinion.VinchucaInfestans, new Basico());
-		muestra = mock(Muestra.class);
+		opinionBasicaInicial = mock(Opinion.class);
+		when(opinionBasicaInicial.getTipoUsuario()).thenReturn(mock(Basico.class));
+		when(opinionBasicaInicial.getTipo()).thenReturn(TipoDeOpinion.ChincheFoliada);
+		when(opinionBasicaInicial.esOpinionDeAlgunExperto()).thenReturn(false);
+		opinionBasica = mock(Opinion.class);
+		when(opinionBasica.getTipoUsuario()).thenReturn(mock(Basico.class));
+		when(opinionBasica.getTipo()).thenReturn(TipoDeOpinion.VinchucaGuasayana);
+		when(opinionBasica.esOpinionDeAlgunExperto()).thenReturn(false);
+		opinionExperto = mock(Opinion.class);
+		when(opinionExperto.getTipoUsuario()).thenReturn(mock(Experto.class));
+		when(opinionExperto.getTipo()).thenReturn(TipoDeOpinion.PhtiaChinche);
+		when(opinionExperto.esOpinionDeAlgunExperto()).thenReturn(true);
 		opiniones = new ArrayList<Opinion>();
-		opiniones.add(opinionInicial);
+		opiniones.add(opinionBasicaInicial);
+		muestra = mock(Muestra.class);
 		when(muestra.getOpiniones()).thenReturn(opiniones);
-		when(muestra.getTipo()).thenReturn(tipoSinVerificar);
-		when(muestra.getResultadoActual()).thenReturn(TipoDeOpinion.VinchucaInfestans);
-		opinionBasica1 = new Opinion(1, TipoDeOpinion.ChincheFoliada, new Basico());
-		opinionBasica2 = new Opinion(2, TipoDeOpinion.ChincheFoliada, new Basico());
-		opinionBasica3 = new Opinion(3, TipoDeOpinion.ChincheFoliada, new Basico());
-		opinionBasica4 = new Opinion(4, TipoDeOpinion.VinchucaGuasayana, new Basico());
-		opinionExperto = new Opinion(5, TipoDeOpinion.ChincheFoliada, new Experto());
-		opinionExpertoValidado = new Opinion(5, TipoDeOpinion.VinchucaGuasayana, new ExpertoValidado());
+		
+		tipoSinVerificar = new SinVerificar();
 	}
 	
 	@Test
 	void unaOpinionDeUnUsuarioBasicoSeAgregaTest() {
-		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
+		tipoSinVerificar.agregarOpinionA(opinionBasica, muestra);
 		assertTrue(opiniones.size() == 2);
-	}
-	
-	@Test
-	void sePuedeAgregarMultiplesOpinionesDeUsuariosBasicoDelMismoTipo() {
-		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
-		tipoSinVerificar.agregarOpinionA(opinionBasica2, muestra);
-		tipoSinVerificar.agregarOpinionA(opinionBasica3, muestra);
-		assertTrue(opiniones.size() == 4);
 	}
 	
 	@Test
@@ -75,22 +68,13 @@ class SinVerificarTest {
 	
 	@Test
 	void cuandoSeAgregaUnaOpinionCambiaElResultadoActualTest() {
-		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
-		verify(muestra).setResultadoActual(TipoDeOpinion.ChincheFoliada);
-	}
-	
-	@Test
-	void cuandoSeAgregaMultiplesOpinionesDeUnTipoCambiaElResultadoActualTest() {
-		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
-		tipoSinVerificar.agregarOpinionA(opinionBasica2, muestra);
-		tipoSinVerificar.agregarOpinionA(opinionBasica3, muestra);
-		tipoSinVerificar.agregarOpinionA(opinionBasica4, muestra);
-		verify(muestra, atMost(3)).setResultadoActual(TipoDeOpinion.ChincheFoliada);
+		tipoSinVerificar.agregarOpinionA(opinionBasica, muestra);
+		verify(muestra).setResultadoActual(TipoDeOpinion.VinchucaGuasayana);
 	}
 
 	@Test
 	void cuandoSeAgregaUnaOpinionLaUltimaFechaDeVotacionCambia() {
-		tipoSinVerificar.agregarOpinionA(opinionBasica1, muestra);
+		tipoSinVerificar.agregarOpinionA(opinionBasica, muestra);
 		verify(muestra).setUltimaVotacion(LocalDate.now());
 	}
 }

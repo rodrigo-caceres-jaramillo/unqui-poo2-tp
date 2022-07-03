@@ -30,9 +30,9 @@ public class CriterioCompuesto implements Criterio {
     }
 
     @Override
-    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) { // public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras)
-        List<Muestra> resultadoDelCriterio1 = this.getCriterio1().realizarBusqueda(muestras); // ArrayList<Muestra> resultadoDelCriterio1
-        List<Muestra> resultadoDelCriterio2 = this.getCriterio2().realizarBusqueda(muestras); // ArrayList<Muestra> resultadoDelCriterio2
+    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
+        List<Muestra> resultadoDelCriterio1 = this.getCriterio1().realizarBusqueda(muestras);
+        List<Muestra> resultadoDelCriterio2 = this.getCriterio2().realizarBusqueda(muestras);
         return this.getConector().conectarArray(resultadoDelCriterio1,resultadoDelCriterio2);
     }
 

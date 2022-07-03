@@ -48,13 +48,13 @@ class UsuarioTest {
         
         organizaciones = new ArrayList<OrganizacioneNoGubernamental>();
 
-		user1 = new Usuario(123, "jose Marquez", web);
+		user1 = new Usuario("jose Marquez", web);
 		user1.setTipo(tipo);
 
-		user2 = new Usuario(124, "manuel Garquez", web);
+		user2 = new Usuario("manuel Garquez", web);
 		user2.setTipo(tipo);
 
-		user3 = new Usuario(125, "martin Benitez", web);
+		user3 = new Usuario("martin Benitez", web);
 		user3.setTipo(tipo);
 
 	}
@@ -64,12 +64,6 @@ class UsuarioTest {
 	@Test
 	void getNombreTest() {
 		assertEquals(user1.getNombre(), "jose Marquez");
-	}
-
-	@Test
-	void getIdTest() {
-		Integer id = 123;
-		assertEquals(user1.getId(), id);
 	}
 
 	@Test
@@ -98,13 +92,6 @@ class UsuarioTest {
 	void setNombreTest() {
 		user1.setNombre("Pablo");
 		assertEquals(user1.getNombre(), "Pablo");
-	}
-
-	@Test
-	void setIdTest() {
-		Integer id = 852;
-		user1.setId(id);
-		assertEquals(user1.getId(), id);
 	}
 
 	@Test
@@ -140,27 +127,6 @@ class UsuarioTest {
 	}
 
 //Metodos
-/*
-	@Test
-	void usuarioPublicaUnaVezTest() {  <----------------mover a sitio web
-		
-		//sitioWeb = mock(SitioWeb.class);
-		ubicacion1 = mock(Ubicacion.class);
-
-		user2.publicarMuestraEnSitioWeb(TipoDeOpinion.ChincheFoliada, "estoEsUnaFoto", ubicacion1);  // manda el mensaje
-		//sitioWeb.registrarMuestra( TipoDeOpinion.ChincheFoliada , "estoEsUnaFoto", ubicacion1, user2);
-		verify(tipo).registrarMuestra(TipoDeOpinion.ChincheFoliada,"estoEsUnaFoto",ubicacion1,user2);  // se fija si le llega al tipo
-
-		assertEquals( user2.getRegistroPublicaciones().size(), 1); // se suma una publi
-	}
-	
-	@Test
-	void usuarioOpinaUnaVezTest() { // <-----------------------------------------
-		user1.publicarOpinion(001, TipoDeOpinion.ChincheFoliada);        // manda el mensaje                                                              // se fija si le llega al sitio
-		int cantOp = user1.getRegistroOpiniones().size();                 // se suma una opi
-		assertEquals(cantOp, 1);
-	}
-	*/
 	
 	@Test
 	void agregarFechaDeOpinionTest() {
@@ -184,17 +150,7 @@ class UsuarioTest {
         user1.validarseExternamenta();
         assertTrue(user1.getTipo() instanceof ExpertoValidado);
     }
-	/*
-	@Test
-	void registrarMuestraTest() {
-		assertEquals(0, user1.getRegistroPublicaciones().size());
-		
-		user1.registrarMuestra(TipoDeOpinion.VinchucaInfestans, "foto", ubicacion1);
-		verify(user1.getTipo()).registrarMuestra(TipoDeOpinion.VinchucaInfestans, "foto", ubicacion1, user1); // le llega mensaje al tipoDeUsuario
-		
-		assertEquals(1, user1.getRegistroPublicaciones().size());
-	}
-	*/
+	
 	@Test
 	void registrarMuestraTest() {
 		assertEquals(user1.getRegistroPublicaciones().size(), 0);

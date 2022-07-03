@@ -1,19 +1,13 @@
 package main.java.sitioWeb;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import main.java.muestras.AdministradorDeMuestras;
 import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
 import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.tipos.TipoDeMuestra;
-import main.java.muestras.tipos.Verificada;
 import main.java.organizaciones.OrganizacioneNoGubernamental;
-import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
-import main.java.usuarios.tipos.Basico;
 import main.java.zonasDeCoberturas.AdministradorDeZonasDeCoberturas;
 import main.java.zonasDeCoberturas.ZonaDeCobertura;
 import main.java.muestras.criterios.Criterio;
@@ -22,12 +16,14 @@ public class SitioWeb {
 	private AdministradorDeMuestras adminMuestras;
     private AdministradorDeZonasDeCoberturas adminzonasZonas;
     private List<OrganizacioneNoGubernamental> organizaciones;
+    
     // Constructor
     public SitioWeb(AdministradorDeMuestras adminDeLasMuestra,AdministradorDeZonasDeCoberturas adminDeLasZonas, List<OrganizacioneNoGubernamental> organizacionesAPoner){
         this.adminMuestras = adminDeLasMuestra;
         this.adminzonasZonas = adminDeLasZonas;
         this.organizaciones = organizacionesAPoner;
     }
+   
     // Gets y sets
     public AdministradorDeMuestras getAdministradorDeMuestras() {
         return adminMuestras;
@@ -54,11 +50,10 @@ public class SitioWeb {
     }
 
     // Metodos
-
     public void agregarNuevaMuestra(Muestra muestra){
         this.getAdministradorDeMuestras().agregarNuevaMuestra(muestra);
         muestra.getUsuario().registrarMuestra();
-        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(muestra); /
+        this.getAdministradorDeZonas().actualizarZonasConNuevaMuestra(muestra);
     }
 
     public void agregarNuevaZona(ZonaDeCobertura zonaAAgregar){
@@ -95,7 +90,7 @@ public class SitioWeb {
     public void opinarSobreLaMuestraN(Muestra muestra, Opinion opinion){
     	TipoDeMuestra tipoInicial= muestra.getTipo();
         muestra.agregarOpinion(opinion);
-         if(muestra.seVerifico(tipoInicial)){
+        if(muestra.seVerifico(tipoInicial)){
             this.getAdministradorDeZonas().avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
          }
     }
@@ -103,23 +98,18 @@ public class SitioWeb {
     public TipoDeOpinion resultadoActualDeMuestraN(Muestra muestra) {
         return muestra.getResultadoActual();
     } 
-    
-    public boolean esSuMuestra(Muestra muestra, Integer idDeUsuario) {
-        return muestra.fueCreadaPorUsuario(idDeUsuario);
+
+	public boolean muestraTieneOpinionDeUsuario(Muestra muestra, Usuario usuario) {
+        return muestra.tieneUnaOpinionDeUsuario(usuario);
 	}
 
-	public boolean muestraNTieneOpinionDeUsuarioN(Muestra muestra, Integer idUsuario) {
-        return muestra.tieneUnaOpinionDeUsuarioN(idUsuario);
-	}
-
-    public List<Muestra> realizarBusqueda(Criterio criterioFiltro){ //ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro)
-       return  this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
+    public List<Muestra> realizarBusqueda(Criterio criterioFiltro){
+       return this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
     }
 
     public void opinarDeMuestraN(Muestra muestra, TipoDeOpinion tipo, Usuario user) {
-        if(! this.esSuMuestra(muestra, user.getId()) &&
-           ! this.muestraNTieneOpinionDeUsuarioN(muestra, user.getId())) {
-              Opinion op = new Opinion(user.getId(), tipo, user.getTipo());
+        if(!(muestra.getUsuario() == user) &&! this.muestraTieneOpinionDeUsuario(muestra, user)) {
+              Opinion op = new Opinion(user, tipo);
               this.opinarSobreLaMuestraN(muestra, op);
               user.hiceUnaOpinion();
         }

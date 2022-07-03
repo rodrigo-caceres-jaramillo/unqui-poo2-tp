@@ -26,7 +26,7 @@ public class CriterioFechaUltimaVotacion implements Criterio{
 
 	@Override
 	public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) { // public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras)
-		ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream()
+		List<Muestra> resultado = muestras.stream()
 				.filter(m -> comparador.compararEntre(m.getUltimaVotacion(), fecha))
 				.collect(Collectors.toList());
 		return resultado;

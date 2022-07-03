@@ -7,20 +7,18 @@ import main.java.ubicacciones.Ubicacion;
 import main.java.usuarios.Usuario;
 
 public class Muestra {
-	//private Integer id;
 	private TipoDeOpinion tipoVinchuca;
     private Usuario usuario;
     private LocalDate creacion;
     private LocalDate ultimaVotacion;
-    private String foto; // string1
+    private String foto;
     private Ubicacion ubicacion;
     private ArrayList<Opinion> opiniones; 
     private TipoDeMuestra tipo;
     private TipoDeOpinion resultadoActual;
     // Constructor
-	public Muestra(/*Integer id,*/TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
+	public Muestra(TipoDeOpinion tipoVinchuca, Usuario usuario, String foto, Ubicacion ubicacion, TipoDeMuestra tipo) {
 		super();
-		//this.id = id;
 		this.tipoVinchuca = tipoVinchuca;
 		this.usuario = usuario;
 		this.creacion = LocalDate.now();
@@ -28,21 +26,12 @@ public class Muestra {
 		this.foto = foto;
 		this.ubicacion = ubicacion;
 		this.opiniones = new ArrayList<Opinion>();
-		Opinion opinionInicial = new Opinion(usuario.getId(), tipoVinchuca, usuario.getTipo());
+		Opinion opinionInicial = new Opinion(usuario, tipoVinchuca);
 		this.opiniones.add(opinionInicial);
 		this.tipo = tipo;
 		this.resultadoActual = tipoVinchuca;
 	}
 	// Gets y sets
-
-	/*public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	*/
-
 	public TipoDeOpinion getTipoVinchuca() {
 		return tipoVinchuca;
 	}
@@ -51,7 +40,6 @@ public class Muestra {
 		this.tipoVinchuca = tipoVinchuca;
 	}
 	
-
     public Usuario getUsuario() {
 		return usuario;
 	}
@@ -63,28 +51,32 @@ public class Muestra {
     public LocalDate getCreacion() {
 		return creacion;
 	}
-	public void setCreacion(LocalDate creacion) {
+	
+    public void setCreacion(LocalDate creacion) {
 		this.creacion = creacion;
 	}
 
     public LocalDate getUltimaVotacion() {
 		return ultimaVotacion;
 	}
-	public void setUltimaVotacion(LocalDate ultimaVotacion) {
+	
+    public void setUltimaVotacion(LocalDate ultimaVotacion) {
 		this.ultimaVotacion = ultimaVotacion;
 	}
 
     public String getFoto() {
 		return foto;
 	}
-	public void setFoto(String foto) {
+	
+    public void setFoto(String foto) {
 		this.foto = foto;
 	}
 
     public ArrayList<Opinion> getOpiniones() {
 		return opiniones;
 	}
-	public void setOpiniones(ArrayList<Opinion> opiniones) {
+	
+    public void setOpiniones(ArrayList<Opinion> opiniones) {
 		this.opiniones = opiniones;
 	}
 
@@ -99,7 +91,8 @@ public class Muestra {
     public TipoDeMuestra getTipo() {
 		return tipo;
 	}
-	public void setTipo(TipoDeMuestra tipo) {
+	
+    public void setTipo(TipoDeMuestra tipo) {
 		this.tipo = tipo;
 	}
 
@@ -116,17 +109,12 @@ public class Muestra {
 		this.getTipo().agregarOpinionA(opinion, this);
 	}
 	
-	public boolean tieneUnaOpinionDeUsuarioN(Integer idUsuario) {	
-		return this.getOpiniones().stream().anyMatch(p -> p.getIdUsuario().equals(idUsuario));
-	}
-	
-	public boolean fueCreadaPorUsuario(Integer idDeUsuario) {
-		return this.getUsuario().getId().equals(idDeUsuario);
+	public boolean tieneUnaOpinionDeUsuario(Usuario usuario) {	
+		return this.getOpiniones().stream()
+				.anyMatch(p -> p.getUsuario().equals(usuario));
 	}
 
 	public boolean seVerifico(TipoDeMuestra tipoM){
-		return  this.getTipo().esVerificado() && (! tipoM.equals(this.getTipo())); // tipoM != this.getTipo. -->¿nosotros estamos preguntando por instancia? 
-	//                                              crear un nuevo mensaje que indique que son del mismo tipo.
+		return  this.getTipo().esVerificado() && (! tipoM.equals(this.getTipo()));
 	}
-
 }

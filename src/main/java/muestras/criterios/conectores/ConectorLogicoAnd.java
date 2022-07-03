@@ -7,7 +7,7 @@ import main.java.muestras.Muestra;
 
 public class ConectorLogicoAnd implements ConectorLogico{
 
-    public List<Muestra> conectarArray(List<Muestra> xs, List<Muestra> ys){ //  public ArrayList<Muestra> conectarArray(ArrayList<Muestra> xs, ArrayList<Muestra> ys)
+    public List<Muestra> conectarArray(List<Muestra> xs, List<Muestra> ys){
         List<Muestra> muestrasEnComun = new ArrayList<main.java.muestras.Muestra>();
         for (int i = 0; i < ys.size(); i++) {
             if(xs.contains(ys.get(i)) && ! muestrasEnComun.contains(ys.get(i))){

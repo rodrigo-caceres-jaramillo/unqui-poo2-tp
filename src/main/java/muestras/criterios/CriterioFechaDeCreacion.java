@@ -27,7 +27,7 @@ public class CriterioFechaDeCreacion implements Criterio{
 
     @Override
     public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras){ //public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
-    	ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream()
+    	List<Muestra> resultado = muestras.stream()
 				.filter(m -> comparador.compararEntre(m.getCreacion(), fecha))
 				.collect(Collectors.toList());
 		return resultado;

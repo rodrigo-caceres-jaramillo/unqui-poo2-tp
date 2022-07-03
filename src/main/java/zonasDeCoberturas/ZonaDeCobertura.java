@@ -13,7 +13,8 @@ public class ZonaDeCobertura {
     private float radio;
     private List<Muestra> muestrasEnLaZona;
     private List<OrganizacioneNoGubernamental> organizacionesInteresadas;
-
+ 
+    // Constructor
     public ZonaDeCobertura(String nombreNuevo,Ubicacion epicentroAPoner, float radioAPoner,ArrayList<Muestra> muestras, List<OrganizacioneNoGubernamental> orgsInteresadas ){
         nombre          = nombreNuevo;
         epicentro       = epicentroAPoner;
@@ -22,6 +23,7 @@ public class ZonaDeCobertura {
         organizacionesInteresadas = orgsInteresadas;
     }
 
+    // Gets y sets
     public List<OrganizacioneNoGubernamental> getOrganizacionesInteresadas(){
     	return organizacionesInteresadas;
     }
@@ -39,16 +41,17 @@ public class ZonaDeCobertura {
     }
 
 
-    public List<Muestra> getMuestrasEnLaZona(){return muestrasEnLaZona;}
+    public List<Muestra> getMuestrasEnLaZona(){
+    	return muestrasEnLaZona;
+    }
 
-
+    // Metodos
     public boolean estaSolapadaCon(ZonaDeCobertura zonaAVer){
-           return  this.zonaChocaCon(zonaAVer)      ||   // se fija si hay una intersepcion
-                   this.zonaEstaAdentroDe(zonaAVer) ;    // se fija si uno de los 2 circuferencia esta dentro de la otra
+           return  this.zonaChocaCon(zonaAVer)      || 
+                   this.zonaEstaAdentroDe(zonaAVer) ;
     }
 
     public boolean zonaEstaAdentroDe(ZonaDeCobertura zonaAVer){
-        //la distancia entre sus centros es menor que la diferencia de las longitudes de sus radios.
         return  this.getEpicentro().distanciaEntre(zonaAVer.getEpicentro()) <
                 Math.max(this.getRadio(),zonaAVer.getRadio()) - Math.min(this.getRadio(),zonaAVer.getRadio());
     }

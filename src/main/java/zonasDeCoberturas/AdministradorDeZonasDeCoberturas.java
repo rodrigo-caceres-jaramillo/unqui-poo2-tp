@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdministradorDeZonasDeCoberturas {
-
     private ArrayList<ZonaDeCobertura> todasLasZonas;
-
+ 
+    // Constructor
     public AdministradorDeZonasDeCoberturas(ArrayList<ZonaDeCobertura> zonasExistentes){
         this.setTodasLasZonas(zonasExistentes);
     }
-
+    
+    // Gets y sets
     public void setTodasLasZonas(ArrayList<ZonaDeCobertura> zonas){
         todasLasZonas = zonas;
     }
@@ -23,7 +24,7 @@ public class AdministradorDeZonasDeCoberturas {
         return todasLasZonas;
     }
 
-
+    // Metodos
     public void actualizarZonasConNuevaMuestra(Muestra muestraAAgregar){
         this.getTodasLasZonas().stream().forEach(zona -> zona.agregarMuestraSiPerteneceALaZona(muestraAAgregar));
     }

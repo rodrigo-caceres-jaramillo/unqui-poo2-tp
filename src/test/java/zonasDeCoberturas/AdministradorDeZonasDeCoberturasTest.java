@@ -35,17 +35,13 @@ class AdministradorDeZonasDeCoberturasTest {
 
     @BeforeEach
     void setUp() {
-
-        // Zonas De Coberturas
         zonaSur      = mock(ZonaDeCobertura.class);
         zonaSurEste  = mock(ZonaDeCobertura.class);
         zonaEste     = mock(ZonaDeCobertura.class);
         zonaNorEste  = mock(ZonaDeCobertura.class);
         zonaNorte    = mock(ZonaDeCobertura.class);
         zonaNorOeste = mock(ZonaDeCobertura.class);
-
-        //Organizaciones
-        OrganizacioneNoGubernamental org1 = mock(OrganizacioneNoGubernamental.class);
+        org1 = mock(OrganizacioneNoGubernamental.class);
 
         //Agregar zonas
         zonas = new ArrayList<ZonaDeCobertura>();
@@ -81,12 +77,11 @@ class AdministradorDeZonasDeCoberturasTest {
         int tamaño = adminZonas.getTodasLasZonas().size();
         ZonaDeCobertura zonaNueva = mock(ZonaDeCobertura.class);
 
-        adminZonas.agregarNuevaZona(zonaNueva);  // agrego elemento
+        adminZonas.agregarNuevaZona(zonaNueva);
 
         assertEquals(tamaño+1,adminZonas.getTodasLasZonas().size());
     }
 
-    ///////////  actualizarZonasConNuevaMuestra(Muestra)
     @Test
     void actualizarZonasConNuevaMuestra() {
         Muestra muestra = mock(Muestra.class);
@@ -102,11 +97,8 @@ class AdministradorDeZonasDeCoberturasTest {
     }
 
 
-    //////////  zonasDeInteresDeLaOrg(OrganizacioneNoGubernamental)
     @Test
     void zonasDeInteresDeLaOrg() {
-
-
         //Verificar si llegan los mensajes
         when(zonaSur.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
         when(zonaSurEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
@@ -125,8 +117,6 @@ class AdministradorDeZonasDeCoberturasTest {
 
     @Test
     void zonasDeInteresDeLaOrgPeroConFallos() {
-
-        //Verificar si llegan los mensajes
         when(zonaSur.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
         when(zonaSurEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(false);
         when(zonaEste.laOrganizacioEstaInteresadaEnEstaZona(org1)).thenReturn(true);
@@ -144,16 +134,15 @@ class AdministradorDeZonasDeCoberturasTest {
 
     @Test
     void avisarALasOrganizacionesQueSeValidoLaMuestraNumeroTest() {
-        //Integer id = 0;
         Muestra muestra = mock( Muestra.class);
         adminZonas.avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
-                //Verificar si llegan los mensajes
-        verify(zonaSur).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
-        verify(zonaSurEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
-        verify(zonaEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
-        verify(zonaNorEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
-        verify(zonaNorte).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
-        verify(zonaNorOeste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra); // id
+
+        verify(zonaSur).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+        verify(zonaSurEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+        verify(zonaEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+        verify(zonaNorEste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+        verify(zonaNorte).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
+        verify(zonaNorOeste).avisarALasOrganizacionesQueSeValidoLaMuestraNumero(muestra);
     }
 
     @Test
@@ -169,8 +158,5 @@ class AdministradorDeZonasDeCoberturasTest {
         verify(zonaNorte).estaSolapadaCon(zonaNueva);
         verify(zonaNorOeste).estaSolapadaCon(zonaNueva);
     }
-
-
-
 }
 

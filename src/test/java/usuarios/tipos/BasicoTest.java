@@ -47,7 +47,7 @@ class BasicoTest {
         ubi  = mock(Ubicacion.class);
         //tipoDeOpinion = mock(TipoDeOpinion.class);
         muestra = mock(Muestra.class);
-        user1 = new Usuario(123, "jose Marquez", web);
+        user1 = new Usuario("jose Marquez", web);
         when(user.getSitio()).thenReturn(web);
 
     }

@@ -12,7 +12,7 @@ public abstract class TipoDeMuestra {
 	public abstract void agregarOpinionA(Opinion opinion, Muestra muestra);
 
 	public int ocurrenciasDeTipoEn(ArrayList<Opinion> opiniones, TipoDeOpinion tipo) {
-		return  opiniones.stream().filter(op -> op.getTipo().equals(tipo)).collect(Collectors.toList()).size();
+		return opiniones.stream().filter(op -> op.getTipo().equals(tipo)).collect(Collectors.toList()).size();
 	}
 
 	public boolean esVerificado(){

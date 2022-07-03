@@ -39,26 +39,11 @@ class MuestraTest {
 		usuario1 = mock(Usuario.class);
 		unaUbicacion = mock(Ubicacion.class);
 		unTipoDeMuestra = mock(TipoDeMuestra.class);
-		when(usuario1.getId()).thenReturn(10);
 		when(usuario1.getTipo()).thenReturn(mock(Basico.class));
-		muestra1 = new Muestra(TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);// 1 (parametro id)
+		muestra1 = new Muestra(TipoDeOpinion.ChincheFoliada, usuario1, "unaFoto", unaUbicacion, unTipoDeMuestra);
 	}
 	
-//Gets/Sets -------------------------------------
-	/*
-	@Test
-	void getIdTest() {
-		assertEquals((int)muestra1.getId(), 1);
-	}
-	
-	@Test
-	void setIdTest() {
-		Integer id = 10;
-		muestra1.setId(id);
-		assertEquals(muestra1.getId(), id);
-	}
-	*/
-	
+	//Gets/Sets
 	@Test
 	void getTipoVinchutaTest() {
 		assertEquals(muestra1.getTipoVinchuca(), TipoDeOpinion.ChincheFoliada);
@@ -164,7 +149,6 @@ class MuestraTest {
 		assertEquals(muestra1.getResultadoActual(), TipoDeOpinion.ImagenPocoClara);
 	}
 	
-	
 	// Metodos --------------------------------------
 	@Test
 	void agregarOpinionTest() {
@@ -175,34 +159,7 @@ class MuestraTest {
 	
 	@Test
 	void tieneUnaOpinionDeUsuarioN() {
-		assertTrue(muestra1.tieneUnaOpinionDeUsuarioN(10));
-	}
-	
-	@Test
-	void tieneUnaOpinionDeUsuarioN2() {
-		assertFalse(muestra1.tieneUnaOpinionDeUsuarioN(20));
-	}
-	
-	@Test
-	void fueCreadaPorUsuarioTest() {
-		assertTrue(muestra1.fueCreadaPorUsuario(10));
-	}
-	
-	@Test
-	void fueCreadaPorUsuarioTest2() {
-		assertFalse(muestra1.fueCreadaPorUsuario(20));
-	}
-
-	@Test
-	void fueCreadaPorUsuario() {
-		
-		assertTrue(muestra1.fueCreadaPorUsuario(10));
-	}
-	
-	@Test
-	void noFueCreadaPorUsuario() {
-		
-		assertFalse(muestra1.fueCreadaPorUsuario(11));
+		assertTrue(muestra1.tieneUnaOpinionDeUsuario(usuario1));
 	}
 
 	@Test

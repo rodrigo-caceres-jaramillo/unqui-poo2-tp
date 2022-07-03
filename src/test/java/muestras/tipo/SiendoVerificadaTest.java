@@ -16,6 +16,7 @@ import main.java.muestras.Muestra;
 import main.java.muestras.Opinion;
 import main.java.muestras.TipoDeOpinion;
 import main.java.muestras.tipos.SiendoVerificada;
+import main.java.muestras.tipos.SinVerificar;
 import main.java.muestras.tipos.Verificada;
 import main.java.usuarios.tipos.Basico;
 import main.java.usuarios.tipos.Experto;
@@ -23,32 +24,41 @@ import main.java.usuarios.tipos.ExpertoValidado;
 
 class SiendoVerificadaTest {
 	SiendoVerificada tipoSiendoVerificado;
-	Opinion opinionInicial;
-	Muestra muestra;
+	Opinion opinionExpertaInicial;
 	Opinion opinionBasica;
-	Opinion opinionExperto;
+	Opinion opinionExperto1;
 	Opinion opinionExperto2;
-	Opinion opinionExpertoValidado;
-	Opinion opinionExpertoValidado2;
 	ArrayList<Opinion> opiniones;
+	Muestra muestra;
 	
 	@BeforeEach
     void setUp() {
-		tipoSiendoVerificado = new SiendoVerificada();
-		opinionInicial = new Opinion(0, TipoDeOpinion.VinchucaInfestans, new Experto());
+		opinionExpertaInicial = mock(Opinion.class);
+		when(opinionExpertaInicial.getTipoUsuario()).thenReturn(mock(Experto.class));
+		when(opinionExpertaInicial.getTipo()).thenReturn(TipoDeOpinion.ChincheFoliada);
+		when(opinionExpertaInicial.esOpinionDeAlgunExperto()).thenReturn(true);
+		
+		opinionBasica = mock(Opinion.class);
+		when(opinionBasica.getTipoUsuario()).thenReturn(mock(Basico.class));
+		when(opinionBasica.getTipo()).thenReturn(TipoDeOpinion.VinchucaGuasayana);
+		when(opinionBasica.esOpinionDeAlgunExperto()).thenReturn(false);
+		
+		opinionExperto1 = mock(Opinion.class);
+		when(opinionExperto1.getTipoUsuario()).thenReturn(mock(Experto.class));
+		when(opinionExperto1.getTipo()).thenReturn(TipoDeOpinion.PhtiaChinche);
+		when(opinionExperto1.esOpinionDeAlgunExperto()).thenReturn(true);
+		
+		opinionExperto2 = mock(Opinion.class);
+		when(opinionExperto2.getTipoUsuario()).thenReturn(mock(Experto.class));
+		when(opinionExperto2.getTipo()).thenReturn(TipoDeOpinion.ChincheFoliada);
+		when(opinionExperto2.esOpinionDeAlgunExperto()).thenReturn(true);
+		
+		opiniones = new ArrayList<Opinion>();
+		opiniones.add(opinionExpertaInicial);
 		muestra = mock(Muestra.class);
-		opiniones = new ArrayList<Opinion>();
-		opiniones.add(opinionInicial);
 		when(muestra.getOpiniones()).thenReturn(opiniones);
-		when(muestra.getTipo()).thenReturn(tipoSiendoVerificado);
-		opinionBasica = new Opinion(1, TipoDeOpinion.ChincheFoliada, new Basico());
-		opinionExperto = new Opinion(2, TipoDeOpinion.ChincheFoliada, new Experto());
-		opinionExperto2 = new Opinion(3, TipoDeOpinion.VinchucaGuasayana, new Experto());
-		opinionExpertoValidado = new Opinion(4, TipoDeOpinion.ChincheFoliada, new ExpertoValidado());
-		opinionExpertoValidado2 = new Opinion(5, TipoDeOpinion.VinchucaGuasayana, new ExpertoValidado());
-		opiniones = new ArrayList<Opinion>();
-		when(muestra.getOpiniones()).thenReturn(opiniones);
-		when(muestra.getTipo()).thenReturn(tipoSiendoVerificado);
+		
+		tipoSiendoVerificado = new SiendoVerificada();
 	}
 	
 	@Test
@@ -60,32 +70,25 @@ class SiendoVerificadaTest {
 	
 	@Test
 	void unaOpinionDeUnUsuarioExpertoSeAgregaTest() {
-		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado2, muestra);
-		assertTrue(opiniones.size() == 1);
+		tipoSiendoVerificado.agregarOpinionA(opinionExperto1, muestra);
+		assertTrue(opiniones.size() == 2);
 	}
 	
 	@Test
 	void cuandoSeAgregaUnaOpinionDeUnExpertoConElMismoTipoDeOpinionSeVerificaLaMuestraTest() {
-		tipoSiendoVerificado.agregarOpinionA(opinionExperto, muestra);
-		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
+		tipoSiendoVerificado.agregarOpinionA(opinionExperto2, muestra);
 		verify(muestra).setTipo(any(Verificada.class));;
 	}
 	
 	@Test
-	void cuandoSeAgregaUnaOpinionDeUnExpertoConUnTipoDeOpinionDistintaNoSeVerificaLaMuestraTest() {
-		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
-		verify(muestra, never()).setTipo(any(Verificada.class));;
-	}
-	
-	@Test
 	void cuandoSeAgregaUnaOpinionDeUnExpertoConUnTipoDeOpinionDistintaElResultadoActualEsNoDefinidoTest() {
-		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
+		tipoSiendoVerificado.agregarOpinionA(opinionExperto1, muestra);
 		verify(muestra, atMost(3)).setResultadoActual(TipoDeOpinion.NoDefinida);
 	}
 	
 	@Test
 	void cuandoSeAgregaUnaOpinionLaUltimaFechaDeVotacionCambia() {
-		tipoSiendoVerificado.agregarOpinionA(opinionExpertoValidado, muestra);
+		tipoSiendoVerificado.agregarOpinionA(opinionExperto1, muestra);
 		verify(muestra).setUltimaVotacion(LocalDate.now());
 	}
 }

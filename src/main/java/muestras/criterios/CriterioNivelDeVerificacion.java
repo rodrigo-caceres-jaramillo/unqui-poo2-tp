@@ -18,8 +18,10 @@ public class CriterioNivelDeVerificacion implements Criterio{
     }
 
     @Override
-    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras){ // public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
-    	ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipo().equals(this.getTipoABuscar())).collect(Collectors.toList());
+    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras){
+    	List<Muestra> resultado = muestras.stream()
+    			.filter(m-> m.getTipo().equals(this.getTipoABuscar()))
+    			.collect(Collectors.toList());
     	return resultado;
     }
 }
