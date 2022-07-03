@@ -17,7 +17,7 @@ public class Usuario {
 	private TipoDeUsuario tipoDeUsuario;
 	private ArrayList<LocalDateTime> fechasDePublicaciones;
 	private ArrayList<LocalDateTime> fechasDeOpiniones;
-	// private Boolean esExpertoExterno;
+
 	// Constructor
 	public Usuario(Integer id, String nombre, SitioWeb unSitio) {
 		super();
@@ -80,13 +80,11 @@ public class Usuario {
 		this.setTipo(new ExpertoValidado());
 	}
 	
-	public void registrarMuestra() { // TipoDeOpinion especie, String foto, Ubicacion ubicacion
-	 	//this.getTipo().registrarMuestra(especie, foto, ubicacion, this);
+	public void registrarMuestra() {
         this.agregarFechaDePublicacion(LocalDateTime.now());
 	}
 
 	public void hiceUnaOpinion(){
-		// muestra.setTipo(this.tipo().subTarea);
 		this.agregarFechaDeOpinion(LocalDateTime.now());
 	}
 }
