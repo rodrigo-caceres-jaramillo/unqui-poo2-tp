@@ -1,6 +1,8 @@
 package main.java.muestras.criterios;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import main.java.muestras.Muestra;
 import main.java.muestras.criterios.conectores.ConectorLogico;
 
@@ -28,9 +30,9 @@ public class CriterioCompuesto implements Criterio {
     }
 
     @Override
-    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
-        ArrayList<Muestra> resultadoDelCriterio1 = this.getCriterio1().realizarBusqueda(muestras);
-        ArrayList<Muestra> resultadoDelCriterio2 = this.getCriterio2().realizarBusqueda(muestras);
+    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) { // public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras)
+        List<Muestra> resultadoDelCriterio1 = this.getCriterio1().realizarBusqueda(muestras); // ArrayList<Muestra> resultadoDelCriterio1
+        List<Muestra> resultadoDelCriterio2 = this.getCriterio2().realizarBusqueda(muestras); // ArrayList<Muestra> resultadoDelCriterio2
         return this.getConector().conectarArray(resultadoDelCriterio1,resultadoDelCriterio2);
     }
 

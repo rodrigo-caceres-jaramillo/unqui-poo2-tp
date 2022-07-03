@@ -112,7 +112,7 @@ public class SitioWeb {
         return muestra.tieneUnaOpinionDeUsuarioN(idUsuario);
 	}
 
-    public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
+    public List<Muestra> realizarBusqueda(Criterio criterioFiltro){ //ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro)
        return  this.getAdministradorDeMuestras().realizarBusqueda(criterioFiltro);
     }
 

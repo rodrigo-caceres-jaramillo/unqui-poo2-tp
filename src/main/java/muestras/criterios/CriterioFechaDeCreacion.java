@@ -2,6 +2,7 @@ package main.java.muestras.criterios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import main.java.muestras.Muestra;
@@ -25,7 +26,7 @@ public class CriterioFechaDeCreacion implements Criterio{
     }
 
     @Override
-    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
+    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras){ //public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
     	ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream()
 				.filter(m -> comparador.compararEntre(m.getCreacion(), fecha))
 				.collect(Collectors.toList());

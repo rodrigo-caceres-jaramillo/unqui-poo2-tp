@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import main.java.muestras.Muestra;
@@ -66,16 +68,16 @@ class CriterioCompuestoTest {
         verify(c2).realizarBusqueda(muestras);
 
         //Verificar que le llega a connector
-        ArrayList<Muestra> resultadoc1 = new ArrayList<>();
+        List<Muestra> resultadoc1 = new ArrayList<>();
         when(c1.realizarBusqueda(muestras)).thenReturn(resultadoc1);
 
-        ArrayList<Muestra> resultadoc2 = new ArrayList<>();
+        List<Muestra> resultadoc2 = new ArrayList<>();
         when(c2.realizarBusqueda(muestras)).thenReturn(resultadoc2);
 
         verify(conectorLogico).conectarArray(resultadoc1,resultadoc2);
 
         //Armo el resultado
-        ArrayList<Muestra> resultado = new ArrayList<>();
+        List<Muestra> resultado = new ArrayList<>();
         when(conectorLogico.conectarArray(resultadoc1,resultadoc2)).thenReturn(resultado);
 
         //Respuestas del mock

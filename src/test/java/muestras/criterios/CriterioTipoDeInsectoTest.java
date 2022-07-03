@@ -9,6 +9,8 @@ import main.java.muestras.criterios.CriterioTipoDeInsecto;
 import main.java.muestras.TipoDeOpinion;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 import main.java.muestras.Muestra;
 import main.java.muestras.tipos.TipoDeMuestra;
 import org.mockito.Mock;
@@ -42,7 +44,7 @@ class CriterioTipoDeInsectoTest {
     @Test
     void realizarBusqueda() {
         //Armo el resultado
-        ArrayList<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
+        List<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
         muestrasEsperadas.add(muestra2);
 
         //Caso no querido

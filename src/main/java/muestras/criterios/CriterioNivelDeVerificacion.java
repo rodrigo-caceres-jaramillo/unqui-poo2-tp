@@ -1,6 +1,7 @@
 package main.java.muestras.criterios;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import main.java.muestras.Muestra;
 import main.java.muestras.tipos.TipoDeMuestra;
@@ -17,7 +18,7 @@ public class CriterioNivelDeVerificacion implements Criterio{
     }
 
     @Override
-    public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
+    public List<Muestra> realizarBusqueda(ArrayList<Muestra> muestras){ // public ArrayList<Muestra> realizarBusqueda(ArrayList<Muestra> muestras) {
     	ArrayList<Muestra> resultado = (ArrayList<Muestra>) muestras.stream().filter(m-> m.getTipo().equals(this.getTipoABuscar())).collect(Collectors.toList());
     	return resultado;
     }

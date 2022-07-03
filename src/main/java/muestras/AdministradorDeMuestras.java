@@ -36,7 +36,7 @@ public class AdministradorDeMuestras {
 		return this.getMuestras().stream().filter(m->m.getUbicacion().distanciaEntre(muestraAVer.getUbicacion()) <= metros).collect(Collectors.toList()) ;
 	}
 
-	public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro){
+	public List<Muestra> realizarBusqueda(Criterio criterioFiltro) { // public ArrayList<Muestra> realizarBusqueda(Criterio criterioFiltro)
 		return criterioFiltro.realizarBusqueda(this.getMuestras());
 	}
 

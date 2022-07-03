@@ -11,6 +11,8 @@ import main.java.muestras.TipoDeOpinion;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.List;
+
 import main.java.muestras.Muestra;
 import main.java.muestras.tipos.TipoDeMuestra;
 import org.mockito.Mock;
@@ -56,7 +58,7 @@ class CriterioFechaDeCreacionTest {
     @Test
     void realizarBusqueda() {
         //Armo el resultado
-        ArrayList<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
+        List<Muestra> muestrasEsperadas = new ArrayList<Muestra>();
         muestrasEsperadas.add(muestra1);
 
         //Caso no querido
